@@ -25,6 +25,9 @@ public class cartPage extends JFrame implements ActionListener {
     private String prices[] = {"500", "500", "2000", "1500"};
     private JLabel pPrices;
     
+    private JButton btnMinus, btnAdd, btnDelete;
+    private JLabel pQuantity;
+    
     
     cartPage() {
        
@@ -68,29 +71,31 @@ public class cartPage extends JFrame implements ActionListener {
             JPanel qPanel = new JPanel();
             qPanel.setLayout(new BoxLayout(qPanel, BoxLayout.X_AXIS));
             
-            
-            JButton btnMinus = new JButton("-");
+            //Minus Button
+            btnMinus = new JButton("-");
             btnMinus.setFocusable(false);
-         
             qPanel.add(btnMinus);
             
             qPanel.add(Box.createHorizontalStrut(10));
             
-            JLabel pQuantity = new JLabel("1");
+            pQuantity = new JLabel("1");
             qPanel.add(pQuantity);
             
             qPanel.add(Box.createHorizontalStrut(10)); // 10px spacing b/w "1" and "+"
             
-            JButton btnAdd = new JButton("+");
+            //Add Button
+            btnAdd = new JButton("+");
             btnAdd.setFocusable(false);
         
             qPanel.add(btnAdd);
             
             qPanel.add(Box.createHorizontalStrut(10));  // 10px spacing b/w "+" and "Delete"
             
+            
+            //Delete Button
             ImageIcon deleteIcon = new ImageIcon("deleteIcon.png");
             ImageIcon deleteImage = new ImageIcon(deleteIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-            JButton btnDelete = new JButton(deleteImage);
+            btnDelete = new JButton(deleteImage);
             btnDelete.setBackground(Color.red);
             btnDelete.setFocusable(false);
             
@@ -101,27 +106,44 @@ public class cartPage extends JFrame implements ActionListener {
             productDetails.add(infoPanel);
             productDetails.add(qPanel);
             
+            
+            // Panel for subtotal
+//            JPanel subTotalPanel = new JPanel();
+//            subTotalPanel.setBackground(Color.CYAN);
+//            panel.add(subTotalPanel);
+            
+            
+            
             productPanel.add(productDetails);
             panel.add(productPanel);
         }
         
+            JPanel subTotalPanel = new JPanel();
+            
+            
+            JLabel lblsubTotal = new JLabel("Subtotal : ");
+            subTotalPanel.add(lblsubTotal);
+            
+            JLabel subTotal = new JLabel("0");
+            subTotalPanel.add(subTotal);
+          
             scrollPane = new JScrollPane(panel);
             getContentPane().add(scrollPane, BorderLayout.CENTER);
+            getContentPane().add(subTotalPanel, BorderLayout.SOUTH);
             
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(450, 200);
         setLocationRelativeTo(null);
         setVisible(true);
-       
         
-  
-        
+        pack();
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
        
+        
     }
 
     
