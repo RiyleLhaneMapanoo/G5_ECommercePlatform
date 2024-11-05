@@ -11,4 +11,5 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>com.mycompany.dsa.Dsa</exec.mainClass>
     </properties>
+    <name>MENDOZA</name>
 </project>
