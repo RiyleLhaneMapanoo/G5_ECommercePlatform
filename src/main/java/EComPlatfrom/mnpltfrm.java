@@ -10,10 +10,10 @@ import javax.swing.border.BevelBorder;
  * @author June-PC
  */
 public class mnpltfrm extends JFrame {
-    
+//public class eco extends JFrame{
     private final JPanel MainPanel, makeups, makeupPanel, clothes, clothespanel, panelImages, 
                          kitchen, kitchenpanel, supplies, suppliespanel, designpanel, designpanel2, 
-                         desgnpanel3, m1, m2, m3, m4, m5;
+                         desgnpanel3, m1, m2, m3,m4,m5;
     private final JLabel platformname, DL1, DL2, DL3, DL4, DL5,DL6, DL7, DL8, DL9, DL10, DL11, DL12;
     private final JTextField searchBar;
     private final JButton btnSearch, btncart;
@@ -21,9 +21,9 @@ public class mnpltfrm extends JFrame {
     private final JScrollPane MakeUpjScrollPane, clothesScrolpane, kitchenScrolpane,suppliesScrolpane, designimages1, 
                             desgnimages2, desgnimages3;
     private final JTabbedPane products;
-    private final GroupLayout makeupLayout, makeuptab1Layout, panelclothesrollLayout, clothesTab2Layout, 
-                  kitchenLayout, kitchenLayout1, suppliesLayout, suppliesLayout1,design1Layout,desgn2Layout,desgn3Layout, 
-                panelImagesLayout,m1Layout,m2Layout,m3Layout, m4Layout, m5Layout, layout;
+    private final GroupLayout  makeuptab1Layout,  clothesTab2Layout, 
+                   kitchenLayout1, suppliesLayout1,design1Layout,desgn2Layout,desgn3Layout, 
+                panelImagesLayout, layout;
     private final JMenuBar jMenuBar2;
     private final JMenu Menu, Jmenuprofile, jmenuSettings, jmenuLogout;
   
@@ -32,6 +32,7 @@ public class mnpltfrm extends JFrame {
      setTitle("ECP-Platform");
      setExtendedState(JFrame.MAXIMIZED_BOTH);
      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+     setContentPane(new JLabel(new ImageIcon("C:\\Users\\June-PC\\Downloads\\0fafeccd-7ec7-4286-8db0-1c1553847f7d")));
      setLayout(null);
 
     MainPanel = new JPanel();
@@ -65,12 +66,15 @@ public class mnpltfrm extends JFrame {
     btnSearch.setBackground(new Color(204, 102, 255));
     btnSearch.setFont(new Font("Sitka Display", 1, 14));
     btnSearch.setBounds(1115,83,75,40);
+//    btnSearch.addActionListener(this);
     add(btnSearch);
-    
+
+
     btncart = new JButton();
     btncart.setBackground(new Color(204, 204, 255));
     btncart.setText("cart");
     btncart.setBounds(1250, 30, 65, 30);
+//    btncart.addActionListener(this);
     add(btncart);
     
     jMenuBar2 = new JMenuBar();
@@ -154,13 +158,13 @@ public class mnpltfrm extends JFrame {
     
     design1Layout.setVerticalGroup(design1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
     .addGroup(design1Layout.createSequentialGroup()
-    .addGap(16, 16, 16)
+    .addGap(10, 10, 10)
     .addGroup(design1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         .addComponent(DL1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
         .addComponent(DL2, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
         .addComponent(DL3, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
         .addComponent(DL4, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-    .addContainerGap(16, Short.MAX_VALUE)));
+    .addContainerGap(10, Short.MAX_VALUE)));
 
     designimages1.setViewportView(designpanel);
     
@@ -215,13 +219,13 @@ public class mnpltfrm extends JFrame {
         
      desgn2Layout.setVerticalGroup(desgn2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
     .addGroup(desgn2Layout.createSequentialGroup()
-    .addGap(16, 16, 16)
+    .addGap(10, 10, 10)
     .addGroup(desgn2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         .addComponent(DL5, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
         .addComponent(DL6, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
         .addComponent(DL7, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
         .addComponent(DL8, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-    .addContainerGap(16, Short.MAX_VALUE)));
+    .addContainerGap(10, Short.MAX_VALUE)));
     
     desgnimages2.setViewportView(designpanel2);
 
@@ -275,13 +279,13 @@ public class mnpltfrm extends JFrame {
        
     desgn3Layout.setVerticalGroup(desgn3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
     .addGroup(desgn3Layout.createSequentialGroup()
-    .addGap(16, 16, 16)
+    .addGap(10, 10, 10)
     .addGroup(desgn3Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         .addComponent(DL9, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
         .addComponent(DL10, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
         .addComponent(DL11, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
         .addComponent(DL12, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-    .addContainerGap(16, Short.MAX_VALUE)));
+    .addContainerGap(10, Short.MAX_VALUE)));
 
     desgnimages3.setViewportView(desgnpanel3);
 
@@ -306,344 +310,310 @@ public class mnpltfrm extends JFrame {
         .addComponent(designimages1)
         .addComponent(desgnimages2)
         .addComponent(desgnimages3,GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
-    .addGap(9, 9, 9)));
+    .addGap(8, 8, 8)));
     
-    products= new JTabbedPane();
-    products.setBackground(new Color(204, 204, 204));
-    products.setBounds(30,350,1300,300);
-    add(products);
-
-    makeups = new JPanel();
-    makeups.setBackground(new Color(255, 102, 255));
-    makeups.setBorder(BorderFactory.createEtchedBorder());   
-    makeups.setBounds(30,350,1300,300);
-    add(makeups);
-    
-    MakeUpjScrollPane = new JScrollPane();
-    MakeUpjScrollPane.setBackground(new Color(204, 0, 204));
-    MakeUpjScrollPane.setBorder(null);
-    MakeUpjScrollPane.setBounds(30,350,1300,300);
-    add(MakeUpjScrollPane);
-    
-    m1 = new JPanel();
-    m1.setBackground(new Color(255, 204, 204));
-    m1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    add(m1);
-    
-    m1Layout = new GroupLayout(m1);
-    m1.setLayout(m1Layout);
-    
-    m1Layout.setHorizontalGroup(m1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 245, Short.MAX_VALUE));
-    m1Layout.setVerticalGroup(m1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE));
-    
-    m2 = new JPanel();
-    m2.setBackground(new Color(255, 204, 204));
-    m2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    add(m2);
-    
-    m2Layout = new GroupLayout(m2);
-    m2.setLayout(m2Layout);
-    
-    m2Layout.setHorizontalGroup(m2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 245, Short.MAX_VALUE));
-    m2Layout.setVerticalGroup(m2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE) );
-
-    
-    m3 = new JPanel();
-    m3.setBackground(new Color(255, 204, 204));
-    m3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    add(m3);
-    
-    m3Layout = new GroupLayout(m3);
-    m3.setLayout(m3Layout);
-    
-    m3Layout.setHorizontalGroup(m3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 245, Short.MAX_VALUE));
-    m3Layout.setVerticalGroup(m3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE) );
-
-    
-    m4 = new JPanel();
-    m4.setBackground(new Color(255, 204, 204));
-    m4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    add(m4);
-    
-    m4Layout = new GroupLayout(m4);
-    m4.setLayout(m4Layout);
-    
-    m4Layout.setHorizontalGroup(m4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addGap(0, 245, Short.MAX_VALUE));
-    m4Layout.setVerticalGroup(m4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-           .addGap(0, 313, Short.MAX_VALUE) );
-    
-    m5 = new JPanel();
-    m5.setBackground(new Color(255, 204, 204));
-    m5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    m5.setBounds(50, 380, 80, 90);
-    add(m5);
-    
-    m5Layout = new GroupLayout(m5);
-    m5.setLayout(m5Layout);
-    
-    m5Layout.setHorizontalGroup(m5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-         .addGap(0, 245, Short.MAX_VALUE));
-    m5Layout.setVerticalGroup(m5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addGap(0, 313, Short.MAX_VALUE));
-    
-
-    makeupPanel = new JPanel();
-    makeupPanel.setBackground(new Color(255, 102, 204));
-    makeupPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    makeupPanel.setBounds(30,350,1300,300);
-    add(makeupPanel);
-    
-    makeupLayout = new GroupLayout(makeupPanel);
-    makeupPanel.setLayout(makeupLayout);
-    
-    makeupLayout.setHorizontalGroup(makeupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(makeupLayout.createSequentialGroup()
-               .addGroup(makeupLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(makeupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(makeupLayout.createSequentialGroup()
-                        .addComponent(m1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(m2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(makeupLayout.createSequentialGroup()
-                        .addComponent(m3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(m4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                .addGap(70, 70, 70)
-                .addGroup(makeupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(m5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)))));
-
-   makeupLayout.setVerticalGroup(
-    makeupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addGroup(makeupLayout.createSequentialGroup()
-            .addGap(20)
-//            .addGroup(makeupLayout.createParallelGroup(GroupLayout.Alignment.LEADING))
-                .addComponent(m1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                .addComponent(m2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                .addComponent(m3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                     .addGap(18, 18, 18)
-                                .addGroup(makeupLayout.createSequentialGroup()
-                .addComponent(m4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                     .addGap(18, 18, 18)
-                .addComponent(m5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(20, Short.MAX_VALUE)));
-
-    MakeUpjScrollPane.setViewportView(makeupPanel);
-    
-    makeuptab1Layout = new GroupLayout(makeups);
-    makeups.setLayout(makeuptab1Layout);
-    
-    makeuptab1Layout.setHorizontalGroup(makeuptab1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(makeuptab1Layout.createSequentialGroup()
-    .addContainerGap()
-    .addComponent(MakeUpjScrollPane, GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)
-    .addContainerGap()));
-    
-    makeuptab1Layout.setVerticalGroup(makeuptab1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(makeuptab1Layout.createSequentialGroup()
-    .addContainerGap()
-    .addComponent(MakeUpjScrollPane, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-    .addContainerGap()));
-
-    products.addTab("COSMETICS", makeups);   
  
+        products = new JTabbedPane();
+        products.setBackground(new Color(204, 204, 204));
+        products.setBounds(30, 350, 1300, 300);
+        add(products);
+
+        makeups = new JPanel();
+        makeups.setBackground(new Color(255, 102, 255));
+        makeups.setBorder(BorderFactory.createEtchedBorder());
+
+        MakeUpjScrollPane = new JScrollPane();
+        MakeUpjScrollPane.setBackground(new Color(204, 0, 204));
+        MakeUpjScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        MakeUpjScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        makeupPanel = new JPanel();
+        makeupPanel.setBackground(new Color(255, 102, 204));
+        makeupPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        makeupPanel.setPreferredSize(new Dimension(1200, 720)); 
+        makeupPanel.setLayout(null);
+
+        m1 = new JPanel();
+        m1.setBackground(new Color(255, 204, 204));
+        m1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        m1.setBounds(90, 20, 230, 300);
+        makeupPanel.add(m1);
+
+        m2 = new JPanel();
+        m2.setBackground(new Color(255, 204, 204));
+        m2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        m2.setBounds(520, 20, 230, 300);
+        makeupPanel.add(m2);
+
+        m3 = new JPanel();
+        m3.setBackground(new Color(255, 204, 204));
+        m3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        m3.setBounds(930, 20, 230, 300);
+        makeupPanel.add(m3);
+
+        m4 = new JPanel();
+        m4.setBackground(new Color(255, 204, 204));
+        m4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        m4.setBounds(90, 400, 230, 300);
+        makeupPanel.add(m4);
+
+        m5 = new JPanel();
+        m5.setBackground(new Color(255, 204, 204));
+        m5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        m5.setBounds(520, 400, 230, 300);
+        makeupPanel.add(m5);
+        
+        JPanel m6 = new JPanel();
+        m6.setBackground(new Color(255, 204, 204));
+        m6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        m6.setBounds(930, 400, 230, 300);
+        makeupPanel.add(m6);
+        
+        MakeUpjScrollPane.setViewportView(makeupPanel);
+
+        makeuptab1Layout = new GroupLayout(makeups);
+        makeups.setLayout(makeuptab1Layout);
+
+        makeuptab1Layout.setHorizontalGroup(
+            makeuptab1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(makeuptab1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(MakeUpjScrollPane, GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                .addContainerGap()) );
+
+        makeuptab1Layout.setVerticalGroup(
+            makeuptab1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(makeuptab1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(MakeUpjScrollPane, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addContainerGap()));
+
+        products.addTab("COSMETICS", makeups);
+        add(products);
+    
 //clothes
+
     clothes = new JPanel();
-    clothes.setBackground(new Color(255, 102, 204));
+        clothes.setBackground(new Color(255, 102, 255));
+        clothes.setBorder(BorderFactory.createEtchedBorder());
 
-    clothesScrolpane = new JScrollPane ();
-    clothesScrolpane.setBackground(new Color(255, 204, 204));
-    
-//    c1 = new JPanel();
-//    c1.setBackground(new Color(255, 204, 204));
-//    c1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(c1);
-//    
-//    c2 = new JPanel();
-//    c2.setBackground(new Color(255, 204, 204));
-//    c2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(c2);
-//    
-//    c3 = new JPanel();
-//    c3.setBackground(new Color(255, 204, 204));
-//    c3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(c3);
-//    
-//    c4 = new JPanel();
-//    c4.setBackground(new Color(255, 204, 204));
-//    c4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(c4);
-//    
-//    c5 = new JPanel();
-//    c5.setBackground(new Color(255, 204, 204));
-//    c5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(c5);
+        clothesScrolpane = new JScrollPane();
+        clothesScrolpane.setBackground(new Color(204, 0, 204));
+        clothesScrolpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        clothesScrolpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-    clothespanel = new JPanel();
-    clothespanel.setBackground(new Color(255, 102, 204));
-    clothespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    
-    panelclothesrollLayout = new GroupLayout(clothespanel);
-    clothespanel.setLayout(panelclothesrollLayout);
-    
-    panelclothesrollLayout.setHorizontalGroup(panelclothesrollLayout.createParallelGroup(GroupLayout.Alignment.LEADING));
+        clothespanel = new JPanel();
+        clothespanel.setBackground(new Color(255, 102, 204));
+        clothespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        clothespanel.setPreferredSize(new Dimension(1200, 720)); 
+        clothespanel.setLayout(null);
 
-    panelclothesrollLayout.setVerticalGroup(panelclothesrollLayout.createParallelGroup(GroupLayout.Alignment.LEADING));
-//            .addGroup(panelclothesrollLayout.createSequentialGroup()
+        JPanel c1 = new JPanel();
+        c1.setBackground(new Color(255, 204, 204));
+        c1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        c1.setBounds(90, 20, 230, 300);
+        clothespanel.add(c1);
 
-    clothesScrolpane.setViewportView(clothespanel);
-    
-    
-    clothesTab2Layout = new GroupLayout(clothes);
-    clothes.setLayout(clothesTab2Layout);
-    
-    clothesTab2Layout.setHorizontalGroup(clothesTab2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(clothesTab2Layout.createSequentialGroup()
-    .addContainerGap()
-    .addComponent(clothesScrolpane, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
-    .addContainerGap()));
-    
-    clothesTab2Layout.setVerticalGroup(clothesTab2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(clothesTab2Layout.createSequentialGroup()
-    .addContainerGap()
-    .addComponent(clothesScrolpane, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-    .addContainerGap()));
-    
+        JPanel c2 = new JPanel();
+        c2.setBackground(new Color(255, 204, 204));
+        c2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        c2.setBounds(520, 20, 230, 300);
+        clothespanel.add(c2);
+
+        JPanel c3 = new JPanel();
+        c3.setBackground(new Color(255, 204, 204));
+        c3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        c3.setBounds(930, 20, 230, 300);
+        clothespanel.add(c3);
+
+        JPanel c4 = new JPanel();
+        c4.setBackground(new Color(255, 204, 204));
+        c4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        c4.setBounds(90, 400, 230, 300);
+        clothespanel.add(c4);
+
+        JPanel c5 = new JPanel();
+        c5.setBackground(new Color(255, 204, 204));
+        c5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        c5.setBounds(520, 400, 230, 300);
+        clothespanel.add(c5);
+        
+        JPanel c6 = new JPanel();
+        c6.setBackground(new Color(255, 204, 204));
+        c6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        c6.setBounds(930, 400, 230, 300);
+        clothespanel.add(c6);
+        
+        clothesScrolpane.setViewportView(clothespanel);
+
+        clothesTab2Layout = new GroupLayout(clothes);
+        clothes.setLayout(clothesTab2Layout);
+
+        clothesTab2Layout.setHorizontalGroup(
+            clothesTab2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(clothesTab2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(clothesScrolpane, GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                .addContainerGap()) );
+
+        clothesTab2Layout.setVerticalGroup(
+            clothesTab2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(clothesTab2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(clothesScrolpane, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addContainerGap()));
+
+
     products.addTab("CLOTHES", clothes);
 
 //KITCHEN
+
     kitchen = new JPanel();
-    kitchen.setBackground(new Color(255, 102, 204));
+        kitchen.setBackground(new Color(255, 102, 255));
+        kitchen.setBorder(BorderFactory.createEtchedBorder());
 
-    kitchenScrolpane = new JScrollPane ();
-    kitchenScrolpane.setBackground(new Color(255, 204, 204));
-    
-//    k1 = new JPanel();
-//    k1.setBackground(new Color(255, 204, 204));
-//    k1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(k1);
-//    
-//    k2 = new JPanel();
-//    k2.setBackground(new Color(255, 204, 204));
-//    k2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(k2);
-//    
-//    k3 = new JPanel();
-//    k3.setBackground(new Color(255, 204, 204));
-//    k3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(k3);
-//    
-//    k4 = new JPanel();
-//    k4.setBackground(new Color(255, 204, 204));
-//    k4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(k4);
-//    
-//    k5 = new JPanel();
-//    k5.setBackground(new Color(255, 204, 204));
-//    k5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(k5);
-    
-    kitchenpanel = new JPanel();
-    kitchenpanel.setBackground(new Color(255, 102, 204));
-    kitchenpanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    
-    kitchenLayout = new GroupLayout(kitchenpanel);
-    kitchenpanel.setLayout(kitchenLayout);
-    
-     kitchenLayout.setHorizontalGroup(kitchenLayout.createParallelGroup(GroupLayout.Alignment.LEADING));
+        kitchenScrolpane = new JScrollPane();
+        kitchenScrolpane.setBackground(new Color(204, 0, 204));
+        kitchenScrolpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        kitchenScrolpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-    kitchenLayout.setVerticalGroup(kitchenLayout.createParallelGroup(GroupLayout.Alignment.LEADING));
+        kitchenpanel = new JPanel();
+        kitchenpanel.setBackground(new Color(255, 102, 204));
+        kitchenpanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        kitchenpanel.setPreferredSize(new Dimension(1200, 720)); 
+        kitchenpanel.setLayout(null);
 
-    kitchenScrolpane.setViewportView(kitchenpanel);
-    add(MainPanel);  
-    
-    kitchenLayout1 = new GroupLayout(kitchen);
-    kitchen.setLayout(kitchenLayout1); 
-    
-    kitchenLayout1.setHorizontalGroup(kitchenLayout1.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(kitchenLayout1.createSequentialGroup()
-    .addContainerGap()
-    .addComponent(kitchenScrolpane, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
-    .addContainerGap()));
-    
-    kitchenLayout1.setVerticalGroup(kitchenLayout1.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(kitchenLayout1.createSequentialGroup()
-    .addContainerGap()
-    .addComponent(kitchenScrolpane, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-    .addContainerGap()));
-    
+        JPanel k1 = new JPanel();
+        k1.setBackground(new Color(255, 204, 204));
+        k1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        k1.setBounds(90, 20, 230, 300);
+        kitchenpanel.add(k1);
+
+        JPanel k2 = new JPanel();
+        k2.setBackground(new Color(255, 204, 204));
+        k2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        k2.setBounds(520, 20, 230, 300);
+        kitchenpanel.add(k2);
+
+        JPanel k3 = new JPanel();
+        k3.setBackground(new Color(255, 204, 204));
+        k3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        k3.setBounds(930, 20, 230, 300);
+        kitchenpanel.add(k3);
+
+        JPanel k4 = new JPanel();
+        k4.setBackground(new Color(255, 204, 204));
+        k4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        k4.setBounds(90, 400, 230, 300);
+        kitchenpanel.add(k4);
+
+        JPanel k5 = new JPanel();
+        k5.setBackground(new Color(255, 204, 204));
+        k5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        k5.setBounds(520, 400, 230, 300);
+        kitchenpanel.add(k5);
+        
+        JPanel k6 = new JPanel();
+        k6.setBackground(new Color(255, 204, 204));
+        k6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        k6.setBounds(930, 400, 230, 300);
+        kitchenpanel.add(k6);
+        
+        kitchenScrolpane.setViewportView(kitchenpanel);
+
+        kitchenLayout1 = new GroupLayout(kitchen);
+        kitchen.setLayout(kitchenLayout1);
+
+      kitchenLayout1.setHorizontalGroup(
+            kitchenLayout1.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(kitchenLayout1.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kitchenScrolpane, GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                .addContainerGap()) );
+
+        kitchenLayout1.setVerticalGroup(
+        kitchenLayout1.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(kitchenLayout1.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kitchenScrolpane, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addContainerGap()));
+
+
     products.addTab("UTENSILS", kitchen);
 
 //school supplies   
+
     supplies = new JPanel();
-    supplies.setBackground(new Color(255, 102, 204));
+        supplies.setBackground(new Color(255, 102, 255));
+        supplies.setBorder(BorderFactory.createEtchedBorder());
 
-    suppliesScrolpane = new JScrollPane ();
-    suppliesScrolpane.setBackground(new Color(255, 204, 204));
-    
-//    s1 = new JPanel();
-//    s1.setBackground(new Color(255, 204, 204));
-//    s1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(s1);
-//    
-//    s2 = new JPanel();
-//    s2.setBackground(new Color(255, 204, 204));
-//    s2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(s2);
-//    
-//    s3 = new JPanel();
-//    s3.setBackground(new Color(255, 204, 204));
-//    s3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(s3);
-//    
-//    s4 = new JPanel();
-//    s4.setBackground(new Color(255, 204, 204));
-//    s4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(s4);
-//    
-//    s5 = new JPanel();
-//    s5.setBackground(new Color(255, 204, 204));
-//    s5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-//    add(s5);
+        suppliesScrolpane = new JScrollPane();
+        suppliesScrolpane.setBackground(new Color(204, 0, 204));
+        suppliesScrolpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        suppliesScrolpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-    suppliespanel = new JPanel();
-    suppliespanel.setBackground(new Color(255, 102, 204));
-    suppliespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    
-    suppliesLayout = new GroupLayout(suppliespanel);
-    suppliespanel.setLayout(suppliesLayout);
-    
-    suppliesLayout.setHorizontalGroup(suppliesLayout.createParallelGroup(GroupLayout.Alignment.LEADING));
+        suppliespanel = new JPanel();
+        suppliespanel.setBackground(new Color(255, 102, 204));
+        suppliespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        suppliespanel.setPreferredSize(new Dimension(1200, 720)); 
+        suppliespanel.setLayout(null);
 
-    suppliesLayout.setVerticalGroup(suppliesLayout.createParallelGroup(GroupLayout.Alignment.LEADING));
+        JPanel s1 = new JPanel();
+        s1.setBackground(new Color(255, 204, 204));
+        s1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        s1.setBounds(90, 20, 230, 300);
+        suppliespanel.add(s1);
 
-    suppliesScrolpane.setViewportView(suppliespanel);
-    add(MainPanel);  
-    
-    suppliesLayout1 = new GroupLayout(supplies);
-    supplies.setLayout(suppliesLayout1); 
-    
-    suppliesLayout1.setHorizontalGroup(suppliesLayout1.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(suppliesLayout1.createSequentialGroup()
-    .addContainerGap()
-    .addComponent(suppliesScrolpane, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
-    .addContainerGap()));
-    
-    suppliesLayout1.setVerticalGroup(suppliesLayout1.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(suppliesLayout1.createSequentialGroup()
-    .addContainerGap()
-    .addComponent(suppliesScrolpane, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-    .addContainerGap()));
+        JPanel s2 = new JPanel();
+        s2.setBackground(new Color(255, 204, 204));
+        s2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        s2.setBounds(520, 20, 230, 300);
+        suppliespanel.add(s2);
+
+        JPanel s3 = new JPanel();
+        s3.setBackground(new Color(255, 204, 204));
+        s3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        s3.setBounds(930, 20, 230, 300);
+        suppliespanel.add(s3);
+
+        JPanel s4 = new JPanel();
+        s4.setBackground(new Color(255, 204, 204));
+        s4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        s4.setBounds(90, 400, 230, 300);
+        suppliespanel.add(s4);
+
+        JPanel s5 = new JPanel();
+        s5.setBackground(new Color(255, 204, 204));
+        s5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        s5.setBounds(520, 400, 230, 300);
+        suppliespanel.add(s5);
+        
+        JPanel s6 = new JPanel();
+        s6.setBackground(new Color(255, 204, 204));
+        s6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        s6.setBounds(930, 400, 230, 300);
+        suppliespanel.add(s6);
+        
+        suppliesScrolpane.setViewportView(suppliespanel);
+
+        suppliesLayout1 = new GroupLayout(supplies);
+        supplies.setLayout(suppliesLayout1);
+
+      suppliesLayout1.setHorizontalGroup(
+            suppliesLayout1.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(suppliesLayout1.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(suppliesScrolpane, GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                .addContainerGap()) );
+
+        suppliesLayout1.setVerticalGroup(
+            suppliesLayout1.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(suppliesLayout1.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(suppliesScrolpane, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addContainerGap()));
+
+   
     
     products.addTab("SCHOOL SUPPLIES", supplies);
         
@@ -663,6 +633,12 @@ public class mnpltfrm extends JFrame {
     
 
     setVisible (true);
+    }
+
+   
+
+     public static void main(String[] args) {
+        SwingUtilities.invokeLater(mnpltfrm::new);
     }
 
 }
