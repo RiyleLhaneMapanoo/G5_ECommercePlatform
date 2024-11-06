@@ -5,18 +5,20 @@
 package com.mycompany.salespage;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 
 
-public class TotalSales extends JFrame {
+public class TotalSales extends JFrame implements ActionListener {
     
 
     private JLabel lblBg,lblTotalSales , lblProductSold;
     private JPanel pnlist;
     private JTextArea jtTotalPrice;
-    private JButton btnNext;
+    private JButton btnNext,btnBack,btnShow;
     TotalSales() {
         
        
@@ -49,16 +51,16 @@ public class TotalSales extends JFrame {
        pnlist = new JPanel();
         pnlist.setLayout(null);
         
-       pnlist.setBounds(40, 110, 1225, 250);
+       pnlist.setBounds(40, 110, 1225, 480);
        pnlist.setBackground(Color.red);
         
         
         
         String[] names = {"Names", "Address", "Category", "Product", "Quantity", "Price"};
         Object[][] data = {
-            {" ", " ", "Clothes", "Polo", " ", " "},
-            {" ", " ", " School Supplies", "Pencil ", " ", " "},
-            {" ", " ", "Clothes", "Short", " ", " "},
+            {" ", " ", "", "", " ", " "},
+            {" ", " ", "  ", " ", " ", " "},
+            {" ", " ", "", "", " ", " "},
             {" ", " ", " ", " "},
             {" ", " ", " ", " "},
             {" ", " ", " ", " "},
@@ -69,31 +71,47 @@ public class TotalSales extends JFrame {
          table.setDefaultEditor(Object.class,  null);
 
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setBounds(15, 10, 1200, 230);
+        scroll.setBounds(15, 10, 1200, 460);
         
         pnlist.add(scroll);
         
       lblBg.add(pnlist);
         add(lblBg);
         
-      lblTotalSales = new JLabel("TOTAL SALES");
-      lblTotalSales.setForeground(Color.WHITE); // text color
-        lblTotalSales.setFont(new Font("Arial", Font.BOLD, 24)); // text font/style
-        lblTotalSales.setBounds(50, 410, 500, 50);
-        lblBg.add(lblTotalSales);
+     
         
-         lblProductSold = new JLabel("Product Sold");
+         lblProductSold = new JLabel("Total Sales");
       lblProductSold.setForeground(Color.WHITE); // text color
         lblProductSold.setFont(new Font("Arial", Font.BOLD, 24)); // font/style
         lblProductSold.setBounds(50, 30, 500, 50);
         lblBg.add(lblProductSold);
         
-        jtTotalPrice = new JTextArea();
-        jtTotalPrice.setBounds(50, 480, 500, 100);
-        lblBg.add(jtTotalPrice);
+       
         
-        btnNext = new JButton("Next");
-        btnNext.setBounds(1100, 550, 100, 50);
+        btnNext = new JButton("VIew Inventory");
+        btnNext.setBounds(1100, 630, 200, 50);
         lblBg.add(btnNext);
+    
+        btnBack = new JButton("Back");
+        btnBack.setBounds(980, 630,100, 50);
+        lblBg.add(btnBack);
+        
+      
+        
+        btnNext.addActionListener(this);
+        btnBack.addActionListener(this);
+        
+        
+    
+    
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==btnNext){
+            dispose();
+        }
+        
+        
     }
 }
