@@ -11,12 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Raylen
  */
-public class logPage_InvRepVer2 extends JFrame {
+public class logPage_InvRepVer3 extends JFrame {
     
     private JButton addProds[],minusProds[],buyPro,addAvailProds[],updateQuan;
     private JLabel title,productlbl,pricelbl,priLabel1,priLabel2,priLabel3,quantitylbl,quanPro1,quanPro2,quanPro3,quantLeft,prod1QL,prod2QL,prod3QL;
@@ -49,7 +51,7 @@ public class logPage_InvRepVer2 extends JFrame {
     private int intproduct2StockAvail = 0;
     private int intproduct3StockAvail = 0;
     
-    public logPage_InvRepVer2(){
+    public logPage_InvRepVer3(){
     
      setSize(700,700);
     setLayout(null);
@@ -266,58 +268,46 @@ public class logPage_InvRepVer2 extends JFrame {
     add(buyPro);
     
     
-    buyPro.addActionListener(e->{
-     //what's this for? to store the selected values
-    LinkedList<String> productListStorage = new LinkedList<>();
-     
-   
-    if (cpCheckBox.isSelected()) {
-        productListStorage.add(cpCheckBox.getText()); // Add product to list
-   
-}
+    buyPro.addActionListener(e -> {
+    // Map to store categories and their associated checkboxes
+    Map<String, JCheckBox[]> categoryMap = new HashMap<>();
     
-    
-    if (eyeCheckBox.isSelected()) {
-        productListStorage.add(eyeCheckBox.getText()); // Add product to list
+    // Populate the map with categories and corresponding checkboxes
+    categoryMap.put("Gadget", new JCheckBox[]{cpCheckBox});
+    categoryMap.put("Makeup", new JCheckBox[]{eyeCheckBox});
+    categoryMap.put("School Supplies", new JCheckBox[]{noteCheckBox});
+    // Add more categories and checkboxes here as needed
+
+    try {
+        Connection connection = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/logregtest", "root", "1027");
+
+        String query = "INSERT INTO inventorytesttable1 (Product, Category) VALUES (?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        // Loop through each category and its checkboxes
+        for (Map.Entry<String, JCheckBox[]> entry : categoryMap.entrySet()) {
+            String category = entry.getKey();
+            JCheckBox[] checkBoxes = entry.getValue();
+
+            // Insert selected items in the current category
+            for (JCheckBox checkBox : checkBoxes) {
+                if (checkBox.isSelected()) {
+                    preparedStatement.setString(1, checkBox.getText());
+                    preparedStatement.setString(2, category);
+                    preparedStatement.executeUpdate();
+                }
+            }
+        }
+
+        connection.close();
+    } catch (Exception exception) {
+        exception.printStackTrace();
     }
-
-     
- 
-    if (noteCheckBox.isSelected()) {
-        productListStorage.add(noteCheckBox.getText()); // Add product to list
-    }
-    
+});
 
     
-         
-         
-try {
-    Connection connection = (Connection) DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/logregtest", "root", "1027");
-    
 
-     String query = "INSERT INTO inventorytesttable1 (Product) VALUES (?)";
-      PreparedStatement preparedStatement = connection.prepareStatement(query);
-      
-    for(String item: productListStorage){
-            preparedStatement.setString(1, item);
-            preparedStatement.executeUpdate();  
-            // Executes all batch insertions at once
-     }
- 
-      
-
-    connection.close();
-} catch (Exception exception) {
-    exception.printStackTrace();
-}
-
-    
-    
-    
-    
-    
-    });
     
     
     
@@ -361,7 +351,7 @@ try {
     
     public static void main(String[] args){
     
-    logPage_InvRepVer2 l = new logPage_InvRepVer2();
+    logPage_InvRepVer3 l = new logPage_InvRepVer3();
     l.setVisible(true);
     l.setLocationRelativeTo(null);
     }
