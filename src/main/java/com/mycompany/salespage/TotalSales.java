@@ -96,7 +96,9 @@ public class TotalSales extends JFrame implements ActionListener {
         btnBack.setBounds(980, 630,100, 50);
         lblBg.add(btnBack);
         
-      
+          btnShow = new JButton("Show");
+        btnShow.setBounds(890, 630, 100, 50);
+        lblBg.add(btnShow);
         
         btnNext.addActionListener(this);
         btnBack.addActionListener(this);
