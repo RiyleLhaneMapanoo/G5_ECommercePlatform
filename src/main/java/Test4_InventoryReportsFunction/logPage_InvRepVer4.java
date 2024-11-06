@@ -18,10 +18,10 @@ import java.util.Map;
  *
  * @author Raylen
  */
-public class logPage_InvRepVer3 extends JFrame {
+public class logPage_InvRepVer4 extends JFrame {
     
     private JButton addProds[],minusProds[],buyPro,addAvailProds[],updateQuan;
-    private JLabel title,productlbl,pricelbl,priLabel1,priLabel2,priLabel3,quantitylbl,quanPro1,quanPro2,quanPro3,quantLeft,prod1QL,prod2QL,prod3QL;
+    private JLabel title,productlbl,pricelbl,priLabel1,priLabel2,priLabel3,quantitylbl,quanPro[],quantLeft,prod1QL,prod2QL,prod3QL;
     //Product update stock
     private JComboBox proCat,selectPro;
 
@@ -51,7 +51,7 @@ public class logPage_InvRepVer3 extends JFrame {
     private int intproduct2StockAvail = 0;
     private int intproduct3StockAvail = 0;
     
-    public logPage_InvRepVer3(){
+    public logPage_InvRepVer4(){
     
      setSize(700,700);
     setLayout(null);
@@ -149,23 +149,16 @@ public class logPage_InvRepVer3 extends JFrame {
     quantitylbl.setBounds(250, 400, 50, 20);
     add(quantitylbl);
     
-   
-   //(Quantity Prod 1)
-    quanPro1 = new JLabel("0");
-    quanPro1.setBounds(273, 450, 50, 20);
-    add(quanPro1);
-    
-   
-    //(Quantity Prod 2)
-    quanPro2 = new JLabel("0");
-    quanPro2.setBounds(273, 480, 50, 20);
-    add(quanPro2);
-    
-    
-    //(Quantity Prod 3)
-    quanPro3 = new JLabel("0");
-    quanPro3.setBounds(273, 510, 50, 20);
-    add(quanPro3);
+   quanPro = new JLabel[] {
+    new JLabel("0"),
+    new JLabel("0"),
+    new JLabel("0")
+   };
+    for (int i = 0; i < quanPro.length; i++) {
+            quanPro[i].setFont(new Font("Segoe UI",Font.PLAIN,12));
+            quanPro[i].setBounds(273, 450 + (i * 30), 50, 20); // Positioning checkboxes vertically; basically what this does is automatically add and position newly created check boxes by adding a gap of 30 each
+            add(quanPro[i]); // Add each checkbox to the frame
+   }
       
     
     addProds = new JButton[] {
@@ -179,19 +172,19 @@ public class logPage_InvRepVer3 extends JFrame {
            
             
             add(addProds[i]); // Add each checkbox to the frame
-        }
+   }
     
     addProds[0].addActionListener(e ->{
             intproduct1Count++;
-              quanPro1.setText(String.valueOf(intproduct1Count));
+              quanPro[0].setText(String.valueOf(intproduct1Count));
     });//this is a lamba expression? google said that its a short way to implement a funcional interface; how does it work? i do not know also. why did i use it? recommended.
     addProds[1].addActionListener(e ->{
             intproduct2Count++;
-              quanPro2.setText(String.valueOf(intproduct2Count));
+              quanPro[1].setText(String.valueOf(intproduct2Count));
     });
     addProds[2].addActionListener(e ->{
             intproduct3Count++;
-              quanPro3.setText(String.valueOf(intproduct3Count));
+             quanPro[2].setText(String.valueOf(intproduct3Count));
     });
     
     
@@ -210,7 +203,7 @@ public class logPage_InvRepVer3 extends JFrame {
         JOptionPane.showMessageDialog(this, "Please add first", "ERROR: Product Quantity is 0", JOptionPane.ERROR_MESSAGE);
         }  else{
          intproduct1Count--;
-              quanPro1.setText(String.valueOf(intproduct1Count));
+             quanPro[0].setText(String.valueOf(intproduct1Count));
          }
     });
     minusProds[1].addActionListener(e ->{
@@ -218,7 +211,7 @@ public class logPage_InvRepVer3 extends JFrame {
         JOptionPane.showMessageDialog(this, "Please add first", "ERROR: Product Quantity is 0", JOptionPane.ERROR_MESSAGE);
         }  else{
          intproduct2Count--;
-              quanPro2.setText(String.valueOf(intproduct2Count));
+              quanPro[1].setText(String.valueOf(intproduct2Count));
          }
     });
     minusProds[2].addActionListener(e ->{
@@ -226,7 +219,7 @@ public class logPage_InvRepVer3 extends JFrame {
         JOptionPane.showMessageDialog(this, "Please add first", "ERROR: Product Quantity is 0", JOptionPane.ERROR_MESSAGE);
         }  else{
          intproduct3Count--;
-              quanPro3.setText(String.valueOf(intproduct3Count));
+              quanPro[2].setText(String.valueOf(intproduct3Count));
          }
     });
     
@@ -270,33 +263,50 @@ public class logPage_InvRepVer3 extends JFrame {
     
     buyPro.addActionListener(e -> {
     // Map to store categories and their associated checkboxes
-    Map<String, JCheckBox[]> categoryMap = new HashMap<>();
+    Map<String, Object[]> categoryMap = new HashMap<>();
     
     // Populate the map with categories and corresponding checkboxes
-    categoryMap.put("Gadget", new JCheckBox[]{cpCheckBox});
-    categoryMap.put("Makeup", new JCheckBox[]{eyeCheckBox});
-    categoryMap.put("School Supplies", new JCheckBox[]{noteCheckBox});
+    categoryMap.put("Gadget", new Object[]{new JCheckBox[]{cpCheckBox}, new JLabel[]{quanPro[0]}});
+    categoryMap.put("Makeup", new Object[]{new JCheckBox[]{eyeCheckBox}, new JLabel[]{quanPro[1]}});
+    categoryMap.put("School Supplies",new Object[]{ new JCheckBox[]{noteCheckBox}, new JLabel[]{quanPro[2]}});
     // Add more categories and checkboxes here as needed
 
     
+            
     try {
         Connection connection = DriverManager.getConnection(
             "jdbc:mysql://localhost:3306/logregtest", "root", "1027");
 
-        String query = "INSERT INTO inventorytesttable1 (Product, Category) VALUES (?, ?)";
+        String query = "INSERT INTO inventorytesttable1 (Product, Category,originalQuan,stockBought) VALUES (?, ?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
         // Loop through each category and its checkboxes
-        for (Map.Entry<String, JCheckBox[]> entry : categoryMap.entrySet()) {
+        for (Map.Entry<String, Object[]> entry : categoryMap.entrySet()) {
             String category = entry.getKey();
-            JCheckBox[] checkBoxes = entry.getValue();
+            Object[] values = entry.getValue();
+            JCheckBox[] checkBoxes = (JCheckBox[]) values[0];
+            JLabel[] labels = (JLabel[]) values[1];
+            
+             for (int i = 0; i < checkBoxes.length; i++) {
+                JCheckBox checkBox = checkBoxes[i];
+                JLabel label = labels[i];
 
-            // Insert selected items in the current category
-            for (JCheckBox checkBox : checkBoxes) {
                 if (checkBox.isSelected()) {
-                    preparedStatement.setString(1, checkBox.getText());
-                    preparedStatement.setString(2, category);
-                    preparedStatement.executeUpdate();
+                    try {
+                        // Parse the text of the JLabel to an int
+                        int labelValue = Integer.parseInt(label.getText());
+
+                        // Set the values to the prepared statement
+                        preparedStatement.setString(1, checkBox.getText()); // Product name
+                        preparedStatement.setString(2, category); // Category name
+                          preparedStatement.setInt(3,10); // Category name
+                        preparedStatement.setInt(4, labelValue); // Int value from JLabel
+
+                        // Execute the insert statement
+                        preparedStatement.executeUpdate();
+                    } catch (NumberFormatException ex) {
+                        System.out.println("Invalid integer value in JLabel: " + label.getText());
+                    }
                 }
             }
         }
@@ -352,7 +362,7 @@ public class logPage_InvRepVer3 extends JFrame {
     
     public static void main(String[] args){
     
-    logPage_InvRepVer3 l = new logPage_InvRepVer3();
+    logPage_InvRepVer4 l = new logPage_InvRepVer4();
     l.setVisible(true);
     l.setLocationRelativeTo(null);
     }
