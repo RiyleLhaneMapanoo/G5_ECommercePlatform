@@ -7,12 +7,15 @@ package com.mycompany.mainloginpage;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.sql.*;
 
 /**
  *
  * @author Bering
  */
 class classSignupPage extends JFrame implements ActionListener{
+     Connection con = null;
+     PreparedStatement state = null;
      JLabel titleLbl, welcomeLbl, signupLbl, fullNameLbl, emailLbl, passwordLbl, signInLbl;
      JTextField fullNameTxf, emailTxf, passwordTxf;
      JButton signUpBtn,signInBtn;   
@@ -110,6 +113,20 @@ class classSignupPage extends JFrame implements ActionListener{
              login.setVisible(true);
              dispose();
          } if(e.getSource() == signUpBtn){
+             try{
+             String query = "INSERT INTO `user`(`id`, `full_name`, `email`, `password`) VALUES (?, ?, ?, ?)";
+             con = DriverManager.getConnection("jdbc:mysql://localhost/user_database","root","12345");
+             state = con.prepareStatement(query);
+             state.setString(1, fullNameTxf.getText());
+             state.setString(2, emailTxf.getText());
+             state.setString(3, passwordTxf.getText());
+             state.setString(4, fullNameTxf.getText());
+             state.executeUpdate();      
+             JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY");
+             }catch(Exception ex){
+             JOptionPane.showMessageDialog(null,ex);
+                
+             }
              String fullName = fullNameTxf.getText();
              String email = emailTxf.getText();
              String password = passwordTxf.getText();
