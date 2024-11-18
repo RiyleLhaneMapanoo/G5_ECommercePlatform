@@ -114,68 +114,30 @@ public class TotalSales extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btnNext){
-            Inventory inv = new Inventory();
-            inv.setVisible(true);
-            this.dispose();
+//            Inventory inv = new Inventory();
+//            inv.setVisible(true);
+//            this.dispose();
                 
         }
         if(e.getSource()==btnShow){
-//            try {
-//                Class.forName("com.mysql.cj.jdbc.Driver");
-//                    Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/testdatabase","root","12345");
-//                        Statement st=con.createStatement();
-//                        String sql="select * from testdatabase.testtable";
-//                        st.executeQuery(sql);
-//                        ResultSet rs = st.executeQuery(sql);
-//                        DefaultTableModel model = (DefaultTableModel)table.getModel();  
-//                            model.setRowCount(0);
-//                            
-//                            while(rs.next()){
-//                            String ID = String.valueOf(rs.getInt("ID"));
-//                            String Names = rs.getString("Names");
-//                            String Address = rs.getString("Address");
-//                            String EmailAddress = rs.getString("EmailAddress");
-//                            String Category = rs.getString("Category");
-//                            String ProductName = rs.getString("ProductName");
-//                            String ProductPrice = String.valueOf(rs.getInt("ProductPrice"));
-//                            String Quantity = String.valueOf(rs.getInt("Quantity"));
-//                            String TotalPrice = String.valueOf(rs.getInt("TotalPrice"));
-//                          
-//                            
-//                            
-//                            String [] rowData={ID, Names, Address, EmailAddress, Category, ProductName, ProductPrice, Quantity, TotalPrice};
-//                            model.addRow(rowData);
-//                            
-//                               }
-//
-//           
-//             rs.close();
-//             st.close();
-//              con.close();
-//                          
-//              
-//              ImageIcon icon = new ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\SalesPage1\\src\\main\\java\\Image\\updated.png");
-//              
-//             
-//          Image Img2 = icon.getImage();
-//        Image newImg2 = Img2.getScaledInstance(50,50, Image.SCALE_SMOOTH);
-//        ImageIcon image2 = new ImageIcon(newImg2);
-//              
-//              JOptionPane.showMessageDialog(null, "UPDATED", "UPDATE", JOptionPane.INFORMATION_MESSAGE, image2);
-//                            
-//                            
-//                    
-//
-//                        
-//                        
-//                        
-//                        
-//                        } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(TotalSales.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(TotalSales.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-            
+              
+              ImageIcon icon = new ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\SalesPage1\\src\\main\\java\\Image\\updated.png");
+              
+             
+          Image Img2 = icon.getImage();
+        Image newImg2 = Img2.getScaledInstance(50,50, Image.SCALE_SMOOTH);
+        ImageIcon image2 = new ImageIcon(newImg2);
+              
+              JOptionPane.showMessageDialog(null, "UPDATED", "UPDATE", JOptionPane.INFORMATION_MESSAGE, image2);
+                            
+                            
+                    
+
+                        
+                        
+                        
+                        
+       
         }
         
     }
