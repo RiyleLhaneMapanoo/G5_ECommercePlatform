@@ -7,6 +7,13 @@ package com.mycompany.salespage;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +26,7 @@ public class TotalSales extends JFrame implements ActionListener {
     private JPanel pnlist;
     private JTextArea jtTotalPrice;
     private JButton btnNext,btnBack,btnShow;
+    private JTable table;
     TotalSales() {
         
        
@@ -43,8 +51,7 @@ public class TotalSales extends JFrame implements ActionListener {
 
          add(lblBg);
 
-//        
-//       
+
        
        
        
@@ -52,22 +59,15 @@ public class TotalSales extends JFrame implements ActionListener {
         pnlist.setLayout(null);
         
        pnlist.setBounds(40, 110, 1225, 480);
-       pnlist.setBackground(Color.red);
+       
         
         
+        String[] names = {"ID", "Names", "Address","Email Address","Category", "Product Name","Product Price", "Quantity", "Total Price"};
         
-        String[] names = {"Names", "Address", "Category", "Product", "Quantity", "Price"};
-        Object[][] data = {
-            {" ", " ", "", "", " ", " "},
-            {" ", " ", "  ", " ", " ", " "},
-            {" ", " ", "", "", " ", " "},
-            {" ", " ", " ", " "},
-            {" ", " ", " ", " "},
-            {" ", " ", " ", " "},
-            {" ", " ", " ", " "},};
+        
 
-        DefaultTableModel model = new DefaultTableModel(data, names);
-        JTable table = new JTable(model);
+        DefaultTableModel model = new DefaultTableModel(names, 0);
+         table = new JTable(model);
          table.setDefaultEditor(Object.class,  null);
 
         JScrollPane scroll = new JScrollPane(table);
@@ -96,14 +96,17 @@ public class TotalSales extends JFrame implements ActionListener {
         btnBack.setBounds(980, 630,100, 50);
         lblBg.add(btnBack);
         
-          btnShow = new JButton("Show");
-        btnShow.setBounds(890, 630, 100, 50);
+       //ImageIcon refresh = new ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\SalesPage1\\src\\main\\java\\Image\\refresh.png");
+        
+        
+        btnShow = new JButton("Refresh");
+        btnShow.setBounds(860, 630, 100, 50);
         lblBg.add(btnShow);
         
         btnNext.addActionListener(this);
         btnBack.addActionListener(this);
-        
-        
+        btnShow.addActionListener(this);
+            
     
     
     }
@@ -111,9 +114,70 @@ public class TotalSales extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btnNext){
-            dispose();
+            Inventory inv = new Inventory();
+            inv.setVisible(true);
+            this.dispose();
+                
         }
-        
+        if(e.getSource()==btnShow){
+//            try {
+//                Class.forName("com.mysql.cj.jdbc.Driver");
+//                    Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/testdatabase","root","12345");
+//                        Statement st=con.createStatement();
+//                        String sql="select * from testdatabase.testtable";
+//                        st.executeQuery(sql);
+//                        ResultSet rs = st.executeQuery(sql);
+//                        DefaultTableModel model = (DefaultTableModel)table.getModel();  
+//                            model.setRowCount(0);
+//                            
+//                            while(rs.next()){
+//                            String ID = String.valueOf(rs.getInt("ID"));
+//                            String Names = rs.getString("Names");
+//                            String Address = rs.getString("Address");
+//                            String EmailAddress = rs.getString("EmailAddress");
+//                            String Category = rs.getString("Category");
+//                            String ProductName = rs.getString("ProductName");
+//                            String ProductPrice = String.valueOf(rs.getInt("ProductPrice"));
+//                            String Quantity = String.valueOf(rs.getInt("Quantity"));
+//                            String TotalPrice = String.valueOf(rs.getInt("TotalPrice"));
+//                          
+//                            
+//                            
+//                            String [] rowData={ID, Names, Address, EmailAddress, Category, ProductName, ProductPrice, Quantity, TotalPrice};
+//                            model.addRow(rowData);
+//                            
+//                               }
+//
+//           
+//             rs.close();
+//             st.close();
+//              con.close();
+//                          
+//              
+//              ImageIcon icon = new ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\SalesPage1\\src\\main\\java\\Image\\updated.png");
+//              
+//             
+//          Image Img2 = icon.getImage();
+//        Image newImg2 = Img2.getScaledInstance(50,50, Image.SCALE_SMOOTH);
+//        ImageIcon image2 = new ImageIcon(newImg2);
+//              
+//              JOptionPane.showMessageDialog(null, "UPDATED", "UPDATE", JOptionPane.INFORMATION_MESSAGE, image2);
+//                            
+//                            
+//                    
+//
+//                        
+//                        
+//                        
+//                        
+//                        } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(TotalSales.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(TotalSales.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            
+        }
         
     }
 }
+

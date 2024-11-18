@@ -8,6 +8,9 @@ package com.mycompany.salespage;
  *
  * @author USER
  */
+
+//sellersales page/list of all sales of the products sold
+
 public class SalesPage {
 
     public static void main(String[] args) {
