@@ -35,14 +35,14 @@ public class TotalSales extends JFrame implements ActionListener {
         setTitle("Seller Sales Page");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //setBackground(Color.green);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(1385,764);
         
          
      
          ImageIcon path = new ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\SalesPage\\src\\main\\java\\Image\\background.png");
        
           Image Img = path.getImage();
-        Image newImg = Img.getScaledInstance(2500, 2500, Image.SCALE_SMOOTH);
+        Image newImg = Img.getScaledInstance(1385, 764, Image.SCALE_SMOOTH);
         ImageIcon image1 = new ImageIcon(newImg);
     
         
