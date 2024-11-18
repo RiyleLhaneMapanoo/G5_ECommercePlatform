@@ -41,7 +41,7 @@ public class cartPage extends JFrame implements ActionListener {
         setTitle("Cart Page");
         
         ImageIcon bgIcon = new ImageIcon("background.png");
-        ImageIcon bgImage = new ImageIcon(bgIcon.getImage().getScaledInstance(450, 300, Image.SCALE_SMOOTH));
+        ImageIcon bgImage = new ImageIcon(bgIcon.getImage().getScaledInstance(650, 500, Image.SCALE_SMOOTH));
         JLabel bgLbl = new JLabel(bgImage);
         bgLbl.setLayout(new BorderLayout());
         
@@ -64,7 +64,7 @@ public class cartPage extends JFrame implements ActionListener {
         for(int i = 0; i < images.length; i++) {
             
             ImageIcon pImageIcon = new ImageIcon(images[i]);
-            ImageIcon productImages = new ImageIcon(pImageIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+            ImageIcon productImages = new ImageIcon(pImageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
             
             
             // Panel for the checkboxes and product images
@@ -89,10 +89,12 @@ public class cartPage extends JFrame implements ActionListener {
 
             pNames = new JLabel("Name : "+names[i]);
             pNames.setForeground(Color.WHITE);
+            pNames.setFont(new Font(null,Font.BOLD, 25));
             infoPanel.add(pNames);
             
             pPrices = new JLabel("Price : "+ Integer.valueOf(prices[i]));
             pPrices.setForeground(Color.WHITE);
+            pPrices.setFont(new Font(null,Font.BOLD, 25));
             infoPanel.add(pPrices);
             
             
@@ -103,33 +105,34 @@ public class cartPage extends JFrame implements ActionListener {
                    
             //Minus Button
             ImageIcon minusIcon = new ImageIcon("minus-button.png");
-            ImageIcon minusImage = new ImageIcon(minusIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+            ImageIcon minusImage = new ImageIcon(minusIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             btnMinus[i] = new JButton(minusImage);
             btnMinus[i].setFocusable(false);
-            btnMinus[i].setBorderPainted(false);
+            btnMinus[i].setBorderPainted(false); // border : none
             btnMinus[i].setBackground(Color.PINK);
             qPanel.add(btnMinus[i]);
             
-            qPanel.add(Box.createHorizontalStrut(10)); // 10px spacing b/w "1" and "+"
+            qPanel.add(Box.createHorizontalStrut(20)); // 20px spacing b/w "1" and "-"
             
             defaultQuantity[i] = 1; // default quantity
             
             pQuantity[i] = new JLabel("1");
             pQuantity[i].setForeground(Color.WHITE);
+            pQuantity[i].setFont(new Font(null,Font.BOLD, 25));
             qPanel.add(pQuantity[i]);
             
-            qPanel.add(Box.createHorizontalStrut(10)); // 10px spacing b/w "1" and "+"
+            qPanel.add(Box.createHorizontalStrut(20)); // 20px spacing b/w "1" and "+"
             
             //Add Button
             ImageIcon plusIcon = new ImageIcon("add-button.png");
-            ImageIcon plusImage = new ImageIcon(plusIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+            ImageIcon plusImage = new ImageIcon(plusIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             btnAdd[i] = new JButton(plusImage);
             btnAdd[i].setFocusable(false);
             btnAdd[i].setBackground(Color.PINK);
             btnAdd[i].setBorderPainted(false);
             qPanel.add(btnAdd[i]);
             
-            qPanel.add(Box.createHorizontalStrut(10));  // 10px spacing b/w "+" and "Delete"
+            qPanel.add(Box.createHorizontalStrut(20));  // 10px spacing b/w "+" and "Delete Button"
             
             
             //Delete Button
@@ -179,7 +182,7 @@ public class cartPage extends JFrame implements ActionListener {
         // Back Button
         
             ImageIcon icon = new ImageIcon("back.png");
-            ImageIcon backIcon = new ImageIcon(icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+            ImageIcon backIcon = new ImageIcon(icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             JButton btnBack = new JButton(backIcon);
             btnBack.setBackground(Color.PINK);
             btnBack.setBorderPainted(false);
@@ -192,11 +195,13 @@ public class cartPage extends JFrame implements ActionListener {
             subTotalPanel.setOpaque(false);
         
             JLabel lblSubTotal = new JLabel("Subtotal : ");
+            lblSubTotal.setFont(new Font(null,Font.BOLD, 25));
             lblSubTotal.setForeground(Color.WHITE);
             subTotalPanel.add(lblSubTotal);
             
             subTotal = new JLabel("0");
             subTotal.setForeground(Color.WHITE);
+            subTotal.setFont(new Font(null,Font.BOLD, 25));
             subTotalPanel.add(subTotal);
             
             botPanel.add(subTotalPanel);
@@ -204,14 +209,16 @@ public class cartPage extends JFrame implements ActionListener {
             
         // Checkout
             ImageIcon coIcon = new ImageIcon("checkout-icon.png");
-            ImageIcon coImage = new ImageIcon(coIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+            ImageIcon coImage = new ImageIcon(coIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         
             JButton btnCheckOut = new JButton("Checkout");
             btnCheckOut.setBackground(Color.PINK);
+            btnCheckOut.setForeground(Color.WHITE);
+            btnCheckOut.setFont(new Font(null, Font.BOLD,20));
             btnCheckOut.setIcon(coImage);
             btnCheckOut.setHorizontalTextPosition(JButton.LEFT);
             btnCheckOut.setFocusable(false);
-            
+            btnCheckOut.setBorderPainted(false); // border : none
             botPanel.add(btnCheckOut);
             
    
@@ -227,11 +234,13 @@ public class cartPage extends JFrame implements ActionListener {
         
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setPreferredSize(new Dimension(650,500));
         setVisible(true);
         
         pack();
-
+        
+        
+        setLocationRelativeTo(null);
     }
 
     @Override
