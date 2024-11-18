@@ -41,7 +41,7 @@ public class cartPage extends JFrame implements ActionListener {
         setTitle("Cart Page");
         
         ImageIcon bgIcon = new ImageIcon("background.png");
-        ImageIcon bgImage = new ImageIcon(bgIcon.getImage().getScaledInstance(650, 500, Image.SCALE_SMOOTH));
+        ImageIcon bgImage = new ImageIcon(bgIcon.getImage().getScaledInstance(800, 500, Image.SCALE_SMOOTH));
         JLabel bgLbl = new JLabel(bgImage);
         bgLbl.setLayout(new BorderLayout());
         
@@ -98,11 +98,15 @@ public class cartPage extends JFrame implements ActionListener {
             infoPanel.add(pPrices);
             
             
+            
+            
             // add JPanel for the Quantity to make the buttons and label horizontally aligned
             JPanel qPanel = new JPanel();
             qPanel.setLayout(new BoxLayout(qPanel, BoxLayout.X_AXIS));
             qPanel.setOpaque(false);
-                   
+            
+            qPanel.add(Box.createHorizontalStrut(80));
+            
             //Minus Button
             ImageIcon minusIcon = new ImageIcon("minus-button.png");
             ImageIcon minusImage = new ImageIcon(minusIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
@@ -132,7 +136,7 @@ public class cartPage extends JFrame implements ActionListener {
             btnAdd[i].setBorderPainted(false);
             qPanel.add(btnAdd[i]);
             
-            qPanel.add(Box.createHorizontalStrut(20));  // 10px spacing b/w "+" and "Delete Button"
+            qPanel.add(Box.createHorizontalStrut(30));  // 10px spacing b/w "+" and "Delete Button"
             
             
             //Delete Button
@@ -234,7 +238,7 @@ public class cartPage extends JFrame implements ActionListener {
         
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(650,500));
+        setPreferredSize(new Dimension(800,500));
         setVisible(true);
         
         pack();
