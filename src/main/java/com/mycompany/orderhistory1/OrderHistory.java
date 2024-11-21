@@ -29,7 +29,7 @@ public class OrderHistory extends JFrame{
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
         Image scaledImage = bgIcon.getImage().getScaledInstance(screenSize.width,screenSize.height, Image.SCALE_SMOOTH);
         bgLabel.setIcon(new ImageIcon(scaledImage));
-        bgLabel.setBounds(1385, 764, screenSize.width, screenSize.height);
+        bgLabel.setBounds(0, 0, screenSize.width, screenSize.height);
         add(bgLabel);
         
         scrollPane = new JScrollPane();
