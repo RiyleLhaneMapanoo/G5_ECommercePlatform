@@ -12,14 +12,15 @@ public class OrderHistory extends JFrame{
    private JLabel bgLabel, lblHistory, lblIcon;
    private JButton btnBAgain, btnReview, btnBack;
    private JScrollPane scrollPane;
+   private JTable ohtable;
  
             
     OrderHistory(){
         
         setTitle("Order History");
-        
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1385,764);
         setLayout(null);
         setResizable(false);
      
@@ -32,9 +33,9 @@ public class OrderHistory extends JFrame{
         bgLabel.setBounds(0, 0, screenSize.width, screenSize.height);
         add(bgLabel);
         
-        scrollPane = new JScrollPane();
-        scrollPane.setBounds(356, 242, 818, 431);
-        bgLabel.add(scrollPane);
+        ohtable = new JTable(10, 4);
+        ohtable.setBounds(356, 242, 818, 431);
+        bgLabel.add(ohtable);
         
         btnBAgain =  new JButton("Buy Again");
         btnBAgain.setBounds(100, 509, 144, 38);
