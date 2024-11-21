@@ -34,7 +34,7 @@ public class OrderHistory extends JFrame{
         add(bgLabel);
         
         ohtable = new JTable(10, 4);
-        ohtable.setBounds(356, 242, 818, 431);
+        ohtable.setBounds(350, 222, 825, 431);
         bgLabel.add(ohtable);
         
         btnBAgain =  new JButton("Buy Again");
@@ -48,7 +48,7 @@ public class OrderHistory extends JFrame{
         bgLabel.add(btnReview);
         
         btnBack =  new JButton("Back");
-        btnBack.setBounds(10, 10, 68, 22);
+        btnBack.setBounds(20, 20, 68, 22);
         btnBack.setFont(new Font("Arial",Font.BOLD,12));
         bgLabel.add(btnBack);
         
