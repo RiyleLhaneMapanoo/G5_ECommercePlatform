@@ -41,11 +41,13 @@ public class mnpltfrm extends JFrame {
     MainPanel.setLayout(new BorderLayout());
 
 
-    platformname= new JLabel ("    ECP");
-    platformname.setBounds(70,80, 100, 50);
-    platformname.setFont(new Font("SansSerif", Font.BOLD, 18));
+    ImageIcon lbcon = new ImageIcon("C:\\Users\\June-PC\\Downloads\\lblicon.png");
+    Image scaledIcon = lbcon.getImage().getScaledInstance(80, 85, Image.SCALE_SMOOTH);
+
+    platformname= new JLabel ();
+    platformname.setBounds(115,55, 100, 90);
+    platformname.setIcon(new ImageIcon(scaledIcon));
     platformname.setBackground(new Color(255, 102, 204));
-    platformname.setBorder(BorderFactory.createEtchedBorder());
     platformname.setPreferredSize(new Dimension(100, 25));
     add(platformname);
     
@@ -70,12 +72,15 @@ public class mnpltfrm extends JFrame {
     add(btnSearch);
 
 
+    ImageIcon bttncart = new ImageIcon("C:\\Users\\June-PC\\Downloads\\btncart.png");
+    Image scaledcart = bttncart.getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH);
+    
     btncart = new JButton();
-    btncart.setBackground(new Color(204, 204, 255));
-    btncart.setText("cart");
-    btncart.setBounds(1250, 30, 65, 30);
+    btncart.setIcon(new ImageIcon(scaledcart));
+    btncart.setBounds(1250, 20, 65, 45);
 //    btncart.addActionListener(this);
     add(btncart);
+
     
     jMenuBar2 = new JMenuBar();
     jMenuBar2.setBackground(new Color(153, 102, 255));
@@ -332,42 +337,214 @@ public class mnpltfrm extends JFrame {
         makeupPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         makeupPanel.setPreferredSize(new Dimension(1200, 720)); 
         makeupPanel.setLayout(null);
-
+        
         m1 = new JPanel();
         m1.setBackground(new Color(255, 204, 204));
         m1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         m1.setBounds(90, 20, 230, 300);
-        makeupPanel.add(m1);
+        m1.setLayout(null);
+        makeupPanel.add(m1);         
 
+        JLabel m1image = new JLabel();
+        m1image.setBounds(40, 10, 150, 150);
+        m1image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        m1.add(m1image);
+        
+     
+        
+        JLabel prodname1 = new JLabel ("Concealer");
+        prodname1.setBounds(20,170,80,20);
+        prodname1.setFont(new Font("Arial", Font.BOLD,12));
+        m1.add(prodname1);
+        
+        JLabel price1 = new JLabel ("P 400.00");
+        price1.setBounds(20, 200, 80, 20);
+        price1.setFont(new Font("Arial", Font.PLAIN, 12));
+        price1.setForeground(Color.red);
+        m1.add(price1);
+        
+        JLabel rate1= new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        rate1.setBounds(20, 230, 90, 20);
+        rate1.setFont(new Font ("Arial", Font.PLAIN, 12));
+        rate1.setForeground(Color.GRAY);
+        m1.add(rate1);
+        
+        JButton cart1 = new JButton ("Add to Cart");
+        cart1.setBounds(100, 255, 100, 30);
+        m1.add (cart1);
+        
+        
         m2 = new JPanel();
         m2.setBackground(new Color(255, 204, 204));
         m2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         m2.setBounds(520, 20, 230, 300);
+        m2.setLayout(null);
         makeupPanel.add(m2);
+        
+                
+        JLabel m2image = new JLabel();
+        m2image.setBounds(40, 10, 150, 150);
+        m2image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        m2.add(m2image);
+        
+        
+        JLabel prodname2 = new JLabel ("Concealer");
+        prodname2.setBounds(20,170,80,20);
+        prodname2.setFont(new Font("Arial", Font.BOLD,12));
+        m2.add(prodname2);
+        
+        JLabel price2 = new JLabel ("P 400.00");
+        price2.setBounds(20, 200, 80, 20);
+        price2.setFont(new Font("Arial", Font.PLAIN, 12));
+        price2.setForeground(Color.red);
+        m2.add(price2);
+        
+        JLabel rate2 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        rate2.setBounds(20, 230, 90, 20);
+        rate2.setFont(new Font ("Arial", Font.PLAIN, 12));
+        rate2.setForeground(Color.GRAY);
+        m2.add(rate2);
+        
+        JButton cart2 = new JButton ("Add to Cart");
+        cart2.setBounds(100, 255, 100, 30);
+        m2.add (cart2);
+        
 
         m3 = new JPanel();
         m3.setBackground(new Color(255, 204, 204));
         m3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         m3.setBounds(930, 20, 230, 300);
+        m3.setLayout(null);
         makeupPanel.add(m3);
+        
+        JLabel m3image = new JLabel();
+        m3image.setBounds(40, 10, 150, 150);
+        m3image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        m3.add(m3image);
+        
+        
+        JLabel prodname3 = new JLabel ("Concealer");
+        prodname3.setBounds(20,170,80,20);
+        prodname3.setFont(new Font("Arial", Font.BOLD,12));
+        m3.add(prodname3);
+        
+        JLabel price3 = new JLabel ("P 400.00");
+        price3.setBounds(20, 200, 80, 20);
+        price3.setFont(new Font("Arial", Font.PLAIN, 12));
+        price3.setForeground(Color.red);
+        m3.add(price3);
+        
+        JLabel rate3 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        rate3.setBounds(20, 230, 90, 20);
+        rate3.setFont(new Font ("Arial", Font.PLAIN, 12));
+        rate3.setForeground(Color.GRAY);
+        m3.add(rate3);
+        
+        JButton cart3 = new JButton ("Add to Cart");
+        cart3.setBounds(100, 255, 100, 30);
+        m3.add (cart3);
 
         m4 = new JPanel();
         m4.setBackground(new Color(255, 204, 204));
         m4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         m4.setBounds(90, 400, 230, 300);
+        m4.setLayout(null);
         makeupPanel.add(m4);
+        
+        JLabel m4image = new JLabel();
+        m4image.setBounds(40, 10, 150, 150);
+        m4image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        m4.add(m4image);
+        
+        
+        JLabel prodname4 = new JLabel ("Concealer");
+        prodname4.setBounds(20,170,80,20);
+        prodname4.setFont(new Font("Arial", Font.BOLD,12));
+        m4.add(prodname4);
+        
+        JLabel price4 = new JLabel ("P 400.00");
+        price4.setBounds(20, 200, 80, 20);
+        price4.setFont(new Font("Arial", Font.PLAIN, 12));
+        price4.setForeground(Color.red);
+        m4.add(price4);
+        
+        JLabel rate4 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        rate4.setBounds(20, 230, 90, 20);
+        rate4.setFont(new Font ("Arial", Font.PLAIN, 12));
+        rate4.setForeground(Color.GRAY);
+        m4.add(rate4);
+        
+        JButton cart4 = new JButton ("Add to Cart");
+        cart4.setBounds(100, 255, 100, 30);
+        m4.add (cart4);
 
         m5 = new JPanel();
         m5.setBackground(new Color(255, 204, 204));
         m5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         m5.setBounds(520, 400, 230, 300);
+        m5.setLayout(null);
         makeupPanel.add(m5);
+        
+        JLabel m5image = new JLabel();
+        m5image.setBounds(40, 10, 150, 150);
+        m5image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        m5.add(m5image);
+        
+        
+        JLabel prodname5 = new JLabel ("Concealer");
+        prodname5.setBounds(20,170,80,20);
+        prodname5.setFont(new Font("Arial", Font.BOLD,12));
+        m5.add(prodname5);
+        
+        JLabel price5 = new JLabel ("P 400.00");
+        price5.setBounds(20, 200, 80, 20);
+        price5.setFont(new Font("Arial", Font.PLAIN, 12));
+        price5.setForeground(Color.red);
+        m5.add(price5);
+        
+        JLabel rate5 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        rate5.setBounds(20, 230, 90, 20);
+        rate5.setFont(new Font ("Arial", Font.PLAIN, 12));
+        rate5.setForeground(Color.GRAY);
+        m5.add(rate5);
+        
+        JButton cart5 = new JButton ("Add to Cart");
+        cart5.setBounds(100, 255, 100, 30);
+        m5.add (cart5);
         
         JPanel m6 = new JPanel();
         m6.setBackground(new Color(255, 204, 204));
         m6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         m6.setBounds(930, 400, 230, 300);
+        m6.setLayout(null);
         makeupPanel.add(m6);
+        
+        JLabel m6image = new JLabel();
+        m6image.setBounds(40, 10, 150, 150);
+        m6image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        m6.add(m6image);
+        
+        
+        JLabel prodname6 = new JLabel ("Concealer");
+        prodname6.setBounds(20,170,80,20);
+        prodname6.setFont(new Font("Arial", Font.BOLD,12));
+        m6.add(prodname6);
+        
+        JLabel price6 = new JLabel ("P 400.00");
+        price6.setBounds(20, 200, 80, 20);
+        price6.setFont(new Font("Arial", Font.PLAIN, 12));
+        price6.setForeground(Color.red);
+        m6.add(price6);
+        
+        JLabel rate6 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        rate6.setBounds(20, 230, 90, 20);
+        rate6.setFont(new Font ("Arial", Font.PLAIN, 12));
+        rate6.setForeground(Color.GRAY);
+        m6.add(rate6);
+        
+        JButton cart6 = new JButton ("Add to Cart");
+        cart6.setBounds(100, 255, 100, 30);
+        m6.add (cart6);
         
         MakeUpjScrollPane.setViewportView(makeupPanel);
 
@@ -375,18 +552,18 @@ public class mnpltfrm extends JFrame {
         makeups.setLayout(makeuptab1Layout);
 
         makeuptab1Layout.setHorizontalGroup(
-            makeuptab1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(makeuptab1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MakeUpjScrollPane, GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-                .addContainerGap()) );
+                makeuptab1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(makeuptab1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(MakeUpjScrollPane, GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                                .addContainerGap()) );
 
         makeuptab1Layout.setVerticalGroup(
-            makeuptab1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(makeuptab1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MakeUpjScrollPane, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                .addContainerGap()));
+                makeuptab1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(makeuptab1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(MakeUpjScrollPane, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                .addContainerGap()));
 
         products.addTab("COSMETICS", makeups);
         add(products);
@@ -412,37 +589,200 @@ public class mnpltfrm extends JFrame {
         c1.setBackground(new Color(255, 204, 204));
         c1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         c1.setBounds(90, 20, 230, 300);
+        c1.setLayout(null);
         clothespanel.add(c1);
+        
+        JLabel c1image = new JLabel();
+        c1image.setBounds(40, 10, 150, 150);
+        c1image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        c1.add(c1image);
+        
+        JLabel prodnamec1 = new JLabel ("Concealer");
+        prodnamec1.setBounds(20,170,80,20);
+        prodnamec1.setFont(new Font("Arial", Font.BOLD,12));
+        c1.add(prodnamec1);
+        
+        JLabel pricec1 = new JLabel ("P 400.00");
+        pricec1.setBounds(20, 200, 80, 20);
+        pricec1.setFont(new Font("Arial", Font.PLAIN, 12));
+        pricec1.setForeground(Color.red);
+        c1.add(pricec1);
+        
+        JLabel ratec1 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        ratec1.setBounds(20, 230, 90, 20);
+        ratec1.setFont(new Font ("Arial", Font.PLAIN, 12));
+        ratec1.setForeground(Color.GRAY);
+        c1.add(ratec1);
+        
+        JButton cartc1 = new JButton ("Add to Cart");
+        cartc1.setBounds(100, 255, 100, 30);
+        c1.add (cartc1);
 
         JPanel c2 = new JPanel();
         c2.setBackground(new Color(255, 204, 204));
         c2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         c2.setBounds(520, 20, 230, 300);
+        c2.setLayout(null);
         clothespanel.add(c2);
+        
+        JLabel c2image = new JLabel();
+        c2image.setBounds(40, 10, 150, 150);
+        c2image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        c2.add(c2image);
+        
+        JLabel prodnamec2 = new JLabel ("Concealer");
+        prodnamec2.setBounds(20,170,80,20);
+        prodnamec2.setFont(new Font("Arial", Font.BOLD,12));
+        c2.add(prodnamec2);
+        
+        JLabel pricec2 = new JLabel ("P 400.00");
+        pricec2.setBounds(20, 200, 80, 20);
+        pricec2.setFont(new Font("Arial", Font.PLAIN, 12));
+        pricec2.setForeground(Color.red);
+        c2.add(pricec2);
+        
+        JLabel ratec2 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        ratec2.setBounds(20, 230, 90, 20);
+        ratec2.setFont(new Font ("Arial", Font.PLAIN, 12));
+        ratec2.setForeground(Color.GRAY);
+        c2.add(ratec2);
+        
+        JButton cartc2 = new JButton ("Add to Cart");
+        cartc2.setBounds(100, 255, 100, 30);
+        c2.add (cartc2);
 
         JPanel c3 = new JPanel();
         c3.setBackground(new Color(255, 204, 204));
         c3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         c3.setBounds(930, 20, 230, 300);
+        c3.setLayout(null);
         clothespanel.add(c3);
+        
+         JLabel c3image = new JLabel();
+        c3image.setBounds(40, 10, 150, 150);
+        c3image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        c3.add(c3image);
+        
+        JLabel prodnamec3 = new JLabel ("Concealer");
+        prodnamec3.setBounds(20,170,80,20);
+        prodnamec3.setFont(new Font("Arial", Font.BOLD,12));
+        c3.add(prodnamec3);
+        
+        JLabel pricec3 = new JLabel ("P 400.00");
+        pricec3.setBounds(20, 200, 80, 20);
+        pricec3.setFont(new Font("Arial", Font.PLAIN, 12));
+        pricec3.setForeground(Color.red);
+        c3.add(pricec3);
+        
+        JLabel ratec3 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        ratec3.setBounds(20, 230, 90, 20);
+        ratec3.setFont(new Font ("Arial", Font.PLAIN, 12));
+        ratec3.setForeground(Color.GRAY);
+        c3.add(ratec3);
+        
+        JButton cartc3 = new JButton ("Add to Cart");
+        cartc3.setBounds(100, 255, 100, 30);
+        c3.add (cartc3);
 
         JPanel c4 = new JPanel();
         c4.setBackground(new Color(255, 204, 204));
         c4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         c4.setBounds(90, 400, 230, 300);
+        c4.setLayout(null);
         clothespanel.add(c4);
+        
+         JLabel c4image = new JLabel();
+        c4image.setBounds(40, 10, 150, 150);
+        c4image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        c4.add(c4image);
+        
+        JLabel prodnamec4 = new JLabel ("Concealer");
+        prodnamec4.setBounds(20,170,80,20);
+        prodnamec4.setFont(new Font("Arial", Font.BOLD,12));
+        c4.add(prodnamec4);
+        
+        JLabel pricec4 = new JLabel ("P 400.00");
+        pricec4.setBounds(20, 200, 80, 20);
+        pricec4.setFont(new Font("Arial", Font.PLAIN, 12));
+        pricec4.setForeground(Color.red);
+        c4.add(pricec4);
+        
+        JLabel ratec4 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        ratec4.setBounds(20, 230, 90, 20);
+        ratec4.setFont(new Font ("Arial", Font.PLAIN, 12));
+        ratec4.setForeground(Color.GRAY);
+        c4.add(ratec4);
+        
+        JButton cartc4 = new JButton ("Add to Cart");
+        cartc4.setBounds(100, 255, 100, 30);
+        c4.add (cartc4);
 
         JPanel c5 = new JPanel();
         c5.setBackground(new Color(255, 204, 204));
         c5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         c5.setBounds(520, 400, 230, 300);
+        c5.setLayout(null);
         clothespanel.add(c5);
+        
+         JLabel c5image = new JLabel();
+        c5image.setBounds(40, 10, 150, 150);
+        c5image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        c5.add(c5image);
+        
+        JLabel prodnamec5 = new JLabel ("Concealer");
+        prodnamec5.setBounds(20,170,80,20);
+        prodnamec5.setFont(new Font("Arial", Font.BOLD,12));
+        c5.add(prodnamec5);
+        
+        JLabel pricec5 = new JLabel ("P 400.00");
+        pricec5.setBounds(20, 200, 80, 20);
+        pricec5.setFont(new Font("Arial", Font.PLAIN, 12));
+        pricec5.setForeground(Color.red);
+        c5.add(pricec5);
+        
+        JLabel ratec5 = new JLabel("⭐⭐⭐⭐⭐ 4.8");
+        ratec5.setBounds(20, 230, 90, 20);
+        ratec5.setFont(new Font ("Arial", Font.PLAIN, 12));
+        ratec5.setForeground(Color.GRAY);
+        c5.add(ratec5);
+        
+        JButton cartc5 = new JButton ("Add to Cart");
+        cartc5.setBounds(100, 255, 100, 30);
+        c5.add (cartc5);
         
         JPanel c6 = new JPanel();
         c6.setBackground(new Color(255, 204, 204));
         c6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         c6.setBounds(930, 400, 230, 300);
+        c6.setLayout(null);
         clothespanel.add(c6);
+        
+         JLabel c6image = new JLabel();
+        c6image.setBounds(40, 10, 150, 150);
+        c6image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+        c6.add(c6image);
+       
+        JLabel prodnamec6 = new JLabel ("Concealer");
+        prodnamec6.setBounds(20,170,80,20);
+        prodnamec6.setFont(new Font("Arial", Font.BOLD,12));
+        c6.add(prodnamec6);
+        
+        JLabel pricec6 = new JLabel ("P 400.00");
+        pricec6.setBounds(20, 200, 80, 20);
+        pricec6.setFont(new Font("Arial", Font.PLAIN, 12));
+        pricec6.setForeground(Color.red);
+        c6.add(pricec6);
+        
+        JLabel ratec6 = new JLabel("⭐⭐⭐⭐⭐ 4.8"); 
+        ratec6.setBounds(20, 230, 90, 20);
+        ratec6.setFont(new Font ("Arial", Font.PLAIN, 12));
+        ratec6.setForeground(Color.GRAY);
+        c6.add(ratec6);
+        
+        JButton cartc6 = new JButton ("Add to Cart");
+        cartc6.setBounds(100, 255, 100, 30);
+        c6.add (cartc6);
+        
         
         clothesScrolpane.setViewportView(clothespanel);
 
