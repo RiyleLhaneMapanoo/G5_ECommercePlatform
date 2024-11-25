@@ -30,14 +30,13 @@ public class mnpltfrm extends JFrame {
     mnpltfrm(){
 
      setTitle("ECP-Platform");
-     setExtendedState(JFrame.MAXIMIZED_BOTH);
      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-     setContentPane(new JLabel(new ImageIcon("C:\\Users\\June-PC\\Downloads\\0fafeccd-7ec7-4286-8db0-1c1553847f7d")));
      setLayout(null);
 
     MainPanel = new JPanel();
     MainPanel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
     MainPanel.setBackground(new Color(93, 66, 90));
+    MainPanel.setPreferredSize(new Dimension(1385, 764));
     MainPanel.setLayout(new BorderLayout());
 
 
