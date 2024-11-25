@@ -53,7 +53,7 @@ public class classLoginPage extends JFrame implements ActionListener {
         lblPassword = new JLabel("Password: ");
         lblPassword.setFont(new Font("Open Sans", Font.PLAIN,30));
         lblPassword.setForeground(Color.black);
-        lblPassword.setBounds(350, 400, 300, 80);
+        lblPassword.setBounds(350, 410, 300, 80);
         add(lblPassword);
         
         txfEmail = new JTextField();
@@ -63,7 +63,7 @@ public class classLoginPage extends JFrame implements ActionListener {
         
         pfPassword = new JPasswordField();
         pfPassword.setFont(new Font("Open Sans", Font.PLAIN,20));
-        pfPassword.setBounds(590, 425, 300, 30);
+        pfPassword.setBounds(590, 435, 300, 30);
         add(pfPassword);
         
         btnSignin = new JButton("Sign In");

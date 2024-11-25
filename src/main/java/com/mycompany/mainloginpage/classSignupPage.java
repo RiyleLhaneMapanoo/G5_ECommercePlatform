@@ -21,7 +21,7 @@ class classSignupPage extends JFrame implements ActionListener{
      JButton signUpBtn,signInBtn;   
      JPanel backgroundPl;
     classSignupPage(){
-        setSize(1385,764);
+        setSize(1385,764);        
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Welcome! Please Sign up");
