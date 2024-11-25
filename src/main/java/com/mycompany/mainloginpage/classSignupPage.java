@@ -16,12 +16,12 @@ import java.sql.*;
 class classSignupPage extends JFrame implements ActionListener{
      Connection con = null;
      PreparedStatement state = null;
-     JLabel titleLbl, welcomeLbl, signupLbl, fullNameLbl, emailLbl, passwordLbl, signInLbl;
-     JTextField fullNameTxf, emailTxf, passwordTxf;
+     JLabel titleLbl, welcomeLbl, signupLbl, fullNameLbl, emailLbl,addressLbl, contactLbl, passwordLbl, signInLbl;
+     JTextField fullNameTxf, emailTxf, addressTxf, contactTxf, passwordTxf;
      JButton signUpBtn,signInBtn;   
      JPanel backgroundPl;
     classSignupPage(){
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(1385,764);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Welcome! Please Sign up");
@@ -48,54 +48,76 @@ class classSignupPage extends JFrame implements ActionListener{
         fullNameLbl = new JLabel("Full Name: ");
         fullNameLbl.setFont(new Font("Open Sans", Font.PLAIN,30));
         fullNameLbl.setForeground(Color.black);
-        fullNameLbl.setBounds(350, 310, 300, 80);
+        fullNameLbl.setBounds(350, 300, 300, 80);
         add(fullNameLbl);
         
         emailLbl = new JLabel("Email: ");
         emailLbl.setFont(new Font("Open Sans", Font.PLAIN,30));
         emailLbl.setForeground(Color.black);
-        emailLbl.setBounds(350, 370, 300, 80);
+        emailLbl.setBounds(350, 350, 300, 80);
         add(emailLbl);
         
+        addressLbl = new JLabel("Address: ");
+        addressLbl.setFont(new Font("Open Sans", Font.PLAIN,30));
+        addressLbl.setForeground(Color.black);
+        addressLbl.setBounds(350, 400, 300, 80);        
+        add(addressLbl);
+        
+        contactLbl = new JLabel("Contact No.: ");
+        contactLbl.setFont(new Font("Open Sans", Font.PLAIN,30));        
+        contactLbl.setForeground(Color.black);
+        contactLbl.setBounds(350, 450, 300, 80);        
+        add(contactLbl);
+          
         passwordLbl = new JLabel("Password: ");
         passwordLbl.setFont(new Font("Open Sans", Font.PLAIN,30));
         passwordLbl.setForeground(Color.black);
-        passwordLbl.setBounds(350, 430, 300, 80);
+        passwordLbl.setBounds(350, 500, 300, 80);
         add(passwordLbl);
         
         fullNameTxf = new JTextField();
         fullNameTxf.setFont(new Font("Open Sans",Font.PLAIN,20));
-        fullNameTxf.setBounds(590, 335, 300, 30);
+        fullNameTxf.setBounds(590, 325, 300, 30);
         add(fullNameTxf);
         
         emailTxf = new JTextField();
         emailTxf.setFont(new Font("Open Sans", Font.PLAIN,20));
-        emailTxf.setBounds(590, 395, 300, 30);
+        emailTxf.setBounds(590, 375, 300, 30);
         add(emailTxf);
+        
+        addressTxf = new JTextField();
+        addressTxf.setFont(new Font("Open Sans", Font.PLAIN,20));
+        addressTxf.setBounds(590, 425, 300, 30);
+        add(addressTxf);
+        
+        contactTxf = new JTextField();
+        contactTxf.setFont(new Font("Open Sans", Font.PLAIN,20));
+        contactTxf.setBounds(590, 475, 300, 30);
+        add(contactTxf);      
         
         passwordTxf = new JTextField();
         passwordTxf.setFont(new Font("Open Sans", Font.PLAIN,20));
-        passwordTxf.setBounds(590, 455, 300, 30);
+        passwordTxf.setBounds(590, 525, 300,30);
         add(passwordTxf);
         
         signUpBtn = new JButton("Sign Up");
         signUpBtn.setFont(new Font("Open Sans",Font.PLAIN,25));
         signUpBtn.setForeground(Color.white);
         signUpBtn.setBackground(new Color(80,32,77));
-        signUpBtn.setBounds(590, 510, 300, 40);
+        signUpBtn.setBounds(590, 558, 300, 35);
         add(signUpBtn);
         
         signInLbl = new JLabel("Already have an account");
         signInLbl.setFont(new Font("Open Sans", Font.ITALIC,15));
         signInLbl.setForeground(Color.white);
-        signInLbl.setBounds(640, 565, 600, 30);
+        signInLbl.setBounds(640, 587, 600, 30);
         add(signInLbl);
         
         signInBtn = new JButton("Sign In");
         signInBtn.setFont(new Font("Open Sans", Font.ITALIC,25));
         signInBtn.setForeground(Color.white);
         signInBtn.setBackground(new Color(80,32,77));
-        signInBtn.setBounds(590, 600, 300, 40);
+        signInBtn.setBounds(590, 610, 300, 35);
         add(signInBtn);
         
         backgroundPl = new JPanel();

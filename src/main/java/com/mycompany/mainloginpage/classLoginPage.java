@@ -20,7 +20,7 @@ public class classLoginPage extends JFrame implements ActionListener {
     JPanel plBackround;
     
     classLoginPage(){
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(1385,764);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Welcome! Please Sign In");
