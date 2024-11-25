@@ -9,19 +9,21 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.LinkedList;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-
+//SIRS ACTION PERFORMED METHOD
 /**
  *
  * @author Raylen
  */
-public class logPage_InvRepVer4 extends JFrame {
+public class logPage_InvRepVer5 extends JFrame implements ActionListener{
     
     private JButton addProds[],minusProds[],buyPro,addAvailProds[],updateQuan;
-    private JLabel title,productlbl,pricelbl,priLabel1,priLabel2,priLabel3,quantitylbl,quanPro[],quantLeft,prod1QL,prod2QL,prod3QL;
+    private JLabel title,productlbl,pricelbl,priLabel1,priLabel2,priLabel3,quantitylbl,quanPro[],quantLeft,prodQL[];
     //Product update stock
     private JComboBox proCat,selectPro;
 
@@ -47,11 +49,9 @@ public class logPage_InvRepVer4 extends JFrame {
     private int intproduct2Count = 0;
     private int intproduct3Count = 0;
     
-    private int intproduct1StockAvail = 0;
-    private int intproduct2StockAvail = 0;
-    private int intproduct3StockAvail = 0;
+   private int origStockValue;
     
-    public logPage_InvRepVer4(){
+    public logPage_InvRepVer5(){
     
      setSize(700,700);
     setLayout(null);
@@ -85,7 +85,7 @@ public class logPage_InvRepVer4 extends JFrame {
     }//to make cells uneditable
     
     };//the table itself
-    //inv.setFillsViewportHeight(true);//fills the entire table with bg color
+   
     inv.getTableHeader().setReorderingAllowed(false);//so that table would not move
     SPtable = new JScrollPane(inv);//insert the table here to make it scroll-able
     SPtable.setBounds(20, 50, 600, 200);
@@ -206,6 +206,7 @@ public class logPage_InvRepVer4 extends JFrame {
              quanPro[0].setText(String.valueOf(intproduct1Count));
          }
     });
+    
     minusProds[1].addActionListener(e ->{
            if(intproduct2Count <= 0){
         JOptionPane.showMessageDialog(this, "Please add first", "ERROR: Product Quantity is 0", JOptionPane.ERROR_MESSAGE);
@@ -224,22 +225,26 @@ public class logPage_InvRepVer4 extends JFrame {
     });
     
     
+    
     //Quantity Left
     quantLeft = new JLabel("Quantity Available");
     quantLeft.setBounds(350, 400, 120, 20);
     add(quantLeft);
     
-    prod1QL = new JLabel("0");
-    prod1QL.setBounds(380, 450, 50, 20);
-    add(prod1QL);
     
-    prod2QL = new JLabel("0");
-    prod2QL.setBounds(380, 480, 50, 20);
-    add(prod2QL);
     
-    prod3QL = new JLabel("0");
-    prod3QL.setBounds(380, 510, 50, 20);
-    add(prod3QL);
+    prodQL = new JLabel[] {
+    new JLabel("0"),
+    new JLabel("0"),
+    new JLabel("0")
+   };
+    for (int i = 0; i < prodQL.length; i++) {
+            prodQL[i].setFont(new Font("Segoe UI",Font.PLAIN,12));
+            prodQL[i].setBounds(380, 450 + (i * 30), 50, 20); // Positioning checkboxes vertically; basically what this does is automatically add and position newly created check boxes by adding a gap of 30 each
+            add(prodQL[i]); // Add each checkbox to the frame
+   }
+    
+    
     
     
     //For buttons to manually add product; erased due to function inefficiency
@@ -261,65 +266,6 @@ public class logPage_InvRepVer4 extends JFrame {
     add(buyPro);
     
     
-    buyPro.addActionListener(e -> {
-        
-    // Map to store categories and their associated checkboxes
-    Map<String, Object[]> categoryMap = new HashMap<>();
-    
-    // Populate the map with categories and corresponding checkboxes
-    categoryMap.put("Gadget", new Object[]{new JCheckBox[]{cpCheckBox}, new JLabel[]{quanPro[0]}});
-    categoryMap.put("Makeup", new Object[]{new JCheckBox[]{eyeCheckBox}, new JLabel[]{quanPro[1]}});
-    categoryMap.put("School Supplies",new Object[]{ new JCheckBox[]{noteCheckBox}, new JLabel[]{quanPro[2]}});
-    // Add more categories and checkboxes here as needed
-
-    
-            
-    try {
-        Connection connection = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/logregtest", "root", "1027");
-
-        String query = "INSERT INTO inventorytesttable1 (Product, Category,originalQuan,stockBought,currentAvail) VALUES (?, ?,?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-        // Loop through each category and its checkboxes
-        for (Map.Entry<String, Object[]> entry : categoryMap.entrySet()) {
-            String category = entry.getKey();
-            Object[] values = entry.getValue();
-            JCheckBox[] checkBoxes = (JCheckBox[]) values[0];
-            JLabel[] labels = (JLabel[]) values[1];
-            
-             for (int i = 0; i < checkBoxes.length; i++) {
-                JCheckBox checkBox = checkBoxes[i];
-                JLabel label = labels[i];
-
-                if (checkBox.isSelected()) {
-                    try {
-                        // Parse the text of the JLabel to an int
-                        int labelValue = Integer.parseInt(label.getText());
-
-                        // Set the values to the prepared statement
-                        preparedStatement.setString(1, checkBox.getText()); // Product name
-                        preparedStatement.setString(2, category); // Category name
-                          preparedStatement.setInt(3,10); // Category name
-                        preparedStatement.setInt(4, labelValue); // Int value from JLabel
-
-                        // Execute the insert statement
-                        preparedStatement.executeUpdate();
-                    } catch (NumberFormatException ex) {
-                        System.out.println("Invalid integer value in JLabel: " + label.getText());
-                    }
-                }
-            }
-        }
-
-        connection.close();
-    } catch (Exception exception) {
-        exception.printStackTrace();
-    }
-});
-
-    
-
     
     
     
@@ -344,9 +290,15 @@ public class logPage_InvRepVer4 extends JFrame {
     
     proCat = new JComboBox();
     proCat.setBounds(500,  470, 120, 20);
-    proCat.addItem("Test");
-    proCat.addItem("test");
+   
+    proCat.addItem("Gadget");
+    proCat.addItem("Makeup");
+    proCat.addItem("School Supplies");
+    proCat.addActionListener(this);
     add(proCat); 
+    
+    
+    
     
     JLabel updateStocklbl2 = new JLabel("Select Product");
     updateStocklbl2.setBounds(500,  490, 120, 20);
@@ -354,16 +306,138 @@ public class logPage_InvRepVer4 extends JFrame {
     
     selectPro = new JComboBox();
     selectPro.setBounds(500,  520, 120, 20);
+    selectPro.addItem(cpCheckBox.getText());
     add(selectPro); 
+    
+    
+    //Action Listeners
+    buyPro.addActionListener(this);
+    updateQuan.addActionListener(this);
+    
+    
+    
     
     }
   
+    public void actionPerformed(ActionEvent e){
+   
+    if(e.getSource()==updateQuan){
+           updateOrigStock(selectPro,proCat,origStockValue);
+     }else if(e.getSource()==buyPro){
+    // Map to store categories and their associated checkboxes
+    Map<String, Object[]> categoryMap = new HashMap<>();
+    
+    // Populate the map with categories and corresponding checkboxes
+    categoryMap.put("Gadget", new Object[]{new JCheckBox[]{cpCheckBox}, new JLabel[]{quanPro[0]},new JLabel[]{prodQL[0]}});
+    categoryMap.put("Makeup", new Object[]{new JCheckBox[]{eyeCheckBox}, new JLabel[]{quanPro[1]},new JLabel[]{prodQL[1]}});
+    categoryMap.put("School Supplies",new Object[]{ new JCheckBox[]{noteCheckBox}, new JLabel[]{quanPro[2]},new JLabel[]{prodQL[2]}});
+    // Add more categories and checkboxes here as needed
+
+    
+            
+    try {
+        Connection connection = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/logregtest", "root", "1027");
+
+        String query = "INSERT INTO inventorytesttable1 (Product, Category,originalQuan,stockBought,currentAvail) VALUES (?, ?,?,?,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        // Loop through each category and its checkboxes
+        for (Map.Entry<String, Object[]> entry : categoryMap.entrySet()) {
+            String category = entry.getKey();
+            Object[] values = entry.getValue();
+            JCheckBox[] productCB = (JCheckBox[]) values[0];
+            JLabel[] prodStockBought = (JLabel[]) values[1];
+            JLabel[] prodStockAvail = (JLabel[]) values[2];
+            
+             for (int i = 0; i < productCB.length; i++) {
+                JCheckBox checkBox = productCB[i];
+                JLabel prodSB = prodStockBought[i];
+                JLabel prodSA = prodStockAvail[i];
+
+                if (checkBox.isSelected()) {
+                    try {
+                        // Parse the text of the JLabel to an int
+                        int prodSBValue = Integer.parseInt(prodSB.getText());
+                         int prodSAValue = Integer.parseInt(prodSA.getText());
+                         
+                       // int originalStock = 
+                         
+                         
+                         prodSAValue = origStockValue - prodSBValue;
+                        
+
+                        // Set the values to the prepared statement
+                        preparedStatement.setString(1, checkBox.getText()); // Product name
+                        preparedStatement.setString(2, category); // Category name
+                          preparedStatement.setInt(3,origStockValue); // Category name
+                        preparedStatement.setInt(4, prodSBValue); // Int value from JLabel
+                        preparedStatement.setInt(5, prodSAValue); // Int value from JLabel
+
+                        // Execute the insert statement
+                        preparedStatement.executeUpdate();
+                    } catch (NumberFormatException ex) {
+                        System.out.println("Invalid integer value in JLabel: " + prodSB.getText());
+                    }
+                }
+            }
+        }
+
+        connection.close();
+    } catch (Exception exception) {
+        exception.printStackTrace();
+    }
     
     
+    }
+    
+    
+     proCat.addItemListener(new ItemListener(){
+    public void itemStateChanged(ItemEvent e){
+    
+        if(e.getStateChange()==ItemEvent.SELECTED){
+        updateProductComboBoxes();
+        }
+    }
+    
+    });
+     updateProductComboBoxes();
+     
+     
+    
+     
+    }
+    
+    public void updateProductComboBoxes(){
+    String selectedCat = (String) proCat.getSelectedItem();
+     String productNames[] = {cpCheckBox.getText(),eyeCheckBox.getText(),noteCheckBox.getText()};
+     
+       selectPro.removeAllItems();
+     if("Gadget".equals(selectedCat)){
+     selectPro.addItem(productNames[0]);
+     
+     }else if("Makeup".equals(selectedCat)){
+      selectPro.addItem(productNames[1]);
+     }else if("School Supplies".equals(selectedCat)){
+      selectPro.addItem(productNames[2]);
+     }
+    
+    }
+    public void updateOrigStock(JComboBox productItem,JComboBox categoryItem,int stockVal){
+    
+       String itemSelected = (String) productItem.getSelectedItem();
+       String catSelected = (String) categoryItem.getSelectedItem();
+        String stock = inputStock.getText();
+        origStockValue = Integer.parseInt(stock);
+        
+        System.out.println("The original stock of: "+itemSelected+" in "+catSelected+" is "+origStockValue);
+          
+    
+    }
     
     public static void main(String[] args){
     
-    logPage_InvRepVer4 l = new logPage_InvRepVer4();
+    logPage_InvRepVer5 l = new logPage_InvRepVer5();
     l.setVisible(true);
     l.setLocationRelativeTo(null);
     }

@@ -15,6 +15,7 @@ public class Product {
        
        //Item Checkbox Declaration
         public JCheckBox[] getAllCheckBoxes() {
+            
         return new JCheckBox[] { cpCheckBox, eyeCheckBox, noteCheckBox };
     }
         

@@ -152,6 +152,9 @@ try {
         passwordField.setText("");
     }
     
+    
+    
+    
     else {
         // If no match is found, proceed to insert the new account
         String query = "INSERT INTO logg (name, password) VALUES (?, ?)";

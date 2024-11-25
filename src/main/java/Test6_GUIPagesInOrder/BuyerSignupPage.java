@@ -2,8 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package EComPlatfrom;
-
+package Test6_GUIPagesInOrder;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -15,22 +14,18 @@ import java.sql.*;
  * @author Bering
  */
 class BuyerSignupPage extends JFrame implements ActionListener{
-   //  Connection con = null;
-     //PreparedStatement state = null;
+     Connection con = null;
+     PreparedStatement state = null;
      JLabel titleLbl, welcomeLbl, signupLbl, fullNameLbl, emailLbl, passwordLbl, signInLbl;
      JTextField fullNameTxf, emailTxf, passwordTxf;
      JButton signUpBtn,signInBtn;   
      JPanel backgroundPl;
     BuyerSignupPage(){
-        
-        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Welcome! Please Sign up");
-        setContentPane(new JLabel(new ImageIcon("src\\main\\java\\Images\\background.png")));
-        setLayout(null);
-        setSize(1385,764);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        setContentPane(new JLabel(new ImageIcon("C:\\Users\\Bering\\Downloads\\Landing Page.png")));
         
         titleLbl = new JLabel("C a s e . j a r");
         titleLbl.setFont(new Font("Times New Roman", Font.BOLD,80));
@@ -118,70 +113,38 @@ class BuyerSignupPage extends JFrame implements ActionListener{
              login.setVisible(true);
              dispose();
          } if(e.getSource() == signUpBtn){
-             
-               String fullName = fullNameTxf.getText();
-             String emailUser = emailTxf.getText();
-             String password = passwordTxf.getText();
-             
              try{
-             String checkExisitingValueQuery = "SELECT * FROM usertable WHERE email = ?";
-             Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
-             PreparedStatement checkExisitingValueState = checkExisitingValueCon.prepareStatement(checkExisitingValueQuery);         
-             checkExisitingValueState.setString(1, emailTxf.getText());
-                 
-                ResultSet resultSet = checkExisitingValueState.executeQuery();
-                
-                
-                if(resultSet.next()){
-                
-                String existingEmail = resultSet.getString("email");
-                //Nested if
-                if(emailUser.equals(existingEmail)){
-                
-                 JOptionPane.showMessageDialog(this, "Email already used in an exisiting account", "Error", JOptionPane.ERROR_MESSAGE);
-                 fullNameTxf.setText("");
-                emailTxf.setText("");
-                passwordTxf.setText("");
-                
-                
-                }
-                
-                }else{
-           
-              if(fullName.isEmpty() || emailUser.isEmpty() || password.isEmpty()){
-                       
-                JOptionPane.showMessageDialog(signUpBtn, "Fill out all the necessary info.");
-                 fullNameTxf.setText("");
-                emailTxf.setText("");
-                passwordTxf.setText("");
-            //Would pop out pag di sya makagawa ng account(ex: masyado mahaba value or mispelled na value sa database)
-            
-               }else{
-                        String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`) VALUES ( ?, ?, ?)";
-             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
-             PreparedStatement state = con.prepareStatement(query);
+             String query = "INSERT INTO `user`(`id`, `full_name`, `email`, `password`) VALUES (?, ?, ?, ?)";
+             con = DriverManager.getConnection("jdbc:mysql://localhost/user_database","root","12345");
+             state = con.prepareStatement(query);
              state.setString(1, fullNameTxf.getText());
              state.setString(2, emailTxf.getText());
              state.setString(3, passwordTxf.getText());
-                 
-                 JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY");
-                fullNameTxf.setText("");
-                emailTxf.setText("");
-                passwordTxf.setText("");
-             state.executeUpdate();
-                   
-               }
-             }
-             
+             state.setString(4, fullNameTxf.getText());
+             state.executeUpdate();      
+             JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY");
              }catch(Exception ex){
-                    //    System.out.println(ex);   
-             JOptionPane.showMessageDialog(null,"An error has occured. ");
-                 fullNameTxf.setText("");
-                emailTxf.setText("");
-                passwordTxf.setText("");
+             JOptionPane.showMessageDialog(null,ex);
+                
              }
-           
-             
+             String fullName = fullNameTxf.getText();
+             String email = emailTxf.getText();
+             String password = passwordTxf.getText();
+             if(fullName.isEmpty() && email.isEmpty() && password.isEmpty()){
+                 JOptionPane.showMessageDialog(this, "Unable to create an accoount", "Error", JOptionPane.ERROR_MESSAGE);
+             }else if(fullName.isEmpty() && email.isEmpty()){
+                 JOptionPane.showMessageDialog(this, "Enter a Full Name and Email", "Error", JOptionPane.ERROR_MESSAGE);
+             }else if(email.isEmpty() && password.isEmpty()){
+                 JOptionPane.showMessageDialog(this, "Enter your Email and Password", "Error", JOptionPane.ERROR_MESSAGE);
+             }else if(fullName.isEmpty() && password.isEmpty()){
+                 JOptionPane.showMessageDialog(this, "Enter an Full Name and Password", "Error", JOptionPane.ERROR_MESSAGE);
+             }else if(fullName.isEmpty()){
+                 JOptionPane.showMessageDialog(this, "Enter Full Name ", "Error", JOptionPane.ERROR_MESSAGE);
+             } else if(email.isEmpty()){
+                 JOptionPane.showMessageDialog(this, "Enter Email", "Unable to create an account", JOptionPane.ERROR_MESSAGE);
+             }else{
+                 JOptionPane.showMessageDialog(this, "Enter Password", "Unable to create an account", JOptionPane.ERROR_MESSAGE);
+             }
          }
      }
 }

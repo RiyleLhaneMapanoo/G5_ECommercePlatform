@@ -121,7 +121,7 @@ private static final long serialVersionUID = 1L;
 
     private void btnNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewButtonActionPerformed
      
-      String userName = textField.getText();
+             String userName = textField.getText();
                 String password = passwordField.getText();
                 try {
                     Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/logregtest",
