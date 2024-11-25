@@ -350,8 +350,6 @@ public class mnpltfrm extends JFrame {
         m1image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
         m1.add(m1image);
         
-     
-        
         JLabel prodname1 = new JLabel ("Concealer");
         prodname1.setBounds(20,170,80,20);
         prodname1.setFont(new Font("Arial", Font.BOLD,12));
@@ -373,7 +371,6 @@ public class mnpltfrm extends JFrame {
         cart1.setBounds(100, 255, 100, 30);
         m1.add (cart1);
         
-        
         m2 = new JPanel();
         m2.setBackground(new Color(255, 204, 204));
         m2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
@@ -381,12 +378,10 @@ public class mnpltfrm extends JFrame {
         m2.setLayout(null);
         makeupPanel.add(m2);
         
-                
         JLabel m2image = new JLabel();
         m2image.setBounds(40, 10, 150, 150);
         m2image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
         m2.add(m2image);
-        
         
         JLabel prodname2 = new JLabel ("Concealer");
         prodname2.setBounds(20,170,80,20);
@@ -455,7 +450,6 @@ public class mnpltfrm extends JFrame {
         m4image.setBounds(40, 10, 150, 150);
         m4image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
         m4.add(m4image);
-        
         
         JLabel prodname4 = new JLabel ("Concealer");
         prodname4.setBounds(20,170,80,20);
@@ -658,7 +652,7 @@ public class mnpltfrm extends JFrame {
         c3.setLayout(null);
         clothespanel.add(c3);
         
-         JLabel c3image = new JLabel();
+        JLabel c3image = new JLabel();
         c3image.setBounds(40, 10, 150, 150);
         c3image.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
         c3.add(c3image);
