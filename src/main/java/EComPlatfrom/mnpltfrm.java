@@ -58,7 +58,7 @@ public class mnpltfrm extends JFrame {
     filter= new JComboBox<>();
     filter.setBounds(1200, 83, 70, 40);
     filter.setBackground(new Color(255, 102, 255));
-    filter.setFont(new Font("Segoe UI Black", 0, 12)); // NOI18N
+    filter.setFont(new Font("Segoe UI Black", 0, 12)); 
     filter.setModel(new DefaultComboBoxModel<>(new String[] {"price", "ratings"}));
     filter.setToolTipText("");
     add(filter);
