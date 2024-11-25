@@ -28,7 +28,7 @@ import javax.swing.border.BevelBorder;
  */
 public class ProductClass  {
    
-    private DefaultListModel<String> productListModel;  // For JList
+    private DefaultListModel<String> productListModel;  // For JList/ product list
     private JList<String> productList;
     private JPanel[] productPanels;  // Array to store panels
     private int panelCount = 0;  // To keep track of the panels added
@@ -45,7 +45,7 @@ public class ProductClass  {
 
     private void connectToDatabase() {
         try {
-            // Adjust these based on your database settings
+            
             String url = "jdbc:mysql://localhost:3306/testecom1";
             String user = "root";
             String password = "1027";
@@ -58,10 +58,10 @@ public class ProductClass  {
    
     
     
-     // Method to create a new panel based on product ID
+     
     public JPanel createProductPanel(String category) {
         try {
-            // Get the next product_id from the database
+            
             String query = "Select productId,productName,price,ratings from example_product WHERE category = ? limit 1 offset " + panelCount; // Get product by order
             
             PreparedStatement pst = conn.prepareStatement(query);
@@ -88,7 +88,8 @@ public class ProductClass  {
                 int yPosition = 20 + (panelCount / 3) * 350;  // Adjust vertical spacing
                 panel.setBounds(xPosition, yPosition, 230, panelheight);  // Adjust size and position
  
-                
+               
+                //DITO LAGAY YUNG NSA LOOB NG PRODUCT PANELS (ex, Name, Jlabel for photo, price, add to cart button etc)
                 // Add product information from database
                // JLabel nameLabel = new JLabel(productTag);
                // JLabel priceLabel = new JLabel("$" + price);
@@ -102,10 +103,7 @@ public class ProductClass  {
                 productListModel.addElement("Product " + productIdenti + ": " + productTag);
                 panelCount++;
 
-                  // Increment the count for the category
-           
-
-                // Return the newly created panel
+                  
                 return panel;
             }
         } catch (SQLException e) {
@@ -140,7 +138,7 @@ public class ProductClass  {
     public int getTotalProductCount(String category) {
     int totalCount = 0;
     try {
-        String query = "SELECT count(*) FROM example_product where category = ?"; // Query to get the total count
+        String query = "SELECT count(*) FROM example_product where category = ?"; // Query to get the total count ng kung ilang products yung nsa category n yun
         PreparedStatement pst = conn.prepareStatement(query);
         pst.setString(1, category);
         ResultSet rs = pst.executeQuery();
