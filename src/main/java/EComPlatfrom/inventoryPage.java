@@ -73,11 +73,11 @@ public class inventoryPage extends JFrame implements ActionListener{
         
         if(e.getSource()==backBut){
         
-//           eComPageSeller page = new eComPageSeller();
-//    page.setVisible(true);
-//    page.setSize(1385,764);
-//    page.setLocationRelativeTo(null);
-//     dispose();
+           eComPageSeller page = new eComPageSeller();
+    page.setVisible(true);
+    page.setSize(1385,764);
+    page.setLocationRelativeTo(null);
+     dispose();
         }
     }
 }

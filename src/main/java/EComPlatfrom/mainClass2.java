@@ -12,10 +12,10 @@ public class mainClass2 {
 
     public static void main(String[] args) {
 
-//        OrderHistory login = new OrderHistory();
-//        login.setVisible(true);
-//        login.setResizable(false);
-        // login. setLocationRelativeTo(null);
+        OrderHistory login = new OrderHistory();
+        login.setVisible(true);
+        login.setResizable(false);
+         login. setLocationRelativeTo(null);
 
     }
 }
