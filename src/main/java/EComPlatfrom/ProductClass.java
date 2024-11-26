@@ -44,6 +44,7 @@ public class ProductClass  {
     }
 
     private void connectToDatabase() {
+        //test
         try {
             
             String url = "jdbc:mysql://localhost:3306/testecom1";
