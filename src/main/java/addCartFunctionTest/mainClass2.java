@@ -2,15 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Test1_Image;
+package addCartFunctionTest;
+
+import EComPlatfrom.*;
 
 /**
  *
  * @author Raylen
  */
-public class Main {
+public class mainClass2 {
+
     public static void main(String[] args) {
-     imageTest1 img = new imageTest1();
-     img.setVisible(true);
+
+        eComPageUser login = new eComPageUser();
+        login.setVisible(true);
+        login.setResizable(false);
+        // login. setLocationRelativeTo(null);
+
     }
 }

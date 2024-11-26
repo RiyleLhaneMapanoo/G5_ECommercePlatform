@@ -12,7 +12,7 @@ public class mainClass2 {
 
     public static void main(String[] args) {
 
-        OrderHistory login = new OrderHistory();
+        eComPageUser login = new eComPageUser();
         login.setVisible(true);
         login.setResizable(false);
         // login. setLocationRelativeTo(null);

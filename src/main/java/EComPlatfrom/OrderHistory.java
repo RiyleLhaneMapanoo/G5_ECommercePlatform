@@ -3,10 +3,12 @@ package EComPlatfrom;
 
 import java.awt.*;
 import static java.awt.PageAttributes.MediaType.C;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.util.*;
 
-public class OrderHistory extends JFrame{
+public class OrderHistory extends JFrame implements ActionListener{
 
    private  JTextArea txaHistory;
    private JLabel bgLabel, lblHistory, lblIcon;
@@ -52,6 +54,19 @@ public class OrderHistory extends JFrame{
         btnBack.setBounds(20, 20, 68, 22);
         btnBack.setFont(new Font("Arial",Font.BOLD,12));
         bgLabel.add(btnBack);
+        
+        btnBack.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==btnBack){
+             eComPageUser page = new eComPageUser();
+             page.setVisible(true);
+             page.setSize(1385,764);
+             page.setLocationRelativeTo(null);
+             dispose();
+        }
         
     }
 }

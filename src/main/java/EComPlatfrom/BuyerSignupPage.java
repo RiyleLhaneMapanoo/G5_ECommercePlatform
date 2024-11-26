@@ -154,7 +154,7 @@ class BuyerSignupPage extends JFrame implements ActionListener{
                  fullNameTxf.setText("");
                 emailTxf.setText("");
                 passwordTxf.setText("");
-            //Would pop out pag di sya makagawa ng account(ex: masyado mahaba value or mispelled na value sa database)
+            //Would pop out pag di sya makagawa ng account(ex: kulang value na nilagay)
             
                }else{
                         String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`) VALUES ( ?, ?, ?)";
