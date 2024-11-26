@@ -16,6 +16,7 @@ import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -88,13 +89,41 @@ public class ProductClass  {
  
                
                 //DITO LAGAY YUNG NSA LOOB NG PRODUCT PANELS (ex, Name, Jlabel for photo, price, add to cart button etc)
-                // Add product information from database
-               // JLabel nameLabel = new JLabel(productTag);
-               // JLabel priceLabel = new JLabel("$" + price);
+             
+                
+                JLabel pImage = new JLabel();
+                pImage.setBounds(40, 10, 150, 150);
+                pImage.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+               
 
-                //panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-              //  panel.add(nameLabel);
-               // panel.add(priceLabel);
+                JLabel pName = new JLabel (productTag);
+                pName.setBounds(20,170,80,20);
+                pName.setFont(new Font("Arial", Font.BOLD,12));
+               
+                
+                JLabel pPrice = new JLabel (String.valueOf(price));
+                pPrice.setBounds(20, 200, 80, 20);
+                pPrice.setFont(new Font("Arial", Font.PLAIN, 12));
+                pPrice.setForeground(Color.red);
+              
+
+                JLabel pRating= new JLabel(String.valueOf(rates));
+                pRating.setBounds(20, 230, 90, 20);
+                pRating.setFont(new Font ("Arial", Font.PLAIN, 12));
+                pRating.setForeground(Color.GRAY);
+              
+
+                JButton addB = new JButton ("Add to Cart");
+                addB.setBounds(100, 255, 100, 30);
+               
+        
+             
+                panel.add(pImage);
+                panel.add(pName);
+                panel.add(pPrice);
+                panel.add(pRating);
+                panel.add(addB);
+               
 
                 // Add to product panels array and list
                 productPanels[panelCount] = panel;
