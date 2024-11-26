@@ -9,14 +9,17 @@ import javax.swing.*;
 import java.util.*;
 
 public class OrderHistory extends JFrame implements ActionListener{
-
+    private int userId; 
    private  JTextArea txaHistory;
    private JLabel bgLabel, lblHistory, lblIcon;
    private JButton btnBAgain, btnReview, btnBack;
    private JScrollPane scrollPane;
    private JTable ohtable;
  
-            
+    UserClass userClass = new UserClass();
+       int loggedInUserId = userClass.getUserSession();
+         
+   
     OrderHistory(){
         
         setTitle("Order History");
@@ -61,7 +64,8 @@ public class OrderHistory extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btnBack){
-             eComPageUser page = new eComPageUser();
+            
+             eComPageUser page = new eComPageUser(loggedInUserId);
              page.setVisible(true);
              page.setSize(1385,764);
              page.setLocationRelativeTo(null);

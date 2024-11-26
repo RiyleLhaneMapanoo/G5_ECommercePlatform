@@ -21,6 +21,9 @@ class BuyerSignupPage extends JFrame implements ActionListener{
      JTextField fullNameTxf, emailTxf, passwordTxf;
      JButton signUpBtn,signInBtn;   
      JPanel backgroundPl;
+     
+     //for user class:
+     UserClass userClass = new UserClass();
     BuyerSignupPage(){
         
         
@@ -123,63 +126,7 @@ class BuyerSignupPage extends JFrame implements ActionListener{
              String emailUser = emailTxf.getText();
              String password = passwordTxf.getText();
              
-             try{
-             String checkExisitingValueQuery = "SELECT * FROM usertable WHERE email = ?";
-             Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
-             PreparedStatement checkExisitingValueState = checkExisitingValueCon.prepareStatement(checkExisitingValueQuery);         
-             checkExisitingValueState.setString(1, emailTxf.getText());
-                 
-                ResultSet resultSet = checkExisitingValueState.executeQuery();
-                
-                
-                if(resultSet.next()){
-                
-                String existingEmail = resultSet.getString("email");
-                //Nested if
-                if(emailUser.equals(existingEmail)){
-                
-                 JOptionPane.showMessageDialog(this, "Email already used in an exisiting account", "Error", JOptionPane.ERROR_MESSAGE);
-                 fullNameTxf.setText("");
-                emailTxf.setText("");
-                passwordTxf.setText("");
-                
-                
-                }
-                
-                }else{
-           
-              if(fullName.isEmpty() || emailUser.isEmpty() || password.isEmpty()){
-                       
-                JOptionPane.showMessageDialog(signUpBtn, "Fill out all the necessary info.");
-                 fullNameTxf.setText("");
-                emailTxf.setText("");
-                passwordTxf.setText("");
-            //Would pop out pag di sya makagawa ng account(ex: kulang value na nilagay)
-            
-               }else{
-                        String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`) VALUES ( ?, ?, ?)";
-             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
-             PreparedStatement state = con.prepareStatement(query);
-             state.setString(1, fullNameTxf.getText());
-             state.setString(2, emailTxf.getText());
-             state.setString(3, passwordTxf.getText());
-                 
-                 JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY");
-                fullNameTxf.setText("");
-                emailTxf.setText("");
-                passwordTxf.setText("");
-             state.executeUpdate();
-                   
-               }
-             }
-             
-             }catch(Exception ex){
-                    //    System.out.println(ex);   
-             JOptionPane.showMessageDialog(null,"An error has occured. ");
-                 fullNameTxf.setText("");
-                emailTxf.setText("");
-                passwordTxf.setText("");
-             }
+           userClass.registerMethod(BuyerSignupPage.this,signUpBtn,emailUser,password,fullName ,emailTxf, passwordTxf,fullNameTxf);
            
              
          }

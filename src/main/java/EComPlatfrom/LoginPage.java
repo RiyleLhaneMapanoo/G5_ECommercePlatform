@@ -26,6 +26,9 @@ public class LoginPage extends JFrame implements ActionListener {
     JButton btnSignin, btnSignup;
     JPanel plBackround;
     
+    //for user class:
+    UserClass userClass = new UserClass();
+    
     LoginPage(){
         
       
@@ -116,55 +119,9 @@ public class LoginPage extends JFrame implements ActionListener {
             
             String strEmail = txfEmail.getText();
             String strPassword = new String(pfPassword.getPassword());
+            userClass.loginMethod(LoginPage.this,strEmail, strPassword, txfEmail, pfPassword);
             
-            
-            if(strEmail.equals("Seller") && strPassword.equals("adminSeller")){
-                  dispose();
-                        eComPageSeller ah = new eComPageSeller();
-                        ah.setVisible(true);
-                        ah.setResizable(false);
-                        JOptionPane.showMessageDialog(null, "You have successfully logged in as Seller");
-                
-            }else{
-            
-                try {
-                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1",
-                        "root", "1027");
-
-                    PreparedStatement st = (PreparedStatement) connection
-                        .prepareStatement("Select email, password from usertable where BINARY email=? and BINARY password=?");
-                    //BINARY is pra mging case sensitive ung tinatanggap n credentials s log in. 
-                    //for some reason di mabago s mismong database column ung Binary
-
-                    st.setString(1, strEmail);
-                    st.setString(2, strPassword);
-                    ResultSet rs = st.executeQuery();
-                    
-                    
-                    if (rs.next()) {
-                 
-                        dispose();
-                        eComPageUser ah = new eComPageUser();
-                       
-                        ah.setVisible(true);
-                        ah.setResizable(false);
-                        JOptionPane.showMessageDialog(null, "You have successfully logged in");
-                    }
-                    
-                    else if(strEmail.isEmpty() || strPassword.isEmpty()){
-                JOptionPane.showMessageDialog(this, "Fill the necessary details please", "Error", JOptionPane.ERROR_MESSAGE);
-                txfEmail.setText("");
-                pfPassword.setText("");
-              }else{
-                JOptionPane.showMessageDialog(this, "Wrong Password or Email", "Error", JOptionPane.ERROR_MESSAGE);
-                txfEmail.setText("");
-                pfPassword.setText("");
-              }
-        }
-                catch (SQLException sqlException) {
-                    sqlException.printStackTrace();
-                }
-    }
+          
         }
         
         
