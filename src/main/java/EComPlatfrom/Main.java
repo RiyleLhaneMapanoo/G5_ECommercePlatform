@@ -1,5 +1,5 @@
 
-package com.mycompany.g5_ecommerceplatform_bsit_2_1;
+package EComPlatfrom;
 
 
 public class Main {
