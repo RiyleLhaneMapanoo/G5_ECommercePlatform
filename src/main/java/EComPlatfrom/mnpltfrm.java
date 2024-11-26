@@ -1,4 +1,4 @@
-package EComPlatfrom;
+package com.mycompany.backupp;
 
 
 import java.awt.*;
