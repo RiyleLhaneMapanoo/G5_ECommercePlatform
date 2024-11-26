@@ -4,19 +4,18 @@
  */
 package EComPlatfrom;
 
-
-
 /**
  *
  * @author Raylen
  */
-public class mainClass1 {
-    public static void main(String[] args){
-    
- LoginPage login = new LoginPage();
-    login.setVisible(true);
-    login.setResizable(false);
-   
-    
+public class mainClass2 {
+
+    public static void main(String[] args) {
+
+        eComPageUser login = new eComPageUser();
+        login.setVisible(true);
+        login.setResizable(false);
+        // login. setLocationRelativeTo(null);
+
     }
 }

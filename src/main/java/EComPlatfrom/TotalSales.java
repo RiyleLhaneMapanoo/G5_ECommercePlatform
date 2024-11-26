@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
+package EComPlatfrom;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -39,7 +39,7 @@ public class TotalSales extends JFrame implements ActionListener {
         
          
      
-         ImageIcon path = new ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\SalesPage\\src\\main\\java\\Image\\background.png");
+         ImageIcon path = new ImageIcon("src\\main\\java\\Images\\sellerBackground.png");
        
           Image Img = path.getImage();
         Image newImg = Img.getScaledInstance(1385, 764, Image.SCALE_SMOOTH);
@@ -119,9 +119,9 @@ public class TotalSales extends JFrame implements ActionListener {
 //            this.dispose();
                 
         }
-        if(e.getSource()==btnShow){
+        else if(e.getSource()==btnShow){
               
-              ImageIcon icon = new ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\SalesPage1\\src\\main\\java\\Image\\updated.png");
+              ImageIcon icon = new ImageIcon("src\\main\\java\\Images\\updated.png");
               
              
           Image Img2 = icon.getImage();
@@ -129,15 +129,13 @@ public class TotalSales extends JFrame implements ActionListener {
         ImageIcon image2 = new ImageIcon(newImg2);
               
               JOptionPane.showMessageDialog(null, "UPDATED", "UPDATE", JOptionPane.INFORMATION_MESSAGE, image2);
-                            
-                            
-                    
-
-                        
-                        
-                        
-                        
-       
+        }else if(e.getSource()==btnBack){
+        
+         eComPageSeller page = new eComPageSeller();
+    page.setVisible(true);
+    page.setSize(1385,764);
+    page.setLocationRelativeTo(null);
+     dispose();
         }
         
     }
