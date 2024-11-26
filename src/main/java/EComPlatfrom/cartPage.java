@@ -7,8 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class cartPage extends JFrame implements ActionListener {
-
-    
+ 
     private JPanel panel, 
             imagePanel;
     
@@ -29,6 +28,7 @@ public class cartPage extends JFrame implements ActionListener {
     private JLabel pPrices;
     
     private JButton[] btnMinus, btnAdd, btnDelete;
+    private JButton btnBack;
     private int[] defaultQuantity;
     private JLabel[] pQuantity;
     
@@ -36,12 +36,19 @@ public class cartPage extends JFrame implements ActionListener {
     
     private int total = 0;
     private int pQuantityCount = 0;
+    
+    String imageSource = "src\\main\\java\\Images\\";
+    
+    
     cartPage() {
        
-        setTitle("Cart Page");
         
-        ImageIcon bgIcon = new ImageIcon("background.png");
-        ImageIcon bgImage = new ImageIcon(bgIcon.getImage().getScaledInstance(800, 500, Image.SCALE_SMOOTH));
+        
+        setTitle("Cart Page");
+        setResizable(false);
+        
+        ImageIcon bgIcon = new ImageIcon(imageSource+"background.png");
+        ImageIcon bgImage = new ImageIcon(bgIcon.getImage().getScaledInstance(1385,764, Image.SCALE_SMOOTH));
         JLabel bgLbl = new JLabel(bgImage);
         bgLbl.setLayout(new BorderLayout());
         
@@ -63,7 +70,7 @@ public class cartPage extends JFrame implements ActionListener {
         
         for(int i = 0; i < images.length; i++) {
             
-            ImageIcon pImageIcon = new ImageIcon(images[i]);
+            ImageIcon pImageIcon = new ImageIcon(imageSource+images[i]);
             ImageIcon productImages = new ImageIcon(pImageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
             
             
@@ -108,7 +115,7 @@ public class cartPage extends JFrame implements ActionListener {
             qPanel.add(Box.createHorizontalStrut(80));
             
             //Minus Button
-            ImageIcon minusIcon = new ImageIcon("minus-button.png");
+            ImageIcon minusIcon = new ImageIcon(imageSource+"minus-button.png");
             ImageIcon minusImage = new ImageIcon(minusIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             btnMinus[i] = new JButton(minusImage);
             btnMinus[i].setFocusable(false);
@@ -128,7 +135,7 @@ public class cartPage extends JFrame implements ActionListener {
             qPanel.add(Box.createHorizontalStrut(20)); // 20px spacing b/w "1" and "+"
             
             //Add Button
-            ImageIcon plusIcon = new ImageIcon("add-button.png");
+            ImageIcon plusIcon = new ImageIcon(imageSource+"add-button.png");
             ImageIcon plusImage = new ImageIcon(plusIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             btnAdd[i] = new JButton(plusImage);
             btnAdd[i].setFocusable(false);
@@ -140,7 +147,7 @@ public class cartPage extends JFrame implements ActionListener {
             
             
             //Delete Button
-            ImageIcon deleteIcon = new ImageIcon("deleteIcon.png");
+            ImageIcon deleteIcon = new ImageIcon(imageSource+"deleteIcon.png");
             ImageIcon deleteImage = new ImageIcon(deleteIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             btnDelete[i] = new JButton(deleteImage);
             btnDelete[i].setBackground(Color.red);
@@ -154,6 +161,7 @@ public class cartPage extends JFrame implements ActionListener {
             productDetails.setOpaque(false);
             productDetails.add(infoPanel);
             productDetails.add(qPanel);
+           
             
             imgProductPanel[i].add(productDetails);
             imgProductPanel[i].setOpaque(false);
@@ -185,13 +193,13 @@ public class cartPage extends JFrame implements ActionListener {
                      
         // Back Button
         
-            ImageIcon icon = new ImageIcon("back.png");
+            ImageIcon icon = new ImageIcon(imageSource+"back.png");
             ImageIcon backIcon = new ImageIcon(icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-            JButton btnBack = new JButton(backIcon);
+             btnBack = new JButton(backIcon);
             btnBack.setBackground(Color.PINK);
             btnBack.setBorderPainted(false);
             botPanel.add(btnBack);
-            
+            btnBack.addActionListener(this);
             
         // Subtotal
         
@@ -212,7 +220,7 @@ public class cartPage extends JFrame implements ActionListener {
             
             
         // Checkout
-            ImageIcon coIcon = new ImageIcon("checkout-icon.png");
+            ImageIcon coIcon = new ImageIcon(imageSource+"checkout-icon.png");
             ImageIcon coImage = new ImageIcon(coIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         
             JButton btnCheckOut = new JButton("Checkout");
@@ -238,17 +246,26 @@ public class cartPage extends JFrame implements ActionListener {
         
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(800,500));
         setVisible(true);
-        
+          
         pack();
-        
-        
         setLocationRelativeTo(null);
+        
+      
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==btnBack){
+        
+   eComPageUser page = new eComPageUser();
+    page.setVisible(true);
+    page.setSize(1385,764);
+    page.setLocationRelativeTo(null);
+     dispose();
+        
+        }
+        
         total = 0; // reset total
         
         for(int i = 0; i < cboxes.length; i++) {
@@ -275,6 +292,9 @@ public class cartPage extends JFrame implements ActionListener {
         }
         
         subTotal.setText(String.valueOf(total));
+        
+       
+        
         
     }
 
