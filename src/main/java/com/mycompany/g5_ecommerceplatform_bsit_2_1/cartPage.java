@@ -1,5 +1,5 @@
 
-package EComPlatfrom;
+package com.mycompany.g5_ecommerceplatform_bsit_2_1;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
