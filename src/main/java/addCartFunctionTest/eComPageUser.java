@@ -16,7 +16,7 @@ public class eComPageUser extends JFrame implements ActionListener {
 //public class eco extends JFrame{
     private final JPanel MainPanel, makeups, makeupPanel, clothes, clothespanel, panelImages, 
                          kitchen, kitchenpanel, supplies, suppliespanel, designpanel, designpanel2, 
-                         desgnpanel3, m1, m2, m3,m4,m5;
+                         desgnpanel3;
     private final JLabel platformname, DL1, DL2, DL3, DL4, DL5,DL6, DL7, DL8, DL9, DL10, DL11, DL12;
     private final JTextField searchBar;
     private final JButton btnSearch, btncart;
@@ -32,7 +32,7 @@ public class eComPageUser extends JFrame implements ActionListener {
    private final  JMenuItem  jmenuOrderHistory, jmenuLogout;
     
     eComPageUser(){
-
+ 
      setTitle("ECP-Platform");
      setSize(1385,764);
       setLayout(null);
@@ -41,17 +41,24 @@ public class eComPageUser extends JFrame implements ActionListener {
     setResizable(false);
      setLocationRelativeTo(null);
 
+       //from product class
+     ProductClass productClass = new ProductClass();
+     
+
+     
     MainPanel = new JPanel();
     MainPanel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
     MainPanel.setBackground(new Color(93, 66, 90));
     MainPanel.setLayout(new BorderLayout());
 
 
-    platformname= new JLabel ("    ECP");
-    platformname.setBounds(70,80, 100, 50);
-    platformname.setFont(new Font("SansSerif", Font.BOLD, 18));
+    ImageIcon lbcon = new ImageIcon("src\\main\\java\\Images\\lblicon.png");
+    Image scaledIcon = lbcon.getImage().getScaledInstance(80, 85, Image.SCALE_SMOOTH);
+
+     platformname= new JLabel ();
+    platformname.setBounds(115,55, 100, 90);
+    platformname.setIcon(new ImageIcon(scaledIcon));
     platformname.setBackground(new Color(255, 102, 204));
-    platformname.setBorder(BorderFactory.createEtchedBorder());
     platformname.setPreferredSize(new Dimension(100, 25));
     add(platformname);
     
@@ -75,12 +82,12 @@ public class eComPageUser extends JFrame implements ActionListener {
 //    btnSearch.addActionListener(this);
     add(btnSearch);
 
-
-    btncart = new JButton();
+    ImageIcon coIcon = new ImageIcon("src\\main\\java\\Images\\checkout-icon.png");
+    ImageIcon coImage = new ImageIcon(coIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        
+    btncart = new JButton(coImage);
     btncart.setBackground(new Color(204, 204, 255));
-    btncart.setText("cart");
     btncart.setBounds(1250, 30, 65, 30);
-//    btncart.addActionListener(this);
     add(btncart);
     
     MenuBar = new JMenuBar();
@@ -106,28 +113,25 @@ public class eComPageUser extends JFrame implements ActionListener {
     
     panelImages= new JPanel ();
     panelImages.setBackground(new Color(51, 0, 51));
-    panelImages.setBorder(BorderFactory.createEtchedBorder(new Color(153, 102, 255), null));
+    panelImages.setBorder(BorderFactory.createEtchedBorder(new Color(255, 255, 255), null));
     panelImages.setBounds(200,155,1000,180);
     add(panelImages);
     
     designimages1 = new JScrollPane();
-    designimages1.setBackground(new Color(51, 51, 255));
     add(designimages1);
 
     designpanel = new JPanel();
-    designpanel.setBackground(new Color(255, 102, 204));
+    designpanel.setBackground(new Color(225, 190, 231));
     designpanel.setBorder(BorderFactory.createEtchedBorder());
     add(designpanel);
     
     DL1 = new JLabel();
-    DL1.setBackground(new Color(204, 204, 255));
     //DL1.setIcon(new ImageIcon(getClass().getResource("/EComPlatfrom/2bcc05929ada6c77c193a5ee48812f8e (1).jpg"))); 
     DL1.setText("image");
     DL1.setBorder(BorderFactory.createEtchedBorder());
     add(DL1);
-
+    
     DL2 = new JLabel();
-    DL2.setBackground(new Color(204, 204, 255));
     //DL2.setIcon(new ImageIcon(getClass().getResource("/EComPlatfrom/2bcc05929ada6c77c193a5ee48812f8e (1).jpg"))); 
     DL2.setText("image");
     DL2.setBorder(BorderFactory.createEtchedBorder());
@@ -173,23 +177,20 @@ public class eComPageUser extends JFrame implements ActionListener {
     designimages1.setViewportView(designpanel);
     
     desgnimages2 = new JScrollPane();
-    desgnimages2.setBackground(new Color(255, 102, 204));
     add(desgnimages2);
 
     designpanel2 = new JPanel();
-    designpanel2.setBackground(new Color(255, 102, 204));
+    designpanel2.setBackground(new Color(225, 190, 231));
     designpanel2.setBorder(BorderFactory.createEtchedBorder());
     add(designpanel2);
 
     DL5 = new JLabel();
-    DL5.setBackground(new Color(204, 204, 255));
 //    DL5.setIcon(new ImageIcon(getClass().getResource("/EComPlatfrom/2bcc05929ada6c77c193a5ee48812f8e (1).jpg"))); // NOI18N
     DL5.setText("image");
     DL5.setBorder(BorderFactory.createEtchedBorder());
     add(DL5);
 
     DL6 = new JLabel();
-    DL6.setBackground(new Color(204, 204, 255));
 //    DL6.setIcon(new ImageIcon(getClass().getResource("/EComPlatfrom/2bcc05929ada6c77c193a5ee48812f8e (1).jpg"))); // NOI18N
     DL6.setText("image");
     DL6.setBorder(BorderFactory.createEtchedBorder());
@@ -234,23 +235,20 @@ public class eComPageUser extends JFrame implements ActionListener {
     desgnimages2.setViewportView(designpanel2);
 
     desgnimages3 = new JScrollPane();
-    desgnimages3.setBackground(new Color(51, 51, 255));
     add(desgnimages3);
 
     desgnpanel3 = new JPanel();
-    desgnpanel3.setBackground(new Color(255, 102, 204));
+    desgnpanel3.setBackground(new Color(225, 190, 231));
     desgnpanel3.setBorder(BorderFactory.createEtchedBorder());
     add(desgnpanel3);
     
     DL9 = new JLabel();
-    DL9.setBackground(new Color(204, 204, 255));
 //    DL9.setIcon(new ImageIcon(getClass().getResource("/EComPlatfrom/2bcc05929ada6c77c193a5ee48812f8e (1).jpg"))); // NOI18N
     DL9.setText("image");
     DL9.setBorder(BorderFactory.createEtchedBorder());
     add(DL9);
 
     DL10 = new JLabel();
-    DL10.setBackground(new Color(204, 204, 255));
 //    DL10.setIcon(new ImageIcon(getClass().getResource("/EComPlatfrom/2bcc05929ada6c77c193a5ee48812f8e (1).jpg"))); // NOI18N
     DL10.setText("image");
     DL10.setBorder(BorderFactory.createEtchedBorder());
@@ -323,55 +321,35 @@ public class eComPageUser extends JFrame implements ActionListener {
         add(products);
 
         makeups = new JPanel();
-        makeups.setBackground(new Color(255, 102, 255));
+        makeups.setBackground(new Color(225, 190, 231));
         makeups.setBorder(BorderFactory.createEtchedBorder());
 
         MakeUpjScrollPane = new JScrollPane();
-        MakeUpjScrollPane.setBackground(new Color(204, 0, 204));
         MakeUpjScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         MakeUpjScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         makeupPanel = new JPanel();
-        makeupPanel.setBackground(new Color(255, 102, 204));
+        makeupPanel.setBackground(new Color(51, 0, 51));
         makeupPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        makeupPanel.setPreferredSize(new Dimension(1200, 720)); 
+        makeupPanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("Makeup") / 3))); 
         makeupPanel.setLayout(null);
-
-        m1 = new JPanel();
-        m1.setBackground(new Color(255, 204, 204));
-        m1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        m1.setBounds(90, 20, 230, 300);
-        makeupPanel.add(m1);
-
-        m2 = new JPanel();
-        m2.setBackground(new Color(255, 204, 204));
-        m2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        m2.setBounds(520, 20, 230, 300);
-        makeupPanel.add(m2);
-
-        m3 = new JPanel();
-        m3.setBackground(new Color(255, 204, 204));
-        m3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        m3.setBounds(930, 20, 230, 300);
-        makeupPanel.add(m3);
-
-        m4 = new JPanel();
-        m4.setBackground(new Color(255, 204, 204));
-        m4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        m4.setBounds(90, 400, 230, 300);
-        makeupPanel.add(m4);
-
-        m5 = new JPanel();
-        m5.setBackground(new Color(255, 204, 204));
-        m5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        m5.setBounds(520, 400, 230, 300);
-        makeupPanel.add(m5);
         
-        JPanel m6 = new JPanel();
-        m6.setBackground(new Color(255, 204, 204));
-        m6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        m6.setBounds(930, 400, 230, 300);
-        makeupPanel.add(m6);
+       
+      //updated color
+     // product panels for makeup stat: transferred into product class
+        int totalProductCountMakeup = productClass.getTotalProductCount("Makeup");
+        productClass.resetPanelCount(); 
+        for (int i = 0; i < totalProductCountMakeup; i++) {  
+            JPanel newPanel = productClass.createProductPanelforBuyer("Makeup");
+           
+            if (newPanel != null) {
+                makeupPanel.add(newPanel);  
+                makeupPanel.revalidate();
+                makeupPanel.repaint();
+                
+            }
+        }
+      
         
         MakeUpjScrollPane.setViewportView(makeupPanel);
 
@@ -397,56 +375,33 @@ public class eComPageUser extends JFrame implements ActionListener {
     
 //clothes
 
-    clothes = new JPanel();
-        clothes.setBackground(new Color(255, 102, 255));
+        clothes = new JPanel();
+        clothes.setBackground(new Color(225, 190, 231));
         clothes.setBorder(BorderFactory.createEtchedBorder());
 
         clothesScrolpane = new JScrollPane();
-        clothesScrolpane.setBackground(new Color(204, 0, 204));
         clothesScrolpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         clothesScrolpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         clothespanel = new JPanel();
-        clothespanel.setBackground(new Color(255, 102, 204));
+        clothespanel.setBackground(new Color(51, 0, 51));
         clothespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        clothespanel.setPreferredSize(new Dimension(1200, 720)); 
+        clothespanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("Clothes") / 3))); 
         clothespanel.setLayout(null);
 
-        JPanel c1 = new JPanel();
-        c1.setBackground(new Color(255, 204, 204));
-        c1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        c1.setBounds(90, 20, 230, 300);
-        clothespanel.add(c1);
-
-        JPanel c2 = new JPanel();
-        c2.setBackground(new Color(255, 204, 204));
-        c2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        c2.setBounds(520, 20, 230, 300);
-        clothespanel.add(c2);
-
-        JPanel c3 = new JPanel();
-        c3.setBackground(new Color(255, 204, 204));
-        c3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        c3.setBounds(930, 20, 230, 300);
-        clothespanel.add(c3);
-
-        JPanel c4 = new JPanel();
-        c4.setBackground(new Color(255, 204, 204));
-        c4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        c4.setBounds(90, 400, 230, 300);
-        clothespanel.add(c4);
-
-        JPanel c5 = new JPanel();
-        c5.setBackground(new Color(255, 204, 204));
-        c5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        c5.setBounds(520, 400, 230, 300);
-        clothespanel.add(c5);
         
-        JPanel c6 = new JPanel();
-        c6.setBackground(new Color(255, 204, 204));
-        c6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        c6.setBounds(930, 400, 230, 300);
-        clothespanel.add(c6);
+        //product panel for clothes
+        int totalProductCountClothes = productClass.getTotalProductCount("Clothes");
+        productClass.resetPanelCount(); 
+        for (int i = 0; i < totalProductCountClothes; i++) {  
+            JPanel newPanel = productClass.createProductPanelforBuyer("Clothes");
+            if (newPanel != null) {
+                clothespanel.add(newPanel);  
+                clothespanel.revalidate();
+                clothespanel.repaint();
+                
+            }
+        }
         
         clothesScrolpane.setViewportView(clothespanel);
 
@@ -472,56 +427,32 @@ public class eComPageUser extends JFrame implements ActionListener {
 
 //KITCHEN
 
-    kitchen = new JPanel();
-        kitchen.setBackground(new Color(255, 102, 255));
+        kitchen = new JPanel();
+        kitchen.setBackground(new Color(225, 190, 231));
         kitchen.setBorder(BorderFactory.createEtchedBorder());
 
         kitchenScrolpane = new JScrollPane();
-        kitchenScrolpane.setBackground(new Color(204, 0, 204));
         kitchenScrolpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         kitchenScrolpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         kitchenpanel = new JPanel();
-        kitchenpanel.setBackground(new Color(255, 102, 204));
+        kitchenpanel.setBackground(new Color(51, 0, 51));
         kitchenpanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        kitchenpanel.setPreferredSize(new Dimension(1200, 720)); 
+        kitchenpanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("Kitchen") / 3)));  
         kitchenpanel.setLayout(null);
 
-        JPanel k1 = new JPanel();
-        k1.setBackground(new Color(255, 204, 204));
-        k1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        k1.setBounds(90, 20, 230, 300);
-        kitchenpanel.add(k1);
-
-        JPanel k2 = new JPanel();
-        k2.setBackground(new Color(255, 204, 204));
-        k2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        k2.setBounds(520, 20, 230, 300);
-        kitchenpanel.add(k2);
-
-        JPanel k3 = new JPanel();
-        k3.setBackground(new Color(255, 204, 204));
-        k3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        k3.setBounds(930, 20, 230, 300);
-        kitchenpanel.add(k3);
-
-        JPanel k4 = new JPanel();
-        k4.setBackground(new Color(255, 204, 204));
-        k4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        k4.setBounds(90, 400, 230, 300);
-        kitchenpanel.add(k4);
-
-        JPanel k5 = new JPanel();
-        k5.setBackground(new Color(255, 204, 204));
-        k5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        k5.setBounds(520, 400, 230, 300);
-        kitchenpanel.add(k5);
-        
-        JPanel k6 = new JPanel();
-        k6.setBackground(new Color(255, 204, 204));
-        k6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        k6.setBounds(930, 400, 230, 300);
-        kitchenpanel.add(k6);
+        //product panels for kitchen things
+         int totalProductCountKitchen = productClass.getTotalProductCount("Kitchen");
+          productClass.resetPanelCount(); 
+        for (int i = 0; i < totalProductCountKitchen; i++) {  
+            JPanel newPanel = productClass.createProductPanelforBuyer("Kitchen");
+            if (newPanel != null) {
+                kitchenpanel.add(newPanel);  
+                kitchenpanel.revalidate();
+                kitchenpanel.repaint();
+                
+            }
+        }
         
         kitchenScrolpane.setViewportView(kitchenpanel);
 
@@ -546,57 +477,34 @@ public class eComPageUser extends JFrame implements ActionListener {
     products.addTab("UTENSILS", kitchen);
 
 //school supplies   
-
-    supplies = new JPanel();
-        supplies.setBackground(new Color(255, 102, 255));
+ 
+        supplies = new JPanel();
+        supplies.setBackground(new Color(225, 190, 231));
         supplies.setBorder(BorderFactory.createEtchedBorder());
 
         suppliesScrolpane = new JScrollPane();
-        suppliesScrolpane.setBackground(new Color(204, 0, 204));
         suppliesScrolpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         suppliesScrolpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         suppliespanel = new JPanel();
-        suppliespanel.setBackground(new Color(255, 102, 204));
+        suppliespanel.setBackground(new Color(51, 0, 51));
         suppliespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        suppliespanel.setPreferredSize(new Dimension(1200, 720)); 
+        suppliespanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("School Supplies") / 3))); 
         suppliespanel.setLayout(null);
 
-        JPanel s1 = new JPanel();
-        s1.setBackground(new Color(255, 204, 204));
-        s1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        s1.setBounds(90, 20, 230, 300);
-        suppliespanel.add(s1);
-
-        JPanel s2 = new JPanel();
-        s2.setBackground(new Color(255, 204, 204));
-        s2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        s2.setBounds(520, 20, 230, 300);
-        suppliespanel.add(s2);
-
-        JPanel s3 = new JPanel();
-        s3.setBackground(new Color(255, 204, 204));
-        s3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        s3.setBounds(930, 20, 230, 300);
-        suppliespanel.add(s3);
-
-        JPanel s4 = new JPanel();
-        s4.setBackground(new Color(255, 204, 204));
-        s4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        s4.setBounds(90, 400, 230, 300);
-        suppliespanel.add(s4);
-
-        JPanel s5 = new JPanel();
-        s5.setBackground(new Color(255, 204, 204));
-        s5.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        s5.setBounds(520, 400, 230, 300);
-        suppliespanel.add(s5);
-        
-        JPanel s6 = new JPanel();
-        s6.setBackground(new Color(255, 204, 204));
-        s6.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        s6.setBounds(930, 400, 230, 300);
-        suppliespanel.add(s6);
+       //product panel for school supplies
+       
+         int totalProductCountSS = productClass.getTotalProductCount("School Supplies");
+          productClass.resetPanelCount(); 
+        for (int i = 0; i < totalProductCountSS; i++) {  
+            JPanel newPanel = productClass.createProductPanelforBuyer("School Supplies");
+            if (newPanel != null) {
+                suppliespanel.add(newPanel);  
+                suppliespanel.revalidate();
+                suppliespanel.repaint();
+                
+            }
+        }
         
         suppliesScrolpane.setViewportView(suppliespanel);
 
@@ -644,11 +552,11 @@ btncart.addActionListener(this);
     
     if(e.getSource()==btncart){
         
-//    cartPage cart = new cartPage();
-//    cart.setVisible(true);
-//    cart.setSize(1385,764);
-//    cart.setLocationRelativeTo(null);
-//     dispose();
+    cartPage cart = new cartPage();
+    cart.setVisible(true);
+    cart.setSize(1385,764);
+    cart.setLocationRelativeTo(null);
+     dispose();
     //cart.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     //dispose();
     }else if(e.getSource()==jmenuLogout){

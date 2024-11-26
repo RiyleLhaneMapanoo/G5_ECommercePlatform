@@ -11,8 +11,11 @@ package EComPlatfrom;
 public class mainClass2 {
 
     public static void main(String[] args) {
+        UserClass userClass = new UserClass();
+       int loggedInUserId = userClass.getUserSession();
 
-        eComPageUser login = new eComPageUser();
+        
+        eComPageUser login = new eComPageUser(loggedInUserId);
         login.setVisible(true);
         login.setResizable(false);
         // login. setLocationRelativeTo(null);

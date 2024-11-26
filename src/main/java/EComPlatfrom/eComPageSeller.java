@@ -18,7 +18,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
                          desgnpanel3,productPanel;
     private  JLabel platformname, DL1, DL2, DL3, DL4, DL5,DL6, DL7, DL8, DL9, DL10, DL11, DL12;
     private  JTextField searchBar;
-    private  JButton btnSearch, btncart;
+    private  JButton btnSearch, addProd;
     private  JComboBox filter;
     private  JScrollPane MakeUpjScrollPane, clothesScrolpane, kitchenScrolpane,suppliesScrolpane, designimages1, 
                             desgnimages2, desgnimages3;
@@ -32,6 +32,9 @@ public class eComPageSeller extends JFrame implements ActionListener {
    
    
    //from products class
+   //from product class
+     ProductClass productClass = new ProductClass();
+     
  //private ProductClass productClass;
     
     eComPageSeller(){
@@ -44,8 +47,6 @@ public class eComPageSeller extends JFrame implements ActionListener {
     setResizable(false);
      setLocationRelativeTo(null);
 
-     //from product class
-     ProductClass productClass = new ProductClass();
      
      
     MainPanel = new JPanel();
@@ -81,19 +82,14 @@ public class eComPageSeller extends JFrame implements ActionListener {
    ImageIcon coIcon = new ImageIcon("src\\main\\java\\Images\\checkout-icon.png");
     ImageIcon coImage = new ImageIcon(coIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         
-    btncart = new JButton(coImage);
-    btncart.setBackground(new Color(204, 204, 255));
-    btncart.setBounds(1250, 30, 65, 30);
-    add(btncart);
+     btnSearch=new JButton("Search");
+    btnSearch.setBackground(new Color(204, 102, 255));
+    btnSearch.setFont(new Font("Sitka Display", 1, 14));
+    btnSearch.setBounds(1115,83,75,40);
 
+    add(btnSearch);
 
-    btncart = new JButton();
-    btncart.setBackground(new Color(204, 204, 255));
-    btncart.setText("cart");
-    btncart.setBounds(1250, 30, 65, 30);
-//    btncart.addActionListener(this);
-    add(btncart);
-    
+ 
     MenuBar = new JMenuBar();
     MenuBar.setBackground(new Color(153, 102, 255));
     MenuBar.setBorder(BorderFactory.createEtchedBorder());
@@ -136,14 +132,12 @@ public class eComPageSeller extends JFrame implements ActionListener {
     add(designpanel);
     
     DL1 = new JLabel();
-    DL1.setBackground(new Color(204, 204, 255));
     //DL1.setIcon(new ImageIcon(getClass().getResource("/EComPlatfrom/2bcc05929ada6c77c193a5ee48812f8e (1).jpg"))); 
     DL1.setText("image");
     DL1.setBorder(BorderFactory.createEtchedBorder());
     add(DL1);
 
     DL2 = new JLabel();
-    
     //DL2.setIcon(new ImageIcon(getClass().getResource("/EComPlatfrom/2bcc05929ada6c77c193a5ee48812f8e (1).jpg"))); 
     DL2.setText("image");
     DL2.setBorder(BorderFactory.createEtchedBorder());
@@ -340,13 +334,11 @@ public class eComPageSeller extends JFrame implements ActionListener {
         makeups.setBackground(new Color(89, 0, 54));
         makeups.setBorder(BorderFactory.createEtchedBorder());
 
-        MakeUpjScrollPane = new JScrollPane(productClass.getProductList());
+        MakeUpjScrollPane = new JScrollPane();
         MakeUpjScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         MakeUpjScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        
        
-      // int heightSize = 720 * productClass.getTotalProductCount("Makeup");
         makeupPanel = new JPanel();
         makeupPanel.setBackground(new Color( 163, 0, 137));
         makeupPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
@@ -359,7 +351,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
         int totalProductCountMakeup = productClass.getTotalProductCount("Makeup");
         productClass.resetPanelCount(); 
         for (int i = 0; i < totalProductCountMakeup; i++) {  
-            JPanel newPanel = productClass.createProductPanel("Makeup");
+            JPanel newPanel = productClass.createProductPanelforSeller("Makeup");
             if (newPanel != null) {
                 makeupPanel.add(newPanel);  
                 makeupPanel.revalidate();
@@ -395,16 +387,15 @@ public class eComPageSeller extends JFrame implements ActionListener {
 //clothes
 
     clothes = new JPanel();
-        clothes.setBackground(new Color(255, 102, 255));
+        clothes.setBackground(new Color(89, 0, 54));
         clothes.setBorder(BorderFactory.createEtchedBorder());
 
-        clothesScrolpane = new JScrollPane(productClass.getProductList());
-        clothesScrolpane.setBackground(new Color(204, 0, 204));
+        clothesScrolpane = new JScrollPane();
         clothesScrolpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         clothesScrolpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         clothespanel = new JPanel();
-        clothespanel.setBackground(new Color(255, 102, 204));
+        clothespanel.setBackground(new Color(163, 0, 137));
         clothespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         clothespanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("Clothes") / 3))); 
         clothespanel.setLayout(null);
@@ -414,7 +405,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
         int totalProductCountClothes = productClass.getTotalProductCount("Clothes");
         productClass.resetPanelCount(); 
         for (int i = 0; i < totalProductCountClothes; i++) {  
-            JPanel newPanel = productClass.createProductPanel("Clothes");
+            JPanel newPanel = productClass.createProductPanelforSeller("Clothes");
             if (newPanel != null) {
                 clothespanel.add(newPanel);  
                 clothespanel.revalidate();
@@ -448,16 +439,15 @@ public class eComPageSeller extends JFrame implements ActionListener {
 //KITCHEN
 
     kitchen = new JPanel();
-        kitchen.setBackground(new Color(255, 102, 255));
+        kitchen.setBackground(new Color(89, 0, 54));
         kitchen.setBorder(BorderFactory.createEtchedBorder());
 
-        kitchenScrolpane = new JScrollPane(productClass.getProductList());
-        kitchenScrolpane.setBackground(new Color(204, 0, 204));
+        kitchenScrolpane = new JScrollPane();
         kitchenScrolpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         kitchenScrolpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         kitchenpanel = new JPanel();
-        kitchenpanel.setBackground(new Color(255, 102, 204));
+        kitchenpanel.setBackground(new Color(163, 0, 137));
         kitchenpanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         kitchenpanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("Kitchen") / 3)));  
         kitchenpanel.setLayout(null);
@@ -466,7 +456,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
          int totalProductCountKitchen = productClass.getTotalProductCount("Kitchen");
           productClass.resetPanelCount(); 
         for (int i = 0; i < totalProductCountKitchen; i++) {  
-            JPanel newPanel = productClass.createProductPanel("Kitchen");
+            JPanel newPanel = productClass.createProductPanelforSeller("Kitchen");
             if (newPanel != null) {
                 kitchenpanel.add(newPanel);  
                 kitchenpanel.revalidate();
@@ -499,17 +489,16 @@ public class eComPageSeller extends JFrame implements ActionListener {
 
 //school supplies   
 
-    supplies = new JPanel();
-        supplies.setBackground(new Color(255, 102, 255));
+       supplies = new JPanel();
+        supplies.setBackground(new Color(89, 0, 54));
         supplies.setBorder(BorderFactory.createEtchedBorder());
 
-        suppliesScrolpane = new JScrollPane(productClass.getProductList());
-        suppliesScrolpane.setBackground(new Color(204, 0, 204));
+        suppliesScrolpane = new JScrollPane();
         suppliesScrolpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         suppliesScrolpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         suppliespanel = new JPanel();
-        suppliespanel.setBackground(new Color(255, 102, 204));
+        suppliespanel.setBackground(new Color(163, 0, 137));
         suppliespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         suppliespanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("School Supplies") / 3))); 
         suppliespanel.setLayout(null);
@@ -519,7 +508,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
          int totalProductCountSS = productClass.getTotalProductCount("School Supplies");
           productClass.resetPanelCount(); 
         for (int i = 0; i < totalProductCountSS; i++) {  
-            JPanel newPanel = productClass.createProductPanel("School Supplies");
+            JPanel newPanel = productClass.createProductPanelforSeller("School Supplies");
             if (newPanel != null) {
                 suppliespanel.add(newPanel);  
                 suppliespanel.revalidate();
@@ -563,8 +552,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
     .addComponent(MainPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
     .addGap(0, 0, Short.MAX_VALUE)));
 
-    
-        btncart.addActionListener(this);
+       
         jmenuSales.addActionListener(this);
         JmenuInventory.addActionListener(this);
         jmenuLogout.addActionListener(this);
@@ -573,15 +561,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
     
-    if(e.getSource()==btncart){
-        
-    cartPage cart = new cartPage();
-    cart.setVisible(true);
-    cart.setSize(1385,764);
-    cart.setLocationRelativeTo(null);
-     dispose();
-   
-    }else if(e.getSource()==jmenuSales){
+   if(e.getSource()==jmenuSales){
     
     TotalSales page = new TotalSales();
     page.setVisible(true);
@@ -604,7 +584,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
      dispose();
     
     }
-        
+       
         
     }
 }

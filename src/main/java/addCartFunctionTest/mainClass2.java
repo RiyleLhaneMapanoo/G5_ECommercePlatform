@@ -14,7 +14,7 @@ public class mainClass2 {
 
     public static void main(String[] args) {
 
-        eComPageUser login = new eComPageUser();
+        cartPage login = new cartPage();
         login.setVisible(true);
         login.setResizable(false);
         // login. setLocationRelativeTo(null);
