@@ -30,9 +30,8 @@ public class eComPageUser extends JFrame implements ActionListener {
     private final JMenu Menu; 
    private final  JMenuItem  jmenuOrderHistory, jmenuLogout;
     
-    eComPageUser(int userId){
-     Integer loggedInUserId = UserClass.getUserSession(); 
-     
+    eComPageUser(){
+    
      
      setTitle("ECP-Platform");
      setSize(1385,764);

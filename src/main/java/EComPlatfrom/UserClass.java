@@ -16,29 +16,16 @@ import java.util.*;
  * @author Raylen
  */
 public class UserClass {
-     private int userId;
+    
 //    private JTextField subTxtEmail;
 //    private JPasswordField subTxtPass;
     
     public UserClass(){
+     //may add the connectTodatabase() method after debugging later on
      
     }
     
-     public static HashMap<String, Integer> userSessions = new HashMap<>();
-     private static String userLoggedinEmail = null;
      
-     public static void storeUserSession(String email, int userId) {
-        userSessions.put(email, userId);
-        userLoggedinEmail = email;
-    }
-     public static Integer getUserSession() {
-        if (userLoggedinEmail != null) {
-            return userSessions.get(userLoggedinEmail);  // Return the userId for the logged-in user
-        }
-        return null; 
-    }
-    
-    
     
     public void loginMethod(JFrame frame,String email, String password, JTextField txtEmail, JPasswordField txtPassword){
     
@@ -70,16 +57,14 @@ public class UserClass {
                     
                     if (rs.next()) {
                         
-                         int userId = rs.getInt("id");
-                        UserClass.storeUserSession(email, userId); 
-                        
+                       
                         
                         frame.dispose();
-                        eComPageUser ah = new eComPageUser(userId);
+                        eComPageUser ah = new eComPageUser();
                        
                         ah.setVisible(true);
                         ah.setResizable(false);
-                        JOptionPane.showMessageDialog(null, "You have successfully logged in as User"+userId);
+                        JOptionPane.showMessageDialog(null, "You have successfully logged in as User");
                     }
                     
                       else if(email.isEmpty() || password.isEmpty()){
@@ -161,14 +146,7 @@ public class UserClass {
     
     }
     
-    public void loadUserData() {
-       Integer sessionUserId = UserClass.getUserSession();  
-        if (sessionUserId != null) {
-          
-            System.out.println("Logged in user ID: " + sessionUserId);
-        }
+   
 
     }
-    
-    
-}
+
