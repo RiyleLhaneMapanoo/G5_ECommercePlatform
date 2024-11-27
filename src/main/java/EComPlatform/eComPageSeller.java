@@ -13,7 +13,7 @@ import javax.swing.border.BevelBorder;
  * 
  */
 //@author Raylen
-//resolving merge conflict attempt
+//resolving merge conflict attempt 1
 public class eComPageSeller extends JFrame implements ActionListener {
 //public class eco extends JFrame{
     private  JPanel MainPanel, makeups, makeupPanel, clothes, clothespanel, panelImages, 
