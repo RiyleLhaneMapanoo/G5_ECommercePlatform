@@ -8,9 +8,6 @@ import javax.swing.*;
 
 public class cartPage extends JFrame implements ActionListener {
  
-     UserClass userClass = new UserClass();
-     int loggedInUserId = userClass.getUserSession();
- 
     private JPanel panel, 
             imagePanel;
     
@@ -164,6 +161,7 @@ public class cartPage extends JFrame implements ActionListener {
             productDetails.setOpaque(false);
             productDetails.add(infoPanel);
             productDetails.add(qPanel);
+           
             
             imgProductPanel[i].add(productDetails);
             imgProductPanel[i].setOpaque(false);
@@ -260,7 +258,7 @@ public class cartPage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btnBack){
         
-        eComPageUser page = new eComPageUser(loggedInUserId);
+   eComPageUser page = new eComPageUser();
     page.setVisible(true);
     page.setSize(1385,764);
     page.setLocationRelativeTo(null);
