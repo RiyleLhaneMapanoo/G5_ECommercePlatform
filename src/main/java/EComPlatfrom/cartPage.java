@@ -28,7 +28,7 @@ public class cartPage extends JFrame implements ActionListener {
     private JLabel pPrices;
     
     private JButton[] btnMinus, btnAdd, btnDelete;
-    private JButton btnBack;
+    private JButton btnBack,btnCheckOut;
     private int[] defaultQuantity;
     private JLabel[] pQuantity;
     
@@ -223,7 +223,7 @@ public class cartPage extends JFrame implements ActionListener {
             ImageIcon coIcon = new ImageIcon(imageSource+"checkout-icon.png");
             ImageIcon coImage = new ImageIcon(coIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         
-            JButton btnCheckOut = new JButton("Checkout");
+            btnCheckOut = new JButton("Checkout");
             btnCheckOut.setBackground(Color.PINK);
             btnCheckOut.setForeground(Color.WHITE);
             btnCheckOut.setFont(new Font(null, Font.BOLD,20));
@@ -231,6 +231,7 @@ public class cartPage extends JFrame implements ActionListener {
             btnCheckOut.setHorizontalTextPosition(JButton.LEFT);
             btnCheckOut.setFocusable(false);
             btnCheckOut.setBorderPainted(false); // border : none
+            btnCheckOut.addActionListener(this);
             botPanel.add(btnCheckOut);
             
    
@@ -264,6 +265,12 @@ public class cartPage extends JFrame implements ActionListener {
     page.setLocationRelativeTo(null);
      dispose();
         
+        }else if(e.getSource()==btnCheckOut){
+         checkoutPage page = new checkoutPage();
+        page.setVisible(true);
+        page.setSize(1385,764);
+         page.setLocationRelativeTo(null);
+         dispose();
         }
         
         total = 0; // reset total
@@ -292,9 +299,6 @@ public class cartPage extends JFrame implements ActionListener {
         }
         
         subTotal.setText(String.valueOf(total));
-        
-       
-        
         
     }
 
