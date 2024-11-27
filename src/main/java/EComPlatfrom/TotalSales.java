@@ -62,7 +62,7 @@ public class TotalSales extends JFrame implements ActionListener {
        
         
         
-        String[] names = {"ID", "Names", "Address","Email Address","Category", "Product Name","Product Price", "Quantity", "Total Price"};
+        String[] names = {"productID", "productName", "Address","Email ","Category", "Product Name","Product Price", "Quantity", "Total Price"};
         
         
 
@@ -81,8 +81,8 @@ public class TotalSales extends JFrame implements ActionListener {
      
         
          lblProductSold = new JLabel("Total Sales");
-      lblProductSold.setForeground(Color.WHITE); // text color
-        lblProductSold.setFont(new Font("Arial", Font.BOLD, 24)); // font/style
+      lblProductSold.setForeground(Color.WHITE); 
+        lblProductSold.setFont(new Font("Arial", Font.BOLD, 24));
         lblProductSold.setBounds(50, 30, 500, 50);
         lblBg.add(lblProductSold);
         
