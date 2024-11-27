@@ -1,4 +1,4 @@
-package EComPlatform;
+package EComPlatfrom;
 
 
 import java.awt.*;
@@ -10,10 +10,8 @@ import javax.swing.border.BevelBorder;
 /**
  *
  * @author June-PC
- *
- */ 
-//@author Raylen
-//resolving merge conflict attempt 1
+ * @author Raylen
+ */
 public class eComPageUser extends JFrame implements ActionListener {
     private int userId;
     private final JPanel MainPanel, makeups, makeupPanel, clothes, clothespanel, panelImages, 
@@ -22,7 +20,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     private final JLabel platformname, DL1, DL2, DL3, DL4, DL5,DL6, DL7, DL8, DL9, DL10, DL11, DL12;
     private final JTextField searchBar;
     private final JButton btnSearch, btncart;
-    private final JComboBox filter;
+    private final JComboBox filterRatings,filterPrice;;
     private final JScrollPane MakeUpjScrollPane, clothesScrolpane, kitchenScrolpane,suppliesScrolpane, designimages1, 
                             desgnimages2, desgnimages3;
     private final JTabbedPane products;
@@ -70,13 +68,23 @@ public class eComPageUser extends JFrame implements ActionListener {
     searchBar.setBounds(200,83,900,40);
     add(searchBar);
     
-    filter= new JComboBox<>();
-    filter.setBounds(1200, 83, 70, 40);
-    filter.setBackground(new Color(255, 102, 255));
-    filter.setFont(new Font("Segoe UI Black", 0, 12)); // NOI18N
-    filter.setModel(new DefaultComboBoxModel<>(new String[] {"1", "2","3","4","5"}));
-    filter.setToolTipText("");
-    add(filter);
+   filterRatings= new JComboBox<>();
+    filterRatings.setBounds(1200, 83, 70, 40);
+    filterRatings.setBackground(new Color(89, 0, 54));
+    filterRatings.setFont(new Font("Segoe UI Black", 0, 12)); 
+    filterRatings.setForeground(new Color(236, 239, 241));
+    filterRatings.setModel(new DefaultComboBoxModel<>(new String[] {"1", "2","3","4","5"}));
+    filterRatings.setToolTipText("");
+    add(filterRatings);
+    
+     filterPrice= new JComboBox<>();
+    filterPrice.setBounds(1280, 83, 70, 40);
+    filterPrice.setBackground(new Color(89, 0, 54));
+    filterPrice.setFont(new Font("Segoe UI Black", 0, 12)); 
+    filterPrice.setForeground(new Color(236, 239, 241));
+    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"~50", "51-100","101-300","301-600","601-900","901-1000~"}));
+    filterPrice.setToolTipText("");
+    add(filterPrice);
     
     btnSearch=new JButton("Search");
     btnSearch.setBackground(new Color(204, 102, 255));

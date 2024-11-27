@@ -84,7 +84,7 @@ public class UserClass {
     }
     
     
-    public void registerMethod(JFrame frame,JButton but,String email, String password,String fullName ,JTextField txtEmail, JTextField txtPassword,JTextField txtName){
+    public void registerMethod(JFrame frame,JButton but,String email, String password,String fullName,String contacts,String house ,JTextField txtContact,JTextField txtHouse,JTextField txtEmail, JTextField txtPassword,JTextField txtName){
      try{
              String checkExisitingValueQuery = "SELECT * FROM usertable WHERE email = ?";
  Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
@@ -104,33 +104,39 @@ public class UserClass {
                  txtName.setText("");
                 txtEmail.setText("");
                 txtPassword.setText("");
-                
+                txtHouse.setText("");
+                txtContact.setText("");
                 
                 }
                 
                 }else{
            
-              if(fullName.isEmpty() || email.isEmpty() || password.isEmpty()){
+              if(fullName.isEmpty() || email.isEmpty() || password.isEmpty()|| contacts.isEmpty()|| house.isEmpty()){
                        
                 JOptionPane.showMessageDialog(but, "Fill out all the necessary info.");
                   txtName.setText("");
                 txtEmail.setText("");
                 txtPassword.setText("");
-                
-            //Would pop out pag di sya makagawa ng account(ex: kulang value na nilagay)
+                txtHouse.setText("");
+                txtContact.setText("");
+            //UPDATE: would pop if empty nlng sila
             
                }else{
-                        String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`) VALUES ( ?, ?, ?)";
-Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
+                        String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`,`address`,`contactnum`) VALUES (?,?,?,?,?)";
+                   Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
              PreparedStatement state = con.prepareStatement(query);
              state.setString(1, txtName.getText());
              state.setString(2, txtEmail.getText());
              state.setString(3, txtPassword.getText());
+              state.setString(4, txtHouse.getText());
+             state.setString(5, txtContact.getText());
                  
                  JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY");
                 txtName.setText("");
                 txtEmail.setText("");
                 txtPassword.setText("");
+                txtHouse.setText("");
+                txtContact.setText("");
              state.executeUpdate();
                    
                }
@@ -142,6 +148,8 @@ Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1",
                  txtName.setText("");
                 txtEmail.setText("");
                 txtPassword.setText("");
+                txtHouse.setText("");
+                txtContact.setText("");
              }
     
     }

@@ -18,11 +18,15 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
+
 
 
 /**
@@ -31,8 +35,9 @@ import javax.swing.border.BevelBorder;
  */
 public class ProductClass  {
    
-   
+   //Comments are for MEMBERS*
     private JPanel[] productPanels;  // Array to store panels
+ 
     private int panelCount = 0;  // To keep track of the panels added
     private Connection conn;  // Database connection
   
@@ -41,7 +46,7 @@ public class ProductClass  {
   UserClass userClass = new UserClass();
    
     public ProductClass(){
-        productPanels = new JPanel[50]; // number ng panel n pede ma-add. 
+        productPanels = new JPanel[50]; // number ng panel n pede ma-add. may change into adding as much as the seller wants
         connectToDatabase();
          
     }
@@ -60,7 +65,7 @@ public class ProductClass  {
     }
     
    
-    
+   
     
      
     public JPanel createProductPanelforBuyer(String category) {
@@ -77,25 +82,26 @@ public class ProductClass  {
                 String productTag = rs.getString("productName");
                 double price = rs.getDouble("price");
                 int rates = rs.getInt("ratings");
-
-                // Create and customize the new JPanel
+                
+                // Create and customize the new JPanel(REFERENCE FOR ADDING TO CART AND FUNCTION FUNCTION HERE)
                 JPanel panel = new JPanel();
                 panel.setBackground(new Color(236, 239, 241));
                 panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
                 panel.setLayout(null);
                 
-              
-                // Set dynamic position based on panelCount
+                // UPDATE: Position is fixed and is calculated based on the panelcount 
                 int xPosition = 90 + (panelCount % 3) * 430;  // means three panels per ROW
                 int yPosition = 20 + (panelCount / 3) * 350;  // adjust vertical spacing OF EACH panel
                 panel.setBounds(xPosition, yPosition, 230, 300);  // Adjust size and position
  
-               
                 //DITO LAGAY YUNG NSA LOOB NG PRODUCT PANELS (ex, Name, Jlabel for photo, price, add to cart button etc)
              
                 JLabel pImage = new JLabel();
                 pImage.setBounds(40, 10, 150, 150);
                 pImage.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
+                
+                
+                
                 panel.add(pImage);
 
                 JLabel pName = new JLabel (productTag);
@@ -221,8 +227,6 @@ public class ProductClass  {
     }
     
     
-   
-
    // Method to get panel count
     public int getPanelCount() {
         return panelCount;
@@ -242,7 +246,7 @@ public class ProductClass  {
         pst.setString(1, category);
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
-            totalCount = rs.getInt(1);  // Get the count from the result set meaning 
+            totalCount = rs.getInt(1);  // Get the count from the result set meaning kinukuha nya ilang items yung meron sa category na yon
         }
     } catch (SQLException e) {
         e.printStackTrace();
@@ -265,4 +269,82 @@ public class ProductClass  {
     //math ceil and isang double into an integer. 
     //for example meron tayong 3 Products sa makeup category. ididivide sya sa 3 so and result ay 1 which means 1 row. page kunwari 4 products naman and magiging
     //result nya is 1.33, using Math.ceil will be 2 which means 2 rows.
+    
+   public void addToCart(JButton but,String prName, double prPrice, int origStock, int rating,String prCat,JTextField pName,JTextField pPrice,JTextField origAvail,JComboBox prRate, JComboBox pCat){
+     try{
+        
+             
+         
+             String checkExisitingValueQuery = "SELECT * FROM example_product WHERE productName = ?";
+ Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
+             PreparedStatement checkExisitingValueState = checkExisitingValueCon.prepareStatement(checkExisitingValueQuery);         
+             
+             checkExisitingValueState.setString(1, pName.getText());
+          
+                ResultSet resultSet = checkExisitingValueState.executeQuery();
+                
+                
+                if(resultSet.next()){
+                
+                String existingPro = resultSet.getString("productName");
+                //Nested if
+                if(prName.equals(existingPro)){
+                
+                 JOptionPane.showMessageDialog(null, "Product Already Exists", "Error", JOptionPane.ERROR_MESSAGE);
+                 pName.setText("");
+               
+                
+                }
+                
+                }else{
+           
+                  
+              if(prName.isEmpty() || prPrice <= 0 || origStock <= 0){
+                       
+                JOptionPane.showMessageDialog(but, "Fill out all the necessary info.");
+                pName.setText("");
+                pPrice.setText("");
+                origAvail.setText("");
+                prRate.setSelectedIndex(0);
+               pCat.setSelectedIndex(0);
+            //UPDATE: would pop if empty nlng sila
+            
+               }else{
+                  
+                 
+                        String query = "INSERT INTO `example_product`(`productName`, `price`, `category`,`ratings`,`productOriginalStock`) VALUES (?,?,?,?,?)";
+                   Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
+             PreparedStatement state = con.prepareStatement(query);
+             state.setString(1, pName.getText());
+             state.setString(2, pPrice.getText());
+            state.setString(3, (String) pCat.getSelectedItem());
+             state.setString(4, (String) prRate.getSelectedItem());
+            state.setString(5, (String) prRate.getSelectedItem());
+                 
+                 JOptionPane.showMessageDialog(null, "Added Successfully");
+                pName.setText("");
+                pPrice.setText("");
+                origAvail.setText("");
+                prRate.setSelectedIndex(0);
+               pCat.setSelectedIndex(0);
+             state.executeUpdate();
+         }
+               }
+             
+             
+             }catch(Exception ex){
+                       System.out.println(ex);   
+//             JOptionPane.showMessageDialog(null,"An error has occured. ");
+//               pName.setText("");
+//                pPrice.setText("");
+//                origAvail.setText("");
+//                prRate.setSelectedIndex(0);
+//               pCat.setSelectedIndex(0);
+             }
+     
+    }
+     
+    
+    
+    
 }

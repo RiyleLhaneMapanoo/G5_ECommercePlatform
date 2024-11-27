@@ -27,7 +27,8 @@ public class addProduct extends JFrame implements ActionListener{
    String[] Pcategory = {"Makeup", "Clothes", "Kitchen", "School Supplies"};
    String[] PR = {"1", "2", "3", "4", "5"};
  
-    UserClass userClass = new UserClass();
+   ProductClass pr = new ProductClass();
+   // UserClass userClass = new UserClass();
         
     addProduct(){
         
@@ -122,20 +123,36 @@ public class addProduct extends JFrame implements ActionListener{
         bgLabel.add(btnAddP);
         
         btnBack.addActionListener(this);
-
+        btnAddP.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btnBack){
             
-             eComPageUser page = new eComPageUser();
+             eComPageSeller page = new eComPageSeller();
              page.setVisible(true);
              page.setSize(1385,764);
              page.setLocationRelativeTo(null);
              dispose();
    
         
+       }else if(e.getSource()==btnAddP){
+           
+           
+        String productName = txfPname.getText();
+        double productPrice = Double.parseDouble(txfPprice.getText()); 
+        int stockAvail = Integer.parseInt(txfSA.getText());
+        int prRating = Integer.parseInt((String) txfPrating.getSelectedItem()); 
+        String prCategory = (String) txfPcategory.getSelectedItem(); 
+         
+         //ctto stack overflow
+         
+            
+        pr.addToCart(btnAddP,productName,productPrice,stockAvail,prRating,prCategory,txfPname,txfPprice,txfSA,txfPrating, txfPcategory);
+            
+    
+       
        }
     }
 }
