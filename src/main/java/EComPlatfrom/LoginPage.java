@@ -125,6 +125,6 @@ public class LoginPage extends JFrame implements ActionListener {
         }
         
         
-        //rgistr update 1
+
     }
 }

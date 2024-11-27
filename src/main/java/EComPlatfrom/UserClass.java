@@ -19,7 +19,7 @@ public class UserClass {
     
 //    private JTextField subTxtEmail;
 //    private JPasswordField subTxtPass;
-    //register update
+
     public UserClass(){
      //may add the connectTodatabase() method after debugging later on
      
@@ -30,8 +30,8 @@ public class UserClass {
     public void loginMethod(JFrame frame,String email, String password, JTextField txtEmail, JPasswordField txtPassword){
     
                 try {
-                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1",
-                        "root", "12345");
+                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1","root", "1027");
+
 
                      PreparedStatement stSeller = connection.prepareStatement("SELECT email, password FROM usertable WHERE BINARY email=? AND BINARY password=? AND id=1");
                        stSeller.setString(1, email);
@@ -87,7 +87,7 @@ public class UserClass {
     public void registerMethod(JFrame frame,JButton but,String email, String password,String fullName ,JTextField txtEmail, JTextField txtPassword,JTextField txtName){
      try{
              String checkExisitingValueQuery = "SELECT * FROM usertable WHERE email = ?";
-             Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
+ Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
              PreparedStatement checkExisitingValueState = checkExisitingValueCon.prepareStatement(checkExisitingValueQuery);         
              checkExisitingValueState.setString(1, txtEmail.getText());
                  
@@ -121,7 +121,7 @@ public class UserClass {
             
                }else{
                         String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`) VALUES ( ?, ?, ?)";
-             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
+Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
              PreparedStatement state = con.prepareStatement(query);
              state.setString(1, txtName.getText());
              state.setString(2, txtEmail.getText());
