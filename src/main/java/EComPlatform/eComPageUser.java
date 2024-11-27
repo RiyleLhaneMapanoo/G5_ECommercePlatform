@@ -10,8 +10,10 @@ import javax.swing.border.BevelBorder;
 /**
  *
  * @author June-PC
- * @author Raylen
- */
+ *
+ */ 
+//@author Raylen
+//resolving merge conflict attempt
 public class eComPageUser extends JFrame implements ActionListener {
     private int userId;
     private final JPanel MainPanel, makeups, makeupPanel, clothes, clothespanel, panelImages, 
