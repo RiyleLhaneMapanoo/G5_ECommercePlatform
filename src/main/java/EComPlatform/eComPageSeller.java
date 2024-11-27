@@ -7,8 +7,13 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
-
+/**
+ *
+ * @author June-PC
+ * @author Raylen
+ */
 public class eComPageSeller extends JFrame implements ActionListener {
+//public class eco extends JFrame{
     private  JPanel MainPanel, makeups, makeupPanel, clothes, clothespanel, panelImages, 
                          kitchen, kitchenpanel, supplies, suppliespanel, designpanel, designpanel2, 
                          desgnpanel3,productPanel;
