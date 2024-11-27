@@ -19,7 +19,7 @@ public class UserClass {
     
 //    private JTextField subTxtEmail;
 //    private JPasswordField subTxtPass;
-    
+    //register update
     public UserClass(){
      //may add the connectTodatabase() method after debugging later on
      

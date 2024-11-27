@@ -23,6 +23,7 @@ class BuyerSignupPage extends JFrame implements ActionListener{
      JPanel backgroundPl;
      
      //for user class:
+     //reister update
      UserClass userClass = new UserClass();
     BuyerSignupPage(){
         
