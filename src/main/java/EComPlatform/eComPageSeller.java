@@ -1,4 +1,4 @@
-package EComPlatfrom;
+package EComPlatform;
 
 
 import java.awt.*;
@@ -7,12 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
-/**
- *
- * @author June-PC
- */
+
 public class eComPageSeller extends JFrame implements ActionListener {
-//public class eco extends JFrame{
     private  JPanel MainPanel, makeups, makeupPanel, clothes, clothespanel, panelImages, 
                          kitchen, kitchenpanel, supplies, suppliespanel, designpanel, designpanel2, 
                          desgnpanel3,productPanel;
@@ -75,7 +71,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
     filter.setBackground(new Color(89, 0, 54));
     filter.setFont(new Font("Segoe UI Black", 0, 12)); 
     filter.setForeground(new Color(236, 239, 241));
-    filter.setModel(new DefaultComboBoxModel<>(new String[] {"price", "ratings"}));
+    filter.setModel(new DefaultComboBoxModel<>(new String[] {"1", "2","3","4","5"}));
     filter.setToolTipText("");
     add(filter);
     

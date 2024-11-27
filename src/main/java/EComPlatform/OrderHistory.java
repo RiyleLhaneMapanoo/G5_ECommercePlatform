@@ -1,5 +1,5 @@
 
-package EComPlatfrom;
+package EComPlatform;
 
 import java.awt.*;
 import static java.awt.PageAttributes.MediaType.C;
