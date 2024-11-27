@@ -38,7 +38,7 @@ public class addProduct extends JFrame implements ActionListener{
         setResizable(false);
         setLocationRelativeTo(null);
         
-        ImageIcon bgIcon = new ImageIcon("src\\main\\java\\Images\\addprdbgi.png");
+        ImageIcon bgIcon = new ImageIcon("src\\main\\java\\Images\\sellerBackgroun.png");
         bgLabel = new JLabel(bgIcon);
 
         Image scaledImage = bgIcon.getImage().getScaledInstance(1385,764, Image.SCALE_SMOOTH);
