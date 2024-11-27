@@ -18,7 +18,7 @@ public class OrderHistory extends JFrame implements ActionListener{
  
     UserClass userClass = new UserClass();
         
-   
+   String column;
     OrderHistory(){
         
         setTitle("Order History");
