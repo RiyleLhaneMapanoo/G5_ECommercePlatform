@@ -4,14 +4,19 @@
  */
 package EComPlatfrom;
 
-//import practice.Dsa;
+
 
 /**
  *
- * @author June-PC
+ * @author Raylen
  */
-public class ECPMain {
-    public static void main(String[] args) {
-          new mnpltfrm();
+public class mainClass1 {
+    public static void main(String[] args){
+    
+ LoginPage login = new LoginPage();
+    login.setVisible(true);
+    login.setResizable(false);
+   
+    
     }
 }
