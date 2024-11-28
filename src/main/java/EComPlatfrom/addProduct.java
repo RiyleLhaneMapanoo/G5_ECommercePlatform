@@ -16,7 +16,7 @@ public class addProduct extends JFrame implements ActionListener{
    private JScrollPane spTable;
    private JTable ohtable;
    private JPanel plist;
-   private JButton btnBAgain,btnReview,btnBack;
+   private JButton btnBAgain,btnupPht,btnBack;
    private String[] ohtableColumn;
    private Object[][] ohtableData;
    private DefaultTableModel ohtableMod;
@@ -42,15 +42,15 @@ public class addProduct extends JFrame implements ActionListener{
         bgLabel.setBounds(0, 0, 1385, 764);
         add(bgLabel);
         
-        btnBAgain =  new JButton("Buy Again");
+        btnBAgain =  new JButton("Add Product");
         btnBAgain.setBounds(100, 509, 144, 38);
         btnBAgain.setFont(new Font("Arial",Font.BOLD,16));
         bgLabel.add(btnBAgain);
         
-        btnReview =  new JButton("Review Order");
-        btnReview.setBounds(100, 594, 144, 37);
-        btnReview.setFont(new Font("Arial",Font.BOLD,16));
-        bgLabel.add(btnReview);
+        btnupPht =  new JButton("Upload Photo");
+        btnupPht.setBounds(100, 594, 144, 37);
+        btnupPht.setFont(new Font("Arial",Font.BOLD,16));
+        bgLabel.add(btnupPht);
         
         btnBack =  new JButton("Back");
         btnBack.setBounds(20, 20, 68, 22);
