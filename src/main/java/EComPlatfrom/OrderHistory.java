@@ -27,11 +27,11 @@ public class OrderHistory extends JFrame implements ActionListener{
     OrderHistory(){
         
         setTitle("Order History");
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1385,764);
+        setSize(1385, 764);
         setLayout(null);
-        setResizable(false);plist = new JPanel();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setLocationRelativeTo(null);
         
         ImageIcon bgIcon = new ImageIcon("src\\main\\java\\Images\\mpbg.jpg");
         bgLabel = new JLabel(bgIcon);
@@ -72,6 +72,7 @@ public class OrderHistory extends JFrame implements ActionListener{
         bgLabel.add(btnBack);
         
         btnBack.addActionListener(this);
+        btnBAgain.addActionListener(this);
     }
 
     @Override
