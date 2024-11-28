@@ -13,9 +13,9 @@ package EComPlatfrom;
 public class mainClass1 {
     public static void main(String[] args){
     
- LoginPage login = new LoginPage();
+    LoginPage login = new LoginPage();
     login.setVisible(true);
-    login.setResizable(false);
+    login.setResizable(false); 
    
     
     }
