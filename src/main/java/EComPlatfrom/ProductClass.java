@@ -270,7 +270,7 @@ public class ProductClass  {
     //for example meron tayong 3 Products sa makeup category. ididivide sya sa 3 so and result ay 1 which means 1 row. page kunwari 4 products naman and magiging
     //result nya is 1.33, using Math.ceil will be 2 which means 2 rows.
     
-   public void addToCart(JButton but,String prName, double prPrice, int origStock, int rating,String prCat,JTextField pName,JTextField pPrice,JTextField origAvail,JComboBox prRate, JComboBox pCat){
+   public void addProduct(JButton but,String prName, double prPrice, int origStock, int rating,String prCat,JTextField pName,JTextField pPrice,JTextField origAvail,JComboBox prRate, JComboBox pCat){
      try{
         
              
@@ -344,7 +344,21 @@ public class ProductClass  {
      
     }
      
-    
+    public void cartItems(JPanel panelContainer, int count){
+     
+         for (int i = 0; i < count; i++) {  
+        JPanel productPanel = new JPanel();
+          productPanel.setBackground(Color.white);
+       int yPosition = 20 + i * (200 + 30); 
+        productPanel.setBounds(30, yPosition, 1250, 200);
+        productPanel.setLayout(null);
+        
+           
+        panelContainer.add(productPanel);
+            //  productPanel.setBounds(30,30,1250,200);
+         }
+      
+    }
     
     
 }
