@@ -57,7 +57,7 @@ public class ProductClass  {
             
             String url = "jdbc:mysql://localhost:3306/testecom1";
             String user = "root";
-            String password = "1027";
+            String password = "12345";
             conn = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -276,7 +276,7 @@ public class ProductClass  {
              
          
              String checkExisitingValueQuery = "SELECT * FROM example_product WHERE productName = ?";
- Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
+ Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
              PreparedStatement checkExisitingValueState = checkExisitingValueCon.prepareStatement(checkExisitingValueQuery);         
              
              checkExisitingValueState.setString(1, pName.getText());
@@ -313,7 +313,7 @@ public class ProductClass  {
                   
                  
                         String query = "INSERT INTO `example_product`(`productName`, `price`, `category`,`ratings`,`productOriginalStock`) VALUES (?,?,?,?,?)";
-                   Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
+                   Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
              PreparedStatement state = con.prepareStatement(query);
              state.setString(1, pName.getText());
              state.setString(2, pPrice.getText());
