@@ -112,6 +112,21 @@ public class cartPage  extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+          if(e.getSource()==btnBack){
+        
+   eComPageUser page = new eComPageUser();
+    page.setVisible(true);
+    page.setSize(1385,764);
+    page.setLocationRelativeTo(null);
+     dispose();
+        
+        }else if(e.getSource()==btnCheckOut){
+         checkoutPage page = new checkoutPage();
+        page.setVisible(true);
+        page.setSize(1385,764);
+         page.setLocationRelativeTo(null);
+         dispose();
+        }
     }
     
     
