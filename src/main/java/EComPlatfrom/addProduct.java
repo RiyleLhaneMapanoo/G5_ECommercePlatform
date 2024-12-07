@@ -149,7 +149,7 @@ public class addProduct extends JFrame implements ActionListener{
          //ctto stack overflow
          
             
-        pr.addToCart(btnAddP,productName,productPrice,stockAvail,prRating,prCategory,txfPname,txfPprice,txfSA,txfPrating, txfPcategory);
+        pr.addProduct(btnAddP,productName,productPrice,stockAvail,prRating,prCategory,txfPname,txfPprice,txfSA,txfPrating, txfPcategory);
             
     
        
