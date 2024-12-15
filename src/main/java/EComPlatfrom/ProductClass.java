@@ -8,6 +8,8 @@ package EComPlatfrom;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -36,9 +38,10 @@ import javax.swing.border.BevelBorder;
 public class ProductClass  {
    
    //Comments are for MEMBERS*
-    private JPanel[] productPanels;  // Array to store panels
+   // Array to store panels
  
     private int panelCount = 0;  // To keep track of the panels added
+    private int pan = 0;
     private Connection conn;  // Database connection
   
   
@@ -46,7 +49,7 @@ public class ProductClass  {
   UserClass userClass = new UserClass();
    
     public ProductClass(){
-        productPanels = new JPanel[50]; // number ng panel n pede ma-add. may change into adding as much as the seller wants
+       // number ng panel n pede ma-add. may change into adding as much as the seller wants
         connectToDatabase();
          
     }
@@ -70,8 +73,8 @@ public class ProductClass  {
      
     public JPanel createProductPanelforBuyer(String category) {
         try {
-            
-            String query = "Select productId,productName,price,ratings from example_product WHERE category = ? limit 1 offset " + panelCount; // Get product by category rather
+             
+            String query = "Select productId,productName,price,ratings from example_product WHERE category = ? limit 1 offset "+panelCount; // Get product by category rather
             
             PreparedStatement pst = conn.prepareStatement(query);
              pst.setString(1, category); 
@@ -89,11 +92,12 @@ public class ProductClass  {
                 panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
                 panel.setLayout(null);
                 
+              
                 // UPDATE: Position is fixed and is calculated based on the panelcount 
                 int xPosition = 90 + (panelCount % 3) * 430;  // means three panels per ROW
                 int yPosition = 20 + (panelCount / 3) * 350;  // adjust vertical spacing OF EACH panel
                 panel.setBounds(xPosition, yPosition, 230, 300);  // Adjust size and position
- 
+                 
                 //DITO LAGAY YUNG NSA LOOB NG PRODUCT PANELS (ex, Name, Jlabel for photo, price, add to cart button etc)
              
                 JLabel pImage = new JLabel();
@@ -126,17 +130,14 @@ public class ProductClass  {
                 
         
              
-                
+                panel.add(addB);
                  panel.add(pName);
                 panel.add(pPrice);
                panel.add(pRating);
                 panel.add(addB);
                 
                
-
-                // Add to product panels array and list
-                productPanels[panelCount] = panel;
-             
+            
                 panelCount++;
 
 //                  
@@ -145,7 +146,7 @@ public class ProductClass  {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+      return null;
     }
     
     public JPanel createProductPanelforSeller(String category) {
@@ -203,12 +204,7 @@ public class ProductClass  {
                 panel.add(pPrice);
                panel.add(pRating);
                 
-                
-               
 
-                // Add to product panels array and list
-                productPanels[panelCount] = panel;
-             
                 panelCount++;
 
 //                  
@@ -221,16 +217,8 @@ public class ProductClass  {
     }
     
     
-   // Method to get all panels
-    public JPanel[] getPanel() {
-        return productPanels;
-    }
+   
     
-    
-   // Method to get panel count
-    public int getPanelCount() {
-        return panelCount;
-    }
     
     //to reset panel count(for display ng product panels on their corresponding tab category)
     //pag wala kasi toh, di nya finifilter yung product panels sa corresponding tabs niya, regardless whether inadd mo n sila sa tab pane panel
@@ -334,12 +322,7 @@ public class ProductClass  {
              
              }catch(Exception ex){
                        System.out.println(ex);   
-//             JOptionPane.showMessageDialog(null,"An error has occured. ");
-//               pName.setText("");
-//                pPrice.setText("");
-//                origAvail.setText("");
-//                prRate.setSelectedIndex(0);
-//               pCat.setSelectedIndex(0);
+
              }
      
     }
