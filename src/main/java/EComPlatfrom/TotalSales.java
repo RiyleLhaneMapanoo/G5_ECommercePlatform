@@ -25,7 +25,7 @@ public class TotalSales extends JFrame implements ActionListener {
     private JLabel lblBg,lblTotalSales , lblProductSold;
     private JPanel pnlist;
     private JTextArea jtTotalPrice;
-    private JButton btnNext,btnBack,btnShow;
+    private JButton btnBack,btnShow;
     private JTable table;
     TotalSales() {
         
@@ -62,7 +62,7 @@ public class TotalSales extends JFrame implements ActionListener {
        
         
         
-        String[] names = {"ID", "Names", "Address","Email Address","Category", "Product Name","Product Price", "Quantity", "Total Price"};
+        String[] names = {"productID", "productName", "Address","Email ","Category", "Product Name","Product Price", "Quantity", "Total Price"};
         
         
 
@@ -81,16 +81,16 @@ public class TotalSales extends JFrame implements ActionListener {
      
         
          lblProductSold = new JLabel("Total Sales");
-      lblProductSold.setForeground(Color.WHITE); // text color
-        lblProductSold.setFont(new Font("Arial", Font.BOLD, 24)); // font/style
+      lblProductSold.setForeground(Color.WHITE); 
+        lblProductSold.setFont(new Font("Arial", Font.BOLD, 24));
         lblProductSold.setBounds(50, 30, 500, 50);
         lblBg.add(lblProductSold);
         
        
         
-        btnNext = new JButton("VIew Inventory");
-        btnNext.setBounds(1100, 630, 200, 50);
-        lblBg.add(btnNext);
+//        btnNext = new JButton("VIew Inventory");
+//        btnNext.setBounds(1100, 630, 200, 50);
+//        lblBg.add(btnNext);
     
         btnBack = new JButton("Back");
         btnBack.setBounds(980, 630,100, 50);
@@ -103,7 +103,7 @@ public class TotalSales extends JFrame implements ActionListener {
         btnShow.setBounds(860, 630, 100, 50);
         lblBg.add(btnShow);
         
-        btnNext.addActionListener(this);
+       // btnNext.addActionListener(this);
         btnBack.addActionListener(this);
         btnShow.addActionListener(this);
             
@@ -113,13 +113,7 @@ public class TotalSales extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==btnNext){
-//            Inventory inv = new Inventory();
-//            inv.setVisible(true);
-//            this.dispose();
-                
-        }
-        else if(e.getSource()==btnShow){
+        if(e.getSource()==btnShow){
               
               ImageIcon icon = new ImageIcon("src\\main\\java\\Images\\updated.png");
               

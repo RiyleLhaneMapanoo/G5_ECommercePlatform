@@ -10,6 +10,7 @@ import javax.swing.border.BevelBorder;
 /**
  *
  * @author June-PC
+ * @author Raylen
  */
 public class eComPageSeller extends JFrame implements ActionListener {
 //public class eco extends JFrame{
@@ -19,7 +20,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
     private  JLabel platformname, DL1, DL2, DL3, DL4, DL5,DL6, DL7, DL8, DL9, DL10, DL11, DL12;
     private  JTextField searchBar;
     private  JButton btnSearch, addProd;
-    private  JComboBox filter;
+    private  JComboBox filterRatings,filterPrice;
     private  JScrollPane MakeUpjScrollPane, clothesScrolpane, kitchenScrolpane,suppliesScrolpane, designimages1, 
                             desgnimages2, desgnimages3;
     private  JTabbedPane products;
@@ -70,14 +71,23 @@ public class eComPageSeller extends JFrame implements ActionListener {
     searchBar.setBounds(200,83,900,40);
     add(searchBar);
     
-    filter= new JComboBox<>();
-    filter.setBounds(1200, 83, 70, 40);
-    filter.setBackground(new Color(89, 0, 54));
-    filter.setFont(new Font("Segoe UI Black", 0, 12)); 
-    filter.setForeground(new Color(236, 239, 241));
-    filter.setModel(new DefaultComboBoxModel<>(new String[] {"price", "ratings"}));
-    filter.setToolTipText("");
-    add(filter);
+    filterRatings= new JComboBox<>();
+    filterRatings.setBounds(1200, 83, 70, 40);
+    filterRatings.setBackground(new Color(89, 0, 54));
+    filterRatings.setFont(new Font("Segoe UI Black", 0, 12)); 
+    filterRatings.setForeground(new Color(236, 239, 241));
+    filterRatings.setModel(new DefaultComboBoxModel<>(new String[] {"1", "2","3","4","5"}));
+    filterRatings.setToolTipText("");
+    add(filterRatings);
+    
+     filterPrice= new JComboBox<>();
+    filterPrice.setBounds(1280, 83, 70, 40);
+    filterPrice.setBackground(new Color(89, 0, 54));
+    filterPrice.setFont(new Font("Segoe UI Black", 0, 12)); 
+    filterPrice.setForeground(new Color(236, 239, 241));
+    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"~50", "51-100","101-300","301-600","601-900","901-1000~"}));
+    filterPrice.setToolTipText("");
+    add(filterPrice);
     
    ImageIcon coIcon = new ImageIcon("src\\main\\java\\Images\\checkout-icon.png");
     ImageIcon coImage = new ImageIcon(coIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
@@ -98,7 +108,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
     Menu.setText("Profile");
 
     JmenuProducts= new JMenuItem();
-    JmenuProducts.setText("Products");
+    JmenuProducts.setText("Add Product");
     Menu.add(JmenuProducts);
 
     JmenuInventory = new JMenuItem();
@@ -556,6 +566,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
         jmenuSales.addActionListener(this);
         JmenuInventory.addActionListener(this);
         jmenuLogout.addActionListener(this);
+        JmenuProducts.addActionListener(this);
     }
 
     @Override
@@ -578,6 +589,14 @@ public class eComPageSeller extends JFrame implements ActionListener {
     }else if(e.getSource()==jmenuLogout){
     
     LoginPage page = new LoginPage();
+    page.setVisible(true);
+    page.setSize(1385,764);
+    page.setLocationRelativeTo(null);
+     dispose();
+    
+    }else if(e.getSource()==JmenuProducts){
+    
+    addProduct page = new addProduct();
     page.setVisible(true);
     page.setSize(1385,764);
     page.setLocationRelativeTo(null);

@@ -19,7 +19,7 @@ public class UserClass {
     
 //    private JTextField subTxtEmail;
 //    private JPasswordField subTxtPass;
-    
+
     public UserClass(){
      //may add the connectTodatabase() method after debugging later on
      
@@ -30,8 +30,8 @@ public class UserClass {
     public void loginMethod(JFrame frame,String email, String password, JTextField txtEmail, JPasswordField txtPassword){
     
                 try {
-                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1",
-                        "root", "1027");
+                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1","root", "12345");
+
 
                      PreparedStatement stSeller = connection.prepareStatement("SELECT email, password FROM usertable WHERE BINARY email=? AND BINARY password=? AND id=1");
                        stSeller.setString(1, email);
@@ -84,10 +84,10 @@ public class UserClass {
     }
     
     
-    public void registerMethod(JFrame frame,JButton but,String email, String password,String fullName ,JTextField txtEmail, JTextField txtPassword,JTextField txtName){
+    public void registerMethod(JFrame frame,JButton but,String email, String password,String fullName,String contacts,String house ,JTextField txtContact,JTextField txtHouse,JTextField txtEmail, JTextField txtPassword,JTextField txtName){
      try{
              String checkExisitingValueQuery = "SELECT * FROM usertable WHERE email = ?";
-             Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
+ Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
              PreparedStatement checkExisitingValueState = checkExisitingValueCon.prepareStatement(checkExisitingValueQuery);         
              checkExisitingValueState.setString(1, txtEmail.getText());
                  
@@ -104,33 +104,39 @@ public class UserClass {
                  txtName.setText("");
                 txtEmail.setText("");
                 txtPassword.setText("");
-                
+                txtHouse.setText("");
+                txtContact.setText("");
                 
                 }
                 
                 }else{
            
-              if(fullName.isEmpty() || email.isEmpty() || password.isEmpty()){
+              if(fullName.isEmpty() || email.isEmpty() || password.isEmpty()|| contacts.isEmpty()|| house.isEmpty()){
                        
                 JOptionPane.showMessageDialog(but, "Fill out all the necessary info.");
                   txtName.setText("");
                 txtEmail.setText("");
                 txtPassword.setText("");
-                
-            //Would pop out pag di sya makagawa ng account(ex: kulang value na nilagay)
+                txtHouse.setText("");
+                txtContact.setText("");
+            //UPDATE: would pop if empty nlng sila
             
                }else{
-                        String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`) VALUES ( ?, ?, ?)";
-             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","1027");
+                        String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`,`address`,`contactnum`) VALUES (?,?,?,?,?)";
+                   Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
              PreparedStatement state = con.prepareStatement(query);
              state.setString(1, txtName.getText());
              state.setString(2, txtEmail.getText());
              state.setString(3, txtPassword.getText());
+              state.setString(4, txtHouse.getText());
+             state.setString(5, txtContact.getText());
                  
                  JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY");
                 txtName.setText("");
                 txtEmail.setText("");
                 txtPassword.setText("");
+                txtHouse.setText("");
+                txtContact.setText("");
              state.executeUpdate();
                    
                }
@@ -142,6 +148,8 @@ public class UserClass {
                  txtName.setText("");
                 txtEmail.setText("");
                 txtPassword.setText("");
+                txtHouse.setText("");
+                txtContact.setText("");
              }
     
     }

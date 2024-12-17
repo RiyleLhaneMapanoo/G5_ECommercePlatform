@@ -5,6 +5,8 @@
 package EComPlatfrom;
 
 import EComPlatfrom.eComPageSeller;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -29,6 +31,7 @@ public class inventoryPage extends JFrame implements ActionListener{
     private DefaultTableModel invMod;
     
     private JButton backBut;
+    private JLabel invDisp;
     
     inventoryPage(){
         setTitle("ECP-Platform");
@@ -39,25 +42,23 @@ public class inventoryPage extends JFrame implements ActionListener{
         setResizable(false);
         setLocationRelativeTo(null);
         
-        
+        invDisp = new JLabel("Inventory");
+        invDisp.setFont(new Font("Arial",Font.PLAIN,50));
+        invDisp.setForeground(Color.WHITE);
+        invDisp.setBounds(550,20,300,55);
+         add(invDisp);
         
     
      invColumn = new String[]{"Product ID","Product","Category","Original Quantity","Stock Bought","Current Stocks"}; //columns
    
-    
+    //Comments are for members*
     invMod  = new DefaultTableModel(invData,invColumn); //the model where u arrange the column and row
   
-    inv = new JTable(invMod){
-     @Override
-     public boolean isCellEditable(int row, int column) {
-        return false; 
-    }//to make cells uneditable
-    
-    };//the table itself
+    inv = new JTable(invMod);
    
     inv.getTableHeader().setReorderingAllowed(false);//so that table would not move
     SPtable = new JScrollPane(inv);//insert the table here to make it scroll-able
-    SPtable.setBounds(150, 50, 1100, 500);
+    SPtable.setBounds(150, 100, 1100, 500);
     add(SPtable);
     
         
