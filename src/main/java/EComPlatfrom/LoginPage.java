@@ -27,7 +27,7 @@ public class LoginPage extends JFrame implements ActionListener {
     JPanel plBackround;
     //TEST UPDte
     //for user class:
-    UserClass userClass = new UserClass();//hi
+   //what
     
     LoginPage(){
         
@@ -119,7 +119,7 @@ public class LoginPage extends JFrame implements ActionListener {
             
             String strEmail = txfEmail.getText();
             String strPassword = new String(pfPassword.getPassword());
-            userClass.loginMethod(LoginPage.this,strEmail, strPassword, txfEmail, pfPassword);
+            //userClass.loginMethod(LoginPage.this,strEmail, strPassword, txfEmail, pfPassword);
             
           
         }
