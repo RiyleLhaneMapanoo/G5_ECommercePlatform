@@ -35,7 +35,7 @@ public class checkoutPage extends JFrame implements ActionListener{
     int subT = 0;
     //for product class
     ProductClass pro = new ProductClass();
-    
+    //new update test
     checkoutPage(){
       setTitle("ECP-Platform");
         setSize(1385, 764);
