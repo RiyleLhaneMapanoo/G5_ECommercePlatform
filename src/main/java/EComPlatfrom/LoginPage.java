@@ -27,7 +27,7 @@ public class LoginPage extends JFrame implements ActionListener {
     JPanel plBackround;
     //TEST UPDte
     //for user class:
-    UserClass userClass = new UserClass();
+    UserClass userClass = new UserClass();//hi
     
     LoginPage(){
         
