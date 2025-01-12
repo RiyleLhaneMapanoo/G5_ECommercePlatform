@@ -22,10 +22,10 @@ public class OrderHistory extends JFrame implements ActionListener{
    private Object[][] ohtableData;
    private DefaultTableModel ohtableMod;
  //test commit
-    UserClass userClass = new UserClass();
+   private UserClass userClass;
         
     OrderHistory(){
-        
+        this.userClass = userClass;
         setTitle("Order History");
         setSize(1385, 764);
         setLayout(null);
@@ -36,7 +36,7 @@ public class OrderHistory extends JFrame implements ActionListener{
         ImageIcon bgIcon = new ImageIcon("src\\main\\java\\Images\\mpbg.jpg");
         bgLabel = new JLabel(bgIcon);
 
-       // Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
+      
         Image scaledImage = bgIcon.getImage().getScaledInstance(1385,764, Image.SCALE_SMOOTH);
         
         bgLabel.setIcon(new ImageIcon(scaledImage));
@@ -79,7 +79,7 @@ public class OrderHistory extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btnBack){
             
-             eComPageUser page = new eComPageUser();
+             eComPageUser page = new eComPageUser(userClass);
              page.setVisible(true);
              page.setSize(1385,764);
              page.setLocationRelativeTo(null);
@@ -87,7 +87,7 @@ public class OrderHistory extends JFrame implements ActionListener{
              
         }if(e.getSource()==btnBAgain){
     
-            cartPage cart = new cartPage();
+            cartPage cart = new cartPage(userClass);
             cart.setVisible(true);
             cart.setSize(1385,764);
             cart.setLocationRelativeTo(null);

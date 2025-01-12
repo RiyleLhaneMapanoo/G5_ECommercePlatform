@@ -20,12 +20,20 @@ public class UserClass {
 //    private JTextField subTxtEmail;
 //    private JPasswordField subTxtPass;
 
+    HashMap<String,Object> userSession;
+    
+    
     public UserClass(){
      //may add the connectTodatabase() method after debugging later on
      
+     userSession = new HashMap<>();
+     
     }
     
-     
+public HashMap<String, Object> getUserSession() {
+        return userSession;
+    }
+    
     
     public void loginMethod(JFrame frame,String email, String password, JTextField txtEmail, JPasswordField txtPassword){
     
@@ -56,15 +64,22 @@ public class UserClass {
                     
                     
                     if (rs.next()) {
+                      int userId = rs.getInt("id");
+                        
+                        
+                        userSession.put("userId", userId);
+                    userSession.put("role", "User");
+                  
+
+                        
+                        System.out.println("Debug: userSession populated -> " + userSession);
                         
                        
-                        
                         frame.dispose();
-                        eComPageUser ah = new eComPageUser();
-                       
+                        eComPageUser ah = new eComPageUser(this);
                         ah.setVisible(true);
                         ah.setResizable(false);
-                        JOptionPane.showMessageDialog(null, "You have successfully logged in as User");
+                        JOptionPane.showMessageDialog(null, "You have successfully logged in as User "+userId);
                     }
                     
                       else if(email.isEmpty() || password.isEmpty()){

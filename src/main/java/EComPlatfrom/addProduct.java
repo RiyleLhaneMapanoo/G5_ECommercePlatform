@@ -11,6 +11,7 @@ import javax.swing.filechooser.*;
 
 public class addProduct extends JFrame implements ActionListener{
   
+     private UserClass userClass;
    private int userId; 
    private JTextArea txaHistory;
    private JLabel lblHistory, lblIcon, lblTitle, lblup, lblPname, lblPprice, lblPrating, lblPcategory, lblSA;
@@ -27,11 +28,11 @@ public class addProduct extends JFrame implements ActionListener{
    String[] Pcategory = {"Makeup", "Clothes", "Kitchen", "School Supplies"};
    String[] PR = {"1", "2", "3", "4", "5"};
  
-   ProductClass pr = new ProductClass();
+   ProductClass pr = new ProductClass(userClass);
    // UserClass userClass = new UserClass();
         
     addProduct(){
-        
+         
         setTitle("Add Product");
         setSize(1385, 764);
         setLayout(null);
