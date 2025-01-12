@@ -33,8 +33,10 @@ public class checkoutPage extends JFrame implements ActionListener{
     //subtotal value
     private JLabel subTotalDisp,subTotal;
     int subT = 0;
+     private UserClass userClass;
+    
     //for product class
-    ProductClass pro = new ProductClass();
+    ProductClass pro = new ProductClass(userClass);
     //new update test
     checkoutPage(){
       setTitle("ECP-Platform");
@@ -226,7 +228,7 @@ public class checkoutPage extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==bckbtn){
-        cartPage cart = new cartPage();
+        cartPage cart = new cartPage(userClass);
     cart.setVisible(true);
     cart.setSize(1385,764);
     cart.setLocationRelativeTo(null);

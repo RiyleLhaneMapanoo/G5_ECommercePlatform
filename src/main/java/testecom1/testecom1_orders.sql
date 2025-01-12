@@ -16,34 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `example_product`
+-- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `example_product`;
+DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `example_product` (
-  `productID` int NOT NULL AUTO_INCREMENT,
-  `productName` varchar(200) DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `category` varchar(200) DEFAULT NULL,
-  `ratings` int DEFAULT NULL,
-  `productPhoto` blob,
-  `productQuantityBought` int DEFAULT NULL,
-  `productStockQuantityLeft` int DEFAULT NULL,
-  `productOriginalStock` int DEFAULT NULL,
-  PRIMARY KEY (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `orders` (
+  `orderID` int NOT NULL AUTO_INCREMENT,
+  `uzerId` int NOT NULL,
+  `orderNumber` int NOT NULL,
+  `itemId` int NOT NULL,
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`orderID`),
+  KEY `uzerId` (`uzerId`),
+  KEY `itemId` (`itemId`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`uzerId`) REFERENCES `usertable` (`id`),
+  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`itemId`) REFERENCES `example_product` (`productID`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `example_product`
+-- Dumping data for table `orders`
 --
 
-LOCK TABLES `example_product` WRITE;
-/*!40000 ALTER TABLE `example_product` DISABLE KEYS */;
-INSERT INTO `example_product` VALUES (22,'Cologne',300.00,'Makeup',3,NULL,NULL,NULL,3),(23,'Blush',50.00,'Makeup',3,NULL,NULL,NULL,3),(24,'Peplum Top',400.00,'Clothes',4,NULL,NULL,NULL,4),(25,'Pants',200.00,'Clothes',1,NULL,NULL,NULL,1),(26,'Utensils',250.00,'Kitchen',3,NULL,NULL,NULL,3),(27,'Pencil',5.00,'Makeup',2,NULL,NULL,NULL,2),(28,'Notebook',15.00,'School Supplies',4,NULL,NULL,NULL,4),(29,'Contour',500.00,'Makeup',2,NULL,NULL,NULL,2),(30,'vsdfsdf',1.00,'Makeup',1,NULL,NULL,NULL,1),(31,'Hat',3.00,'Makeup',1,NULL,NULL,NULL,1);
-/*!40000 ALTER TABLE `example_product` ENABLE KEYS */;
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (17,28,5,31,2),(19,28,7,29,1),(20,28,8,23,1),(21,28,9,30,1),(22,28,10,26,1);
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

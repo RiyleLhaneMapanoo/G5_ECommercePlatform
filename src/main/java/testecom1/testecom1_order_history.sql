@@ -16,34 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `example_product`
+-- Table structure for table `order_history`
 --
 
-DROP TABLE IF EXISTS `example_product`;
+DROP TABLE IF EXISTS `order_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `example_product` (
-  `productID` int NOT NULL AUTO_INCREMENT,
-  `productName` varchar(200) DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `category` varchar(200) DEFAULT NULL,
-  `ratings` int DEFAULT NULL,
-  `productPhoto` blob,
-  `productQuantityBought` int DEFAULT NULL,
-  `productStockQuantityLeft` int DEFAULT NULL,
-  `productOriginalStock` int DEFAULT NULL,
-  PRIMARY KEY (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `order_history` (
+  `orderHistoryId` int NOT NULL AUTO_INCREMENT,
+  `usherId` int NOT NULL,
+  `totalAmount` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`orderHistoryId`),
+  KEY `usherId` (`usherId`),
+  CONSTRAINT `order_history_ibfk_1` FOREIGN KEY (`usherId`) REFERENCES `usertable` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `example_product`
+-- Dumping data for table `order_history`
 --
 
-LOCK TABLES `example_product` WRITE;
-/*!40000 ALTER TABLE `example_product` DISABLE KEYS */;
-INSERT INTO `example_product` VALUES (22,'Cologne',300.00,'Makeup',3,NULL,NULL,NULL,3),(23,'Blush',50.00,'Makeup',3,NULL,NULL,NULL,3),(24,'Peplum Top',400.00,'Clothes',4,NULL,NULL,NULL,4),(25,'Pants',200.00,'Clothes',1,NULL,NULL,NULL,1),(26,'Utensils',250.00,'Kitchen',3,NULL,NULL,NULL,3),(27,'Pencil',5.00,'Makeup',2,NULL,NULL,NULL,2),(28,'Notebook',15.00,'School Supplies',4,NULL,NULL,NULL,4),(29,'Contour',500.00,'Makeup',2,NULL,NULL,NULL,2),(30,'vsdfsdf',1.00,'Makeup',1,NULL,NULL,NULL,1),(31,'Hat',3.00,'Makeup',1,NULL,NULL,NULL,1);
-/*!40000 ALTER TABLE `example_product` ENABLE KEYS */;
+LOCK TABLES `order_history` WRITE;
+/*!40000 ALTER TABLE `order_history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_history` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

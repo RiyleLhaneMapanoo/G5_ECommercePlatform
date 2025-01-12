@@ -30,7 +30,7 @@ CREATE TABLE `usertable` (
   `address` varchar(200) DEFAULT NULL,
   `contactnum` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `usertable` (
 
 LOCK TABLES `usertable` WRITE;
 /*!40000 ALTER TABLE `usertable` DISABLE KEYS */;
-INSERT INTO `usertable` VALUES (1,'Seller','Seller','adminSeller',NULL,NULL),(24,'ed','dsf','sdf','sdf','df'),(25,'Riyle','riyle','riylePass','130','45455'),(26,'Riyle','123','123','123','123');
+INSERT INTO `usertable` VALUES (1,'Seller','Seller','adminSeller',NULL,NULL),(24,'ed','dsf','sdf','sdf','df'),(25,'Riyle','riyle','riylePass','130','45455'),(26,'Riyle','123','123','123','123'),(27,'dfgdfg','gfdfg','dgdfg','dfgg','dfgdfg'),(28,'gdfgdfg','s','s','grgfg','sdfsf');
 /*!40000 ALTER TABLE `usertable` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-08 14:08:05
+-- Dump completed on 2025-01-13  1:42:59
