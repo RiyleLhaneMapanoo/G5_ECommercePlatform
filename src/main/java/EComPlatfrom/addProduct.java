@@ -134,20 +134,34 @@ public class addProduct extends JFrame implements ActionListener{
         
        }else if(e.getSource()==btnAddP){
            
-           
+           try{
         String productName = txfPname.getText();
         double productPrice = Double.parseDouble(txfPprice.getText()); 
         int stockAvail = Integer.parseInt(txfSA.getText());
         int prRating = Integer.parseInt((String) txfPrating.getSelectedItem()); 
         String prCategory = (String) txfPcategory.getSelectedItem(); 
+        
+          pr.addProduct(btnAddP,productName,productPrice,stockAvail,prRating,prCategory,txfPname,txfPprice,txfSA,txfPrating, txfPcategory);
+        
+           }catch(NumberFormatException ex){
+           
+           JOptionPane.showMessageDialog(null, "Please ensure all fields are correctly filled in with their appropriate info. ", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txfPname.setText("");
+                txfPprice.setText("");
+                txfSA.setText("");
+                txfPrating.setSelectedIndex(0);
+               txfPcategory.setSelectedIndex(0);
+           
+           }
          
-         //ctto stack overflow
+           
          
-            
-        pr.addProduct(btnAddP,productName,productPrice,stockAvail,prRating,prCategory,txfPname,txfPprice,txfSA,txfPrating, txfPcategory);
-            
+          
+          
+        
+            }
     
        
-       }
+       
     }
 }
