@@ -16,12 +16,18 @@ public class cartPage  extends JFrame implements ActionListener{
     
          private JButton btnBack,btnCheckOut;
            private JLabel subTotal;
-         private JPanel  botPanel,panel,productPanel;
+         private JPanel  botPanel,panel,productPanel,cartPanel, cartLoc;
          private JScrollPane scrollPane;
           String imageSource = "src\\main\\java\\Images\\";
-         ProductClass pro = new ProductClass();
+
+         OrderClass ord = new OrderClass();
+           private UserClass userClass;
+        ProductClass pro = new ProductClass(userClass);
+        
+       public cartPage(UserClass userClass){
           
-       cartPage(){
+           this.userClass = userClass;
+           
        setTitle("Cart Page");
          setSize(1385, 764);
         setLayout(null);
@@ -30,23 +36,29 @@ public class cartPage  extends JFrame implements ActionListener{
         setResizable(false);
         setLocationRelativeTo(null);
         
-        Border panelBorder = LineBorder.createBlackLineBorder();
+      
         
-        scrollPane = new JScrollPane(panel);
-        scrollPane.setBounds(20, 20, 1330, 650);
-         add(scrollPane);
-        
-        panel = new JPanel();
-        panel.setLayout(null);
-        panel.setOpaque(false);
-        panel.setPreferredSize(new Dimension(1200,690));
-        
-        pro.cartItems(panel,3);
-         
-        scrollPane.setOpaque(false);
-        scrollPane.getViewport().setOpaque(false);
-       scrollPane.setViewportView(panel);
-          
+       int userId = -1;
+    if (userClass != null) {
+   
+    if (userClass.getUserSession() != null && userClass.getUserSession().containsKey("userId")) {
+        userId = (int) userClass.getUserSession().get("userId");
+    } else {
+     
+        System.out.println("User session is null or does not contain 'userId'. Session: " + userClass.getUserSession()); //debugging purposes, dont remove just yet guys
+        JOptionPane.showMessageDialog(panel, "User session is not initialized. Please log in again.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;  
+    }
+    } else {
+    System.out.println("userClass is null! Check initialization.");//debugging purposes, dont remove just yet guys
+    JOptionPane.showMessageDialog(panel, "User class is not initialized. Please log in again.", "Error", JOptionPane.ERROR_MESSAGE);
+    return;  
+    }
+ 
+    
+ //add here
+    
+      
        
         
        
@@ -114,7 +126,7 @@ public class cartPage  extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
           if(e.getSource()==btnBack){
         
-   eComPageUser page = new eComPageUser();
+   eComPageUser page = new eComPageUser(userClass);
     page.setVisible(true);
     page.setSize(1385,764);
     page.setLocationRelativeTo(null);

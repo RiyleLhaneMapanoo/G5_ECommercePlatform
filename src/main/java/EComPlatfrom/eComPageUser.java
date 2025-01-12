@@ -30,9 +30,10 @@ public class eComPageUser extends JFrame implements ActionListener {
     private final JMenuBar MenuBar;
     private final JMenu Menu; 
    private final  JMenuItem  jmenuOrderHistory, jmenuLogout;
+    private UserClass userClass;
     
-    eComPageUser(){
-    
+    public eComPageUser(UserClass userClass){
+     this.userClass = userClass;
      
      setTitle("ECP-Platform");
      setSize(1385,764);
@@ -43,7 +44,7 @@ public class eComPageUser extends JFrame implements ActionListener {
      setLocationRelativeTo(null);
 
        //from product class
-     ProductClass productClass = new ProductClass();
+     ProductClass productClass = new ProductClass(userClass);
      
 
      
@@ -346,8 +347,7 @@ public class eComPageUser extends JFrame implements ActionListener {
         makeupPanel.setLayout(null);
         
        
-      //updated color
-     // product panels for makeup stat: transferred into product class
+   
         int totalProductCountMakeup = productClass.getTotalProductCount("Makeup");
         productClass.resetPanelCount(); 
         for (int i = 0; i < totalProductCountMakeup; i++) {  
@@ -563,7 +563,7 @@ btncart.addActionListener(this);
     
     if(e.getSource()==btncart){
         
-    cartPage cart = new cartPage();
+    cartPage cart = new cartPage(userClass);
     cart.setVisible(true);
     cart.setSize(1385,764);
     cart.setLocationRelativeTo(null);
