@@ -295,7 +295,7 @@ public class ProductClass  {
                 origAvail.setText("");
                 prRate.setSelectedIndex(0);
                pCat.setSelectedIndex(0);
-            //UPDATE: would pop if empty nlng sila
+            //UPDATE: kept just in case error handling in addProduct fails
             
                }else{
                   
