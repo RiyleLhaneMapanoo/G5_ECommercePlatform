@@ -21,28 +21,72 @@ public class eComPageSeller extends JFrame implements ActionListener {
    //from product class
      ProductClass productClass = new ProductClass(userClass);
      
- //private ProductClass productClass;
+    JButton productsButton, inventoryButton, salesButton, logoutButton;
     
     eComPageSeller(){
 
      setTitle("ECP-Platform");
      setSize(1385,764);
-      setLayout(null);
+     setLayout(null);
      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      setContentPane(new JLabel(new ImageIcon("src\\main\\java\\Images\\sellerBackground.png")));
-    setResizable(false);
+     setResizable(false);
      setLocationRelativeTo(null);
+     
+     
 
-     
-     
     
+    productsButton = new JButton("Add Products");
+    productsButton.setBounds(250, 150, 300, 40);
+    add(productsButton);
+
+    inventoryButton = new JButton("Inventory");
+    inventoryButton.setBounds(250, 220, 300, 40); 
+    add(inventoryButton);
+
+    salesButton = new JButton("Sales");
+    salesButton.setBounds(250, 290, 300, 40);
+    add(salesButton);
+
+    logoutButton = new JButton("Logout");
+    logoutButton.setBounds(250, 360, 300, 40); 
+    add(logoutButton);
+
+    productsButton.addActionListener(this);
+    inventoryButton.addActionListener(this);
+    salesButton.addActionListener(this);
+    logoutButton.addActionListener(this);
+
+      
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    
+         if (e.getSource() == salesButton) {
+        TotalSales page = new TotalSales();
+        page.setVisible(true);
+        page.setSize(500, 200);
+        page.setLocationRelativeTo(null);
+        dispose();
+    } else if (e.getSource() == inventoryButton) {
+        inventoryPage page = new inventoryPage();
+        page.setVisible(true);
+        page.setSize(500, 200);
+        page.setLocationRelativeTo(null);
+        dispose();
+    } else if (e.getSource() == logoutButton) {
+        LoginPage page = new LoginPage();
+        page.setVisible(true);
+        page.setSize(500, 200);
+        page.setLocationRelativeTo(null);
+        dispose();
+    } else if (e.getSource() == productsButton) {
+        addProduct page = new addProduct();
+        page.setVisible(true);
+        page.setSize(500, 200);
+        page.setLocationRelativeTo(null);
+        dispose();
+    }
 
-       
-        
     }
 }
