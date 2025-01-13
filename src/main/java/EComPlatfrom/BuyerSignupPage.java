@@ -148,8 +148,10 @@ class BuyerSignupPage extends JFrame implements ActionListener{
                String fullName = fullNameTxf.getText();
              String emailUser = emailTxf.getText();
              String password = passwordTxf.getText();
+              String cpNum = contactTxf.getText();
+               String add = addressTxf.getText();
              
-           userClass.registerMethod(BuyerSignupPage.this,signUpBtn,emailUser,password,fullName ,emailTxf, passwordTxf,fullNameTxf);
+           userClass.registerMethod(BuyerSignupPage.this,signUpBtn,emailUser,password,fullName,cpNum,add,contactTxf,addressTxf,emailTxf, passwordTxf,fullNameTxf);
            
              
          }

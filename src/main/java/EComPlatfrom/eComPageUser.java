@@ -10,6 +10,7 @@ import javax.swing.border.BevelBorder;
 /**
  *
  * @author June-PC
+ * @author Raylen
  */
 public class eComPageUser extends JFrame implements ActionListener {
     private int userId;
@@ -19,7 +20,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     private final JLabel platformname, DL1, DL2, DL3, DL4, DL5,DL6, DL7, DL8, DL9, DL10, DL11, DL12;
     private final JTextField searchBar;
     private final JButton btnSearch, btncart;
-    private final JComboBox filter;
+    private final JComboBox filterRatings,filterPrice;;
     private final JScrollPane MakeUpjScrollPane, clothesScrolpane, kitchenScrolpane,suppliesScrolpane, designimages1, 
                             desgnimages2, desgnimages3;
     private final JTabbedPane products;
@@ -29,9 +30,10 @@ public class eComPageUser extends JFrame implements ActionListener {
     private final JMenuBar MenuBar;
     private final JMenu Menu; 
    private final  JMenuItem  jmenuOrderHistory, jmenuLogout;
+    private UserClass userClass;
     
-    eComPageUser(){
-    
+    public eComPageUser(UserClass userClass){
+     this.userClass = userClass;
      
      setTitle("ECP-Platform");
      setSize(1385,764);
@@ -42,7 +44,7 @@ public class eComPageUser extends JFrame implements ActionListener {
      setLocationRelativeTo(null);
 
        //from product class
-     ProductClass productClass = new ProductClass();
+     ProductClass productClass = new ProductClass(userClass);
      
 
      
@@ -67,13 +69,23 @@ public class eComPageUser extends JFrame implements ActionListener {
     searchBar.setBounds(200,83,900,40);
     add(searchBar);
     
-    filter= new JComboBox<>();
-    filter.setBounds(1200, 83, 70, 40);
-    filter.setBackground(new Color(255, 102, 255));
-    filter.setFont(new Font("Segoe UI Black", 0, 12)); // NOI18N
-    filter.setModel(new DefaultComboBoxModel<>(new String[] {"price", "ratings"}));
-    filter.setToolTipText("");
-    add(filter);
+   filterRatings= new JComboBox<>();
+    filterRatings.setBounds(1200, 83, 70, 40);
+    filterRatings.setBackground(new Color(89, 0, 54));
+    filterRatings.setFont(new Font("Segoe UI Black", 0, 12)); 
+    filterRatings.setForeground(new Color(236, 239, 241));
+    filterRatings.setModel(new DefaultComboBoxModel<>(new String[] {"1", "2","3","4","5"}));
+    filterRatings.setToolTipText("");
+    add(filterRatings);
+    
+     filterPrice= new JComboBox<>();
+    filterPrice.setBounds(1280, 83, 70, 40);
+    filterPrice.setBackground(new Color(89, 0, 54));
+    filterPrice.setFont(new Font("Segoe UI Black", 0, 12)); 
+    filterPrice.setForeground(new Color(236, 239, 241));
+    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"~50", "51-100","101-300","301-600","601-900","901-1000~"}));
+    filterPrice.setToolTipText("");
+    add(filterPrice);
     
     btnSearch=new JButton("Search");
     btnSearch.setBackground(new Color(204, 102, 255));
@@ -335,8 +347,7 @@ public class eComPageUser extends JFrame implements ActionListener {
         makeupPanel.setLayout(null);
         
        
-      //updated color
-     // product panels for makeup stat: transferred into product class
+   
         int totalProductCountMakeup = productClass.getTotalProductCount("Makeup");
         productClass.resetPanelCount(); 
         for (int i = 0; i < totalProductCountMakeup; i++) {  
@@ -552,7 +563,7 @@ btncart.addActionListener(this);
     
     if(e.getSource()==btncart){
         
-    cartPage cart = new cartPage();
+    cartPage cart = new cartPage(userClass);
     cart.setVisible(true);
     cart.setSize(1385,764);
     cart.setLocationRelativeTo(null);
