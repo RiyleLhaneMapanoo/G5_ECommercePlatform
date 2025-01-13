@@ -35,21 +35,25 @@ public class eComPageSeller extends JFrame implements ActionListener {
      
      
 
+    JLabel title = new JLabel("SELLER'S PROFILE");
+    title.setBounds(560, 50, 350, 300);
+    title.setFont(new Font("Arial", Font.BOLD, 30));
+    add(title);
     
     productsButton = new JButton("Add Products");
-    productsButton.setBounds(250, 150, 300, 40);
+    productsButton.setBounds(520, 250, 350, 60);
     add(productsButton);
 
     inventoryButton = new JButton("Inventory");
-    inventoryButton.setBounds(250, 220, 300, 40); 
+    inventoryButton.setBounds(520, 350, 350, 60); 
     add(inventoryButton);
 
     salesButton = new JButton("Sales");
-    salesButton.setBounds(250, 290, 300, 40);
+    salesButton.setBounds(520, 450, 350, 60);
     add(salesButton);
 
     logoutButton = new JButton("Logout");
-    logoutButton.setBounds(250, 360, 300, 40); 
+    logoutButton.setBounds(520, 550, 350, 60); 
     add(logoutButton);
 
     productsButton.addActionListener(this);
