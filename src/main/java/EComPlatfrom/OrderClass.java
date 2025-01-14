@@ -241,8 +241,10 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
 }
 
 
+
   public int removeFromCart(int productId, int userId) {
         int result = 0;
+
     try {
        
         Connection connection =  conn;
@@ -254,16 +256,19 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
         pst.setInt(2, userId);   
 
       
+
       result = pst.executeUpdate();
 
        
-         
-       
+
+
     } catch (SQLException e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, "An error occurred while removing the product from the cart.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+
     return result;
+
 }
     
   public int getTotalItemsInCart(int userId) {
