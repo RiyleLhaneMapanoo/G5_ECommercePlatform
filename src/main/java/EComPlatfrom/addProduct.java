@@ -130,6 +130,22 @@ public class addProduct extends JFrame implements ActionListener{
              dispose();
    
         
+       }else if(e.getSource()==btnAddP){
+           
+           
+        String productName = txfPname.getText();
+        double productPrice = Double.parseDouble(txfPprice.getText()); 
+        int stockAvail = Integer.parseInt(txfSA.getText());
+        int prRating = Integer.parseInt((String) txfPrating.getSelectedItem()); 
+        String prCategory = (String) txfPcategory.getSelectedItem(); 
+         
+         //ctto stack overflow
+         
+            
+        pr.addProduct(btnAddP,productName,productPrice,stockAvail,prRating,prCategory,txfPname,txfPprice,txfSA,txfPrating, txfPcategory);
+            
+    
+       
        }
     }
 }
