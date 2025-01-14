@@ -33,6 +33,8 @@ public class inventoryPage extends JFrame implements ActionListener{
     private JButton backBut;
     private JLabel invDisp;
     
+      private UserClass userClass;
+   
     inventoryPage(){
         setTitle("ECP-Platform");
         setSize(1385, 764);
@@ -41,6 +43,8 @@ public class inventoryPage extends JFrame implements ActionListener{
         setContentPane(new JLabel(new ImageIcon("src\\main\\java\\Images\\sellerBackground.png")));
         setResizable(false);
         setLocationRelativeTo(null);
+       
+        ProductClass productClass = new ProductClass(userClass);
         
         invDisp = new JLabel("Inventory");
         invDisp.setFont(new Font("Arial",Font.PLAIN,50));
@@ -49,19 +53,11 @@ public class inventoryPage extends JFrame implements ActionListener{
          add(invDisp);
         
     
-     invColumn = new String[]{"Product ID","Product","Category","Original Quantity","Stock Bought","Current Stocks"}; //columns
-   
-    //Comments are for members*
-    invMod  = new DefaultTableModel(invData,invColumn); //the model where u arrange the column and row
-  
-    inv = new JTable(invMod);
-   
-    inv.getTableHeader().setReorderingAllowed(false);//so that table would not move
-    SPtable = new JScrollPane(inv);//insert the table here to make it scroll-able
-    SPtable.setBounds(150, 100, 1100, 500);
-    add(SPtable);
     
         
+    productClass.invTable(inv, invMod,SPtable,this);
+    
+    
     backBut = new JButton("Back");
     backBut.setBounds(1150, 600, 100, 50);
     add(backBut);

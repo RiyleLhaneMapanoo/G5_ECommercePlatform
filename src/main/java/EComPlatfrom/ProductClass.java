@@ -15,6 +15,7 @@ import java.util.*;
 import javax.swing.*;
 
 import javax.swing.border.BevelBorder;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -52,8 +53,21 @@ public class ProductClass  {
     }
   
     
+   public void ImageSetupJLabel(String imgNme, JLabel lb,int wid, int hei){
+       
+   ImageIcon lbcon = new ImageIcon("src\\main\\java\\Images\\"+imgNme);
+    Image scaledIcon = lbcon.getImage().getScaledInstance(wid, hei, Image.SCALE_SMOOTH);
+     lb.setIcon(new ImageIcon(scaledIcon));
+
+   }
    
-   
+    public void ImageSetupJButt(String imgNme, JButton jBut,int wid, int hei){
+       
+   ImageIcon lbcon = new ImageIcon("src\\main\\java\\Images\\"+imgNme);
+    Image scaledIcon = lbcon.getImage().getScaledInstance(wid, hei, Image.SCALE_SMOOTH);
+     jBut.setIcon(new ImageIcon(scaledIcon));
+
+   }
     
      
     public JPanel createProductPanelforBuyer(String category) {
@@ -86,9 +100,9 @@ public class ProductClass  {
           
              
                 JLabel pImage = new JLabel();
+                ImageSetupJLabel("swr.png",pImage,150,150);
                 pImage.setBounds(40, 10, 150, 150);
                 pImage.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
-                
                 
                 
                 panel.add(pImage);
@@ -152,7 +166,7 @@ public class ProductClass  {
             
                 panelCount++;
 
-//                  
+                  
                 return panel;
             }
         } catch (SQLException e) {
@@ -186,11 +200,9 @@ public class ProductClass  {
    public void addProduct(JButton but,String prName, double prPrice, int origStock, int rating,String prCat,JTextField pName,JTextField pPrice,JTextField origAvail,JComboBox prRate, JComboBox pCat){
      try{
         
-             
-         
              String checkExisitingValueQuery = "SELECT * FROM example_product WHERE productName = ?";
- Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
-             PreparedStatement checkExisitingValueState = checkExisitingValueCon.prepareStatement(checkExisitingValueQuery);         
+         
+             PreparedStatement checkExisitingValueState = conn.prepareStatement(checkExisitingValueQuery);         
              
              checkExisitingValueState.setString(1, pName.getText());
           
@@ -200,18 +212,14 @@ public class ProductClass  {
                 if(resultSet.next()){
                 
                 String existingPro = resultSet.getString("productName");
-                //Nested if
+            
                 if(prName.equals(existingPro)){
                 
                  JOptionPane.showMessageDialog(null, "Product Already Exists", "Error", JOptionPane.ERROR_MESSAGE);
                  pName.setText("");
-               
-                
                 }
                 
                 }else{
-           
-                  
               if(prName.isEmpty() || prPrice <= 0 || origStock <= 0){
                        
                 JOptionPane.showMessageDialog(but, "Fill out all the necessary info.");
@@ -220,14 +228,9 @@ public class ProductClass  {
                 origAvail.setText("");
                 prRate.setSelectedIndex(0);
                pCat.setSelectedIndex(0);
-         
-            
                }else{
-                  
-                 
                         String query = "INSERT INTO `example_product`(`productName`, `price`, `category`,`ratings`,`productOriginalStock`) VALUES (?,?,?,?,?)";
-                   Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
-             PreparedStatement state = con.prepareStatement(query);
+             PreparedStatement state = conn.prepareStatement(query);
              state.setString(1, pName.getText());
              state.setString(2, pPrice.getText());
             state.setString(3, (String) pCat.getSelectedItem());
@@ -252,7 +255,43 @@ public class ProductClass  {
      
     }
      
+   public JTable invTable(JTable table,DefaultTableModel model,JScrollPane SPtable,JFrame fr) {
+        
+        String[] invColumn = {"Product ID", "Product", "Price", "Category", "Original Quantity", "Stock Bought", "Current Stocks"};
+        model = new DefaultTableModel(invColumn, 0);
+      table = new JTable(model);
+      table.getTableHeader().setReorderingAllowed(false);
+      SPtable = new JScrollPane(table);
+    SPtable.setBounds(150, 100, 1100, 500);
+      fr.add(SPtable);
    
+        String query = "SELECT productID, productName, price, category, productOriginalStock, productQuantityBought, productStockQuantityLeft FROM example_product";
+
+        try (
+               
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Object[] invData = {
+                    rs.getInt("productID"),
+                    rs.getString("productName"),
+                    rs.getDouble("price"),
+                    rs.getString("category"),
+                    rs.getInt("productOriginalStock"),
+                    rs.getInt("productQuantityBought"),
+                    rs.getInt("productStockQuantityLeft")
+                };
+                model.addRow(invData);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return table;
+    }
       
     
     
