@@ -271,11 +271,11 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
 
 }
     
-  public int getTotalItemsInCart(int userId) {
+ public int getTotalItemsInCart(int userId) {
     int totalItems = 0;
     try {
        
-        Connection connection =  conn;
+        Connection connection = conn;
 
      
         String query = "SELECT SUM(quantity) FROM orders WHERE uzerId = ?";
@@ -301,6 +301,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
 
     return totalItems;
 }
+
 
 public JPanel itemsInCheckout(int orderId) {  
     try {   

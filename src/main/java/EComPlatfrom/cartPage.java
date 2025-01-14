@@ -69,7 +69,7 @@ cartPanel.setLayout(null);
 cartPanel.setBackground(new Color(51, 0, 51));
 
 
-cartPanel = ord.itemsInCart(userId);  
+cartPanel = ord.itemsInCart(userId,userClass);  
 
 
 if (cartPanel != null) {
