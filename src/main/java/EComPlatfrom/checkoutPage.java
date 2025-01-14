@@ -234,7 +234,7 @@ productPanels.setBackground(new Color(51, 0, 51));
             
             
 int totalItemsInCheckout = orderIds.size();
-int heightPerPanel = 300; // adjust based on your panel height
+int heightPerPanel = 300; 
 
 int totalHeight = orderIds.size() * 305; 
 productPanels.setPreferredSize(new Dimension(1100, totalHeight));

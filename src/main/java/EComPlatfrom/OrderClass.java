@@ -6,6 +6,7 @@ package EComPlatfrom;
 
 import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,14 +29,30 @@ public class OrderClass {
            LinkedList<String> quan = new LinkedList<>();       
            LinkedList<String> prodPrice = new LinkedList<>();  
            LinkedList<String> itemId = new LinkedList<>();
-    
+           
+       private Connection conn; 
       public OrderClass(){
          
             
       productListModel = new DefaultListModel<>();
         productList = new JList<>(productListModel);
-         
+         connectToDatabase();
+        
     }
+      
+        private void connectToDatabase() {
+       
+        try {
+            
+            String url = "jdbc:mysql://localhost:3306/testecom1";
+            String user = "root2";
+            String password = "12345";
+            conn = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+        
        // Method to get the JList
     public JList<String> getProductList() {
         return productList;
@@ -44,7 +61,7 @@ public class OrderClass {
     
     public void addToCart(int productId, int userId, int quantity) {
     try {
-        Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345");
+        Connection connection =  conn;
  
         String checkQuery = "SELECT quantity FROM orders WHERE uzerId = ? AND itemId = ?";
         PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
@@ -102,7 +119,7 @@ public class OrderClass {
     
 public JPanel itemsInCart(int userId, UserClass userclass) {
     try {
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345");
+        Connection conn =  this.conn;
         String query = "SELECT p.productId, p.productName, p.price, o.quantity ,o.orderID FROM orders o " +
                       "JOIN example_product p ON o.itemId = p.productId WHERE o.uzerId = ?";
         PreparedStatement pst = conn.prepareStatement(query);
@@ -129,7 +146,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
             panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
             panel.setLayout(null);
             panel.setBounds(30, yOffset, 1250, 200);  
-            // Add your components to the panel
+           
             JLabel pName = new JLabel(productName);
             pName.setBounds(20, 20, 100, 20);
             pName.setFont(new Font("Arial", Font.BOLD, 16));
@@ -210,9 +227,9 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
                 }
             });
 
-            yOffset += 220;  // Adjusted spacing between panels
+            yOffset += 220;  
         }
-        // Set the final size of the main panel
+       
         mainPanel.setPreferredSize(new Dimension(1300, yOffset + 30));
 
         return mainPanel;
@@ -230,7 +247,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
 
     try {
        
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345");
+        Connection connection =  conn;
 
         String query = "DELETE FROM orders WHERE itemId = ? AND uzerId = ?";
      
@@ -258,7 +275,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
     int totalItems = 0;
     try {
        
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345");
+        Connection connection =  conn;
 
      
         String query = "SELECT SUM(quantity) FROM orders WHERE uzerId = ?";
@@ -288,7 +305,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
 public JPanel itemsInCheckout(int orderId) {  
     try {   
         JPanel checkOutPanel = new JPanel(); 
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345"); 
+        Connection conn = this.conn;
         String query = "SELECT p.productId, p.productName, p.price, o.quantity ,o.orderID FROM orders o " + 
                       "JOIN example_product p ON o.itemId = p.productId WHERE o.orderID=?"; 
         
@@ -369,16 +386,14 @@ public JPanel itemsInCheckout(int orderId) {
         
     } catch (SQLException e) { 
         e.printStackTrace(); 
-    } finally {
-        // Add proper resource cleanup here
-    }
+    } 
     return null; 
 }
 
 public String[] getUserDetails(int userId){
     String[] arr = new String[5];
           try {
-              Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345");
+              Connection conn =  this.conn;
               PreparedStatement pst = conn.prepareStatement("SELECT  full_name, email, address, contactnum FROM  usertable  WHERE id = ? ");
               pst.setInt(1, userId);
               
@@ -403,10 +418,10 @@ public  void orderCheckOut(JFrame frame, int userId,
                                 LinkedList<Integer> itemId, LinkedList<Integer> quan,
                                 LinkedList<Double> prodPrice, LinkedList<Double> priceTotal) {
     try {
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345");
+        Connection conn =  this.conn;
         conn.setAutoCommit(false);
         try {
-            // Get the next orderHistoryId for this specific user
+           
             String getMaxOrderId = "SELECT COALESCE(MAX(orderHistoryId) + 1, 1) FROM user_order_history WHERE usherId = ?";
             PreparedStatement maxOrderStmt = conn.prepareStatement(getMaxOrderId);
             maxOrderStmt.setInt(1, userId);
@@ -419,7 +434,7 @@ public  void orderCheckOut(JFrame frame, int userId,
 
             double totalAmount = priceTotal.stream().mapToDouble(Double::doubleValue).sum();
             
-            // Insert into user_order_history
+           
             String insertOrderHistory = "INSERT INTO user_order_history (orderHistoryId, usherId, totalAmount) VALUES (?, ?, ?)";
             PreparedStatement orderHistoryStmt = conn.prepareStatement(insertOrderHistory);
             orderHistoryStmt.setInt(1, nextOrderId);
@@ -427,7 +442,7 @@ public  void orderCheckOut(JFrame frame, int userId,
             orderHistoryStmt.setDouble(3, totalAmount);
             orderHistoryStmt.executeUpdate();
 
-            // Insert into user_order_details
+           
             String insertOrderDetails = "INSERT INTO user_order_details (orderHistoryId, usherId, itemId, quantity, price) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement orderDetailsStmt = conn.prepareStatement(insertOrderDetails);
             
@@ -469,6 +484,42 @@ public  void orderCheckOut(JFrame frame, int userId,
 
     // Method to fetch data from the database
 
+public  String[][] fetchOrderDetails() {
+    String query = """
+            SELECT uod.orderHistoryId,  ep.productName,  uod.quantity,  ep.price,    ep.category, (uod.quantity * ep.price) AS totalPriceFROM 
+            user_order_details uod JOIN example_product ep ON uod.itemId = ep.productID;
+            """;
+
+    String[][] data = null;
+
+    try (Connection conn = this.conn;
+         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+         ResultSet rs = stmt.executeQuery(query)) {
+
+          rs.last(); 
+        int rowCount = rs.getRow();
+        rs.beforeFirst();
+
+        data = new String[rowCount][6];
+
+        // Populate the array with data from database
+        int rowIndex = 0;
+        while (rs.next()) {
+            data[rowIndex][0] = String.valueOf(rs.getInt("orderHistoryId"));
+            data[rowIndex][1] = rs.getString("productName");
+            data[rowIndex][2] = String.valueOf(rs.getInt("quantity"));
+            data[rowIndex][3] = String.valueOf(rs.getBigDecimal("price"));
+            data[rowIndex][4] = rs.getString("category");
+            data[rowIndex][5] = String.valueOf(rs.getBigDecimal("totalPrice"));
+            rowIndex++;
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return data;
+}
 
 
  }        
