@@ -34,8 +34,7 @@ public class OrderClass {
             
       productListModel = new DefaultListModel<>();
         productList = new JList<>(productListModel);
-       
-        
+         
     }
        // Method to get the JList
     public JList<String> getProductList() {
