@@ -46,7 +46,8 @@ public class OrderClass {
     public void addToCart(int productId, int userId, int quantity) {
     try {
         Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345");
-
+ 
+        
      
         String checkQuery = "SELECT quantity FROM orders WHERE uzerId = ? AND itemId = ?";
         PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
