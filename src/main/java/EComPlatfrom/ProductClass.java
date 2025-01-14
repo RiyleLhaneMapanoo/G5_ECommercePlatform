@@ -52,8 +52,21 @@ public class ProductClass  {
     }
   
     
+   public void ImageSetupJLabel(String imgNme, JLabel lb,int wid, int hei){
+       
+   ImageIcon lbcon = new ImageIcon("src\\main\\java\\Images\\"+imgNme);
+    Image scaledIcon = lbcon.getImage().getScaledInstance(wid, hei, Image.SCALE_SMOOTH);
+     lb.setIcon(new ImageIcon(scaledIcon));
+
+   }
    
-   
+    public void ImageSetupJButt(String imgNme, JButton jBut,int wid, int hei){
+       
+   ImageIcon lbcon = new ImageIcon("src\\main\\java\\Images\\"+imgNme);
+    Image scaledIcon = lbcon.getImage().getScaledInstance(wid, hei, Image.SCALE_SMOOTH);
+     jBut.setIcon(new ImageIcon(scaledIcon));
+
+   }
     
      
     public JPanel createProductPanelforBuyer(String category) {
@@ -86,6 +99,7 @@ public class ProductClass  {
           
              
                 JLabel pImage = new JLabel();
+                ImageSetupJLabel("swr.png",pImage,150,150);
                 pImage.setBounds(40, 10, 150, 150);
                 pImage.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
                 
