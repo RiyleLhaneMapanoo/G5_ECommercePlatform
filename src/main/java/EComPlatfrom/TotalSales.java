@@ -27,9 +27,10 @@ public class TotalSales extends JFrame implements ActionListener {
     private JTextArea jtTotalPrice;
     private JButton btnBack,btnShow;
     private JTable table;
+       UserClass us;
     TotalSales() {
         
-       
+       us = new UserClass();
       
         
         setTitle("Seller Sales Page");
@@ -61,12 +62,10 @@ public class TotalSales extends JFrame implements ActionListener {
        pnlist.setBounds(40, 110, 1225, 480);
        
         
-        
-        String[] names = {"productID", "productName", "Address","Email ","Category", "Product Name","Product Price", "Quantity", "Total Price"};
-        
-        
-
-        DefaultTableModel model = new DefaultTableModel(names, 0);
+     
+        String[] names = {"productID", "user name", "Address","Email ","Category", "Product Name","Product Price", "Quantity", "Total Price"};
+        String[][] saleData = us.fetchOrderDetails();
+        DefaultTableModel model = new DefaultTableModel(saleData, names);
          table = new JTable(model);
          table.setDefaultEditor(Object.class,  null);
 

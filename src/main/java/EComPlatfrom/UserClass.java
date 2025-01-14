@@ -183,6 +183,57 @@ public HashMap<String, Object> getUserSession() {
     }
     
    
-
+public String[][] fetchOrderDetails() {
+    String query = """
+            SELECT 
+                ep.productID,
+                ut.full_name,
+                ut.address,
+                ut.email,
+                ep.category,
+                ep.productName,
+                ep.price AS unit_price,
+                uod.quantity,
+                (uod.quantity * ep.price) AS total_price
+            FROM user_order_details uod
+            JOIN example_product ep ON uod.itemId = ep.productID
+            JOIN user_order_history uoh ON uod.orderHistoryId = uoh.orderHistoryId 
+                AND uod.usherId = uoh.usherId
+            JOIN usertable ut ON uoh.usherId = ut.id
+            """;
+            
+    String[][] data = null;
+    try (Connection conn = this.conn;
+         PreparedStatement pstmt = conn.prepareStatement(query,
+             ResultSet.TYPE_SCROLL_INSENSITIVE,
+             ResultSet.CONCUR_READ_ONLY);
+         ResultSet rs = pstmt.executeQuery()) {
+        
+        // Get the row count
+        rs.last();
+        int rowCount = rs.getRow();
+        rs.beforeFirst();
+        
+        
+        data = new String[rowCount][9];
+        
+        int rowIndex = 0;
+        while (rs.next()) {
+             data[rowIndex][0] = String.valueOf(rs.getInt("productID"));
+            data[rowIndex][1] = rs.getString("full_name");
+             data[rowIndex][2] = rs.getString("address");
+            data[rowIndex][3] = rs.getString("email");
+             data[rowIndex][4] = rs.getString("category");
+              data[rowIndex][5] = rs.getString("productName");
+            data[rowIndex][6] = String.valueOf(rs.getBigDecimal("unit_price"));
+             data[rowIndex][7] = String.valueOf(rs.getInt("quantity"));
+             data[rowIndex][8] = String.valueOf(rs.getBigDecimal("total_price"));
+            rowIndex++;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return data;
+}
     }
 
