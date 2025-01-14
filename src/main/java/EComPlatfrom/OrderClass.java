@@ -164,7 +164,30 @@ public class OrderClass {
     return null;
 }
 
-    //add here
+    public void removeFromCart(int productId, int userId) {
+    try {
+       
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345");
+
+        String query = "DELETE FROM orders WHERE itemId = ? AND uzerId = ?";
+     
+        PreparedStatement pst = connection.prepareStatement(query);
+        pst.setInt(1, productId);  
+        pst.setInt(2, userId);   
+
+      
+        int result = pst.executeUpdate();
+
+        if (result > 0) {
+            JOptionPane.showMessageDialog(null, "Product removed from cart!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to remove product from cart.");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "An error occurred while removing the product from the cart.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
     
   public int getTotalItemsInCart(int userId) {
     int totalItems = 0;
