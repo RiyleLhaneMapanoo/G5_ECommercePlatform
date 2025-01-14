@@ -57,33 +57,41 @@ public class cartPage  extends JFrame implements ActionListener{
     return;  
     }
  
-    
-    
-    
-    
-    scrollPane = new JScrollPane();
+
+ scrollPane = new JScrollPane();
 scrollPane.setBounds(20, 20, 1330, 650);
 scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-cartPanel = ord.itemsInCart(userId, userClass);
+
+cartPanel = new JPanel();
+cartPanel.setLayout(null); 
+cartPanel.setBackground(new Color(51, 0, 51));
+
+
+cartPanel = ord.itemsInCart(userId);  
+
 
 if (cartPanel != null) {
-    int totalItemsInCart = ord.getTotalItemsInCart(userId);
-    // Calculate the total height needed based on the number of items
-    int totalHeight = Math.max(650, (220 * totalItemsInCart) + 50); // minimum height of 650px
-    cartPanel.setPreferredSize(new Dimension(1300, totalHeight));
+   
+    int totalItemsInCart = ord.getTotalItemsInCart(userId); 
+    cartPanel.setPreferredSize(new Dimension(1200, 200 * totalItemsInCart + 30));
+
     
     scrollPane.setViewportView(cartPanel);
+
+   
     add(scrollPane);
-    
+
+  
     revalidate();
     repaint();
 } else {
+ 
     JOptionPane.showMessageDialog(this, "No items in the cart.");
 }
-    
- 
+
+
        
        // Panel for Back button, Subtotal and Checkout button
         
