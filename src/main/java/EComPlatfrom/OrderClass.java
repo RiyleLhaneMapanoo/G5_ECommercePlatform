@@ -47,8 +47,6 @@ public class OrderClass {
     try {
         Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1", "root", "12345");
  
-        
-     
         String checkQuery = "SELECT quantity FROM orders WHERE uzerId = ? AND itemId = ?";
         PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
         checkStmt.setInt(1, userId);
