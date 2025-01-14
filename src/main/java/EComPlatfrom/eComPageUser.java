@@ -29,6 +29,7 @@ public class eComPageUser extends JFrame implements ActionListener {
    
     private UserClass userClass;
     
+    
     public eComPageUser(UserClass userClass){
      this.userClass = userClass;
      
@@ -69,7 +70,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     filterRatings.setBackground(new Color(89, 0, 54));
     filterRatings.setFont(new Font("Segoe UI Black", 0, 12)); 
     filterRatings.setForeground(new Color(236, 239, 241));
-    filterRatings.setModel(new DefaultComboBoxModel<>(new String[] {"1", "2","3","4","5"}));
+    filterRatings.setModel(new DefaultComboBoxModel<>(new String[] {"All","1", "2","3","4","5"}));
     filterRatings.setToolTipText("");
     add(filterRatings);
     
@@ -78,7 +79,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     filterPrice.setBackground(new Color(89, 0, 54));
     filterPrice.setFont(new Font("Segoe UI Black", 0, 12)); 
     filterPrice.setForeground(new Color(236, 239, 241));
-    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"~50", "51-100","101-300","301-600","601-900","901-1000~"}));
+    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"All","~50", "51-100","101-300","301-600","601-900","901-1000~"}));
     filterPrice.setToolTipText("");
     add(filterPrice);
     
@@ -291,6 +292,7 @@ btncart.addActionListener(this);
     jmenuLogout.addActionListener(this);
     jmenuOrderHistory.addActionListener(this);
     }
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
