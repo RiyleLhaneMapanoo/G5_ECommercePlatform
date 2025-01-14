@@ -17,15 +17,17 @@ public class OrderHistory extends JFrame implements ActionListener{
    private JScrollPane spTable;
    private JTable ohtable;
    private JPanel plist;
-   private JButton btnBAgain,btnBack;
+   private JButton btnBack;
    private String[] ohtableColumn;
    private Object[][] ohtableData;
    private DefaultTableModel ohtableMod;
  //test commit
    private UserClass userClass;
+   OrderClass ord;
         
     OrderHistory(){
         this.userClass = userClass;
+        ord = new OrderClass();
         setTitle("Order History");
         setSize(1385, 764);
         setLayout(null);
@@ -43,12 +45,15 @@ public class OrderHistory extends JFrame implements ActionListener{
         bgLabel.setBounds(0, 0, 1385, 764);
         add(bgLabel);
         
-        ohtableColumn = new String[]{"Order ID", "Product Name", "Product Quantity","Product Price","Category","Total Price"}; //columns
-   
+        ohtableColumn = new String[]{"Order ID", "Product Name", "Product Quantity","Product Price","Category","Total Price"}; 
+   String[][] ohtableData = ord.fetchOrderDetails();
+
+    
+      
     
     ohtableMod  = new DefaultTableModel(ohtableData,ohtableColumn); //the model where u arrange the column and row
   
-    ohtable = new JTable(ohtableMod){
+    ohtable = new JTable(ohtableMod) {
      @Override
      public boolean isCellEditable(int row, int column) {
         return false; 
@@ -61,10 +66,7 @@ public class OrderHistory extends JFrame implements ActionListener{
     spTable.setBounds(350, 222, 825, 431);
     bgLabel.add(spTable);
         
-        btnBAgain =  new JButton("Buy Again");
-        btnBAgain.setBounds(100, 594, 144, 37);
-        btnBAgain.setFont(new Font("Arial",Font.BOLD,16));
-        bgLabel.add(btnBAgain);
+
         
         btnBack =  new JButton("Back");
         btnBack.setBounds(20, 20, 68, 22);
@@ -72,7 +74,7 @@ public class OrderHistory extends JFrame implements ActionListener{
         bgLabel.add(btnBack);
         
         btnBack.addActionListener(this);
-        btnBAgain.addActionListener(this);
+  
     }
 
     @Override
@@ -85,13 +87,6 @@ public class OrderHistory extends JFrame implements ActionListener{
              page.setLocationRelativeTo(null);
              dispose();
              
-        }if(e.getSource()==btnBAgain){
-    
-            cartPage cart = new cartPage(userClass);
-            cart.setVisible(true);
-            cart.setSize(1385,764);
-            cart.setLocationRelativeTo(null);
-            dispose();
         }
         
     }

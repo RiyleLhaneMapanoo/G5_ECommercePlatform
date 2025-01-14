@@ -21,24 +21,37 @@ public class UserClass {
 //    private JPasswordField subTxtPass;
 
     HashMap<String,Object> userSession;
-    
+        private Connection conn; 
     
     public UserClass(){
      //may add the connectTodatabase() method after debugging later on
      
      userSession = new HashMap<>();
-     
+     connectToDatabase();
     }
     
 public HashMap<String, Object> getUserSession() {
         return userSession;
     }
     
+
+    private void connectToDatabase() {
+       
+        try {
+            
+            String url = "jdbc:mysql://localhost:3306/testecom1";
+            String user = "root2";
+            String password = "12345";
+            conn = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
     public void loginMethod(JFrame frame,String email, String password, JTextField txtEmail, JPasswordField txtPassword){
     
                 try {
-                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testecom1","root", "12345");
+                    Connection connection = conn;
 
 
                      PreparedStatement stSeller = connection.prepareStatement("SELECT email, password FROM usertable WHERE BINARY email=? AND BINARY password=? AND id=1");
@@ -102,7 +115,7 @@ public HashMap<String, Object> getUserSession() {
     public void registerMethod(JFrame frame,JButton but,String email, String password,String fullName,String contacts,String house ,JTextField txtContact,JTextField txtHouse,JTextField txtEmail, JTextField txtPassword,JTextField txtName){
      try{
              String checkExisitingValueQuery = "SELECT * FROM usertable WHERE email = ?";
- Connection checkExisitingValueCon = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
+ Connection checkExisitingValueCon = conn;
              PreparedStatement checkExisitingValueState = checkExisitingValueCon.prepareStatement(checkExisitingValueQuery);         
              checkExisitingValueState.setString(1, txtEmail.getText());
                  
@@ -138,7 +151,7 @@ public HashMap<String, Object> getUserSession() {
             
                }else{
                         String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`,`address`,`contactnum`) VALUES (?,?,?,?,?)";
-                   Connection con = DriverManager.getConnection("jdbc:mysql://localhost/testecom1","root","12345");
+                   Connection con = conn;
              PreparedStatement state = con.prepareStatement(query);
              state.setString(1, txtName.getText());
              state.setString(2, txtEmail.getText());
