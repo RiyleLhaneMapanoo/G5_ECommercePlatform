@@ -69,25 +69,25 @@ public class eComPageSeller extends JFrame implements ActionListener {
          if (e.getSource() == salesButton) {
         TotalSales page = new TotalSales();
         page.setVisible(true);
-        page.setSize(500, 200);
+      
         page.setLocationRelativeTo(null);
         dispose();
     } else if (e.getSource() == inventoryButton) {
         inventoryPage page = new inventoryPage();
         page.setVisible(true);
-        page.setSize(500, 200);
+      
         page.setLocationRelativeTo(null);
         dispose();
     } else if (e.getSource() == logoutButton) {
         LoginPage page = new LoginPage();
         page.setVisible(true);
-        page.setSize(500, 200);
+      
         page.setLocationRelativeTo(null);
         dispose();
     } else if (e.getSource() == productsButton) {
         addProduct page = new addProduct();
         page.setVisible(true);
-        page.setSize(500, 200);
+     
         page.setLocationRelativeTo(null);
         dispose();
     }
