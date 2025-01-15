@@ -14,21 +14,24 @@ import javax.swing.border.BevelBorder;
  */
 public class eComPageUser extends JFrame implements ActionListener {
     private int userId;
-    private final JPanel MainPanel, makeups, makeupPanel, clothes, clothespanel,
-                         kitchen, kitchenpanel, supplies, suppliespanel;
-    private final JLabel platformname;
-    private final JTextField searchBar;
-    private final JButton btnSearch, btncart;
-    private final JComboBox filterRatings,filterPrice;;
-    private final JScrollPane MakeUpjScrollPane, clothesScrolpane, kitchenScrolpane,suppliesScrolpane;
-    private final JTabbedPane products;
-    private final GroupLayout  makeuptab1Layout,  clothesTab2Layout,  kitchenLayout1, suppliesLayout1;
-    private final JMenuBar MenuBar;
-    private final JMenu Menu; 
-   private final  JMenuItem  jmenuOrderHistory, jmenuLogout;
+    private JPanel MainPanel,makeups,makeupPanel,clothes,clothespanel,
+                kitchen,kitchenpanel,supplies,suppliespanel;
+    
+
+    private  JLabel platformname;
+    private  JTextField searchBar;
+    private  JButton btnSearch, btncart;
+    private JComboBox filterRatings,filterPrice;;
+    private JScrollPane MakeUpjScrollPane,clothesScrolpane,kitchenScrolpane,suppliesScrolpane;
+    private JTabbedPane products;
+    private GroupLayout makeuptab1Layout,clothesTab2Layout,kitchenLayout1,suppliesLayout1;
+   
+    private  JMenuBar MenuBar;
+    private  JMenu Menu; 
+   private  JMenuItem  jmenuOrderHistory, jmenuLogout;
    
     private UserClass userClass;
-    
+   ProductClass productClass;
     
     public eComPageUser(UserClass userClass){
      this.userClass = userClass;
@@ -42,7 +45,7 @@ public class eComPageUser extends JFrame implements ActionListener {
      setLocationRelativeTo(null);
 
        //from product class
-     ProductClass productClass = new ProductClass(userClass);
+     productClass = new ProductClass(userClass);
      
 
      
@@ -79,7 +82,6 @@ public class eComPageUser extends JFrame implements ActionListener {
     filterPrice.setFont(new Font("Segoe UI Black", 0, 12)); 
     filterPrice.setForeground(new Color(236, 239, 241));
     filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"All","~50", "51-100","101-300","301-600","601-900","901-1000~"}));
-    filterPrice.setToolTipText("");
     add(filterPrice);
     
     btnSearch=new JButton("Search");
@@ -88,6 +90,8 @@ public class eComPageUser extends JFrame implements ActionListener {
     btnSearch.setBounds(1115,83,75,40);
     add(btnSearch);
 
+    loadTabbedPane();
+    
     btncart = new JButton();
     productClass.ImageSetupJButt("checkout-icon.png", btncart,30,30);
     btncart.setBackground(new Color(204, 204, 255));
@@ -116,7 +120,19 @@ public class eComPageUser extends JFrame implements ActionListener {
 
     
  
-        products = new JTabbedPane();
+ 
+btncart.addActionListener(this);
+    jmenuLogout.addActionListener(this);
+    jmenuOrderHistory.addActionListener(this);
+    filterRatings.addActionListener(this);
+    }
+    
+public void loadTabbedPane(){
+    
+        String selectedRating = (String) filterRatings.getSelectedItem();
+        System.out.println("selected rating is " + selectedRating);
+    products = new JTabbedPane();
+    
         products.setBackground(new Color(204, 204, 204));
         products.setBounds(30, 160, 1300, 500);
         add(products);
@@ -125,6 +141,7 @@ public class eComPageUser extends JFrame implements ActionListener {
         makeups.setBackground(new Color(225, 190, 231));
       
 
+    
         MakeUpjScrollPane = new JScrollPane();
       
 
@@ -132,7 +149,7 @@ public class eComPageUser extends JFrame implements ActionListener {
         makeupPanel.setBackground(new Color(51, 0, 51));
         makeupPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         makeupPanel.setLayout(null);
-        productClass.createProductPanelforBuyer("Makeup", MakeUpjScrollPane,makeupPanel);
+        productClass.createProductPanelforBuyer("Makeup", MakeUpjScrollPane,makeupPanel,selectedRating);
         makeuptab1Layout = new GroupLayout(makeups);
         makeups.setLayout(makeuptab1Layout);
 
@@ -157,7 +174,7 @@ public class eComPageUser extends JFrame implements ActionListener {
        
         clothespanel.setLayout(null);
 
-        productClass.createProductPanelforBuyer("Clothes", clothesScrolpane,clothespanel);
+        productClass.createProductPanelforBuyer("Clothes", clothesScrolpane,clothespanel,selectedRating);
 
         clothesTab2Layout = new GroupLayout(clothes);
         clothes.setLayout(clothesTab2Layout);
@@ -183,7 +200,7 @@ public class eComPageUser extends JFrame implements ActionListener {
         kitchenpanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
       
         kitchenpanel.setLayout(null);
-  productClass.createProductPanelforBuyer("Kitchen", kitchenScrolpane,kitchenpanel);
+  productClass.createProductPanelforBuyer("Kitchen", kitchenScrolpane,kitchenpanel,selectedRating);
  
         kitchenLayout1 = new GroupLayout(kitchen);
         kitchen.setLayout(kitchenLayout1);
@@ -208,7 +225,7 @@ public class eComPageUser extends JFrame implements ActionListener {
         suppliespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         
         suppliespanel.setLayout(null);
-        productClass.createProductPanelforBuyer("School Supplies", suppliesScrolpane,suppliespanel);
+        productClass.createProductPanelforBuyer("School Supplies", suppliesScrolpane,suppliespanel,selectedRating);
 
         suppliesLayout1 = new GroupLayout(supplies);
         supplies.setLayout(suppliesLayout1);
@@ -220,18 +237,8 @@ public class eComPageUser extends JFrame implements ActionListener {
    
     
     products.addTab("SCHOOL SUPPLIES", supplies);
-        
-    
-   
-
-    
-btncart.addActionListener(this);
-    jmenuLogout.addActionListener(this);
-    jmenuOrderHistory.addActionListener(this);
-    filterRatings.addActionListener(this);
-    }
-    
-
+    products.setVisible(true);
+}
     @Override
     public void actionPerformed(ActionEvent e) {
     
@@ -261,8 +268,15 @@ btncart.addActionListener(this);
      dispose();
     
     }else if(e.getSource()== filterRatings){
-      ProductClass productClass = new ProductClass(userClass);
+        
+  
      String selectedRating = (String) filterRatings.getSelectedItem();
+     System.out.print(selectedRating);
+     products.setVisible(false);
+     loadTabbedPane();
+     revalidate();
+     repaint();
+     
      
     
     }

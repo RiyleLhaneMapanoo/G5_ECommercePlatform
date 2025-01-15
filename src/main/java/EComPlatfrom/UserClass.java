@@ -21,24 +21,23 @@ public class UserClass {
 //    private JPasswordField subTxtPass;
 
     HashMap<String,Object> userSession;
-        private Connection conn; 
+    Connection conn;
     
     public UserClass(){
      //may add the connectTodatabase() method after debugging later on
-     
-     userSession = new HashMap<>();
      connectToDatabase();
+     userSession = new HashMap<>();
+     
     }
     
 public HashMap<String, Object> getUserSession() {
         return userSession;
     }
     
-
-    private void connectToDatabase() {
+     private void connectToDatabase() {
        
         try {
-            
+
             String url = "jdbc:mysql://localhost:3306/testecom1";
             String user = "root2";
             String password = "12345";
@@ -47,10 +46,10 @@ public HashMap<String, Object> getUserSession() {
             e.printStackTrace();
         }
     }
-    
     public void loginMethod(JFrame frame,String email, String password, JTextField txtEmail, JPasswordField txtPassword){
     
-                try {
+                try  {
+                        connectToDatabase();
                     Connection connection = conn;
 
 
@@ -114,6 +113,7 @@ public HashMap<String, Object> getUserSession() {
     
     public void registerMethod(JFrame frame,JButton but,String email, String password,String fullName,String contacts,String house ,JTextField txtContact,JTextField txtHouse,JTextField txtEmail, JTextField txtPassword,JTextField txtName){
      try{
+             connectToDatabase();
              String checkExisitingValueQuery = "SELECT * FROM usertable WHERE email = ?";
  Connection checkExisitingValueCon = conn;
              PreparedStatement checkExisitingValueState = checkExisitingValueCon.prepareStatement(checkExisitingValueQuery);         
@@ -182,58 +182,5 @@ public HashMap<String, Object> getUserSession() {
     
     }
     
-   
-public String[][] fetchOrderDetails() {
-    String query = """
-            SELECT 
-                ep.productID,
-                ut.full_name,
-                ut.address,
-                ut.email,
-                ep.category,
-                ep.productName,
-                ep.price AS unit_price,
-                uod.quantity,
-                (uod.quantity * ep.price) AS total_price
-            FROM user_order_details uod
-            JOIN example_product ep ON uod.itemId = ep.productID
-            JOIN user_order_history uoh ON uod.orderHistoryId = uoh.orderHistoryId 
-                AND uod.usherId = uoh.usherId
-            JOIN usertable ut ON uoh.usherId = ut.id
-            """;
-            
-    String[][] data = null;
-    try (Connection conn = this.conn;
-         PreparedStatement pstmt = conn.prepareStatement(query,
-             ResultSet.TYPE_SCROLL_INSENSITIVE,
-             ResultSet.CONCUR_READ_ONLY);
-         ResultSet rs = pstmt.executeQuery()) {
-        
-        // Get the row count
-        rs.last();
-        int rowCount = rs.getRow();
-        rs.beforeFirst();
-        
-        
-        data = new String[rowCount][9];
-        
-        int rowIndex = 0;
-        while (rs.next()) {
-             data[rowIndex][0] = String.valueOf(rs.getInt("productID"));
-            data[rowIndex][1] = rs.getString("full_name");
-             data[rowIndex][2] = rs.getString("address");
-            data[rowIndex][3] = rs.getString("email");
-             data[rowIndex][4] = rs.getString("category");
-              data[rowIndex][5] = rs.getString("productName");
-            data[rowIndex][6] = String.valueOf(rs.getBigDecimal("unit_price"));
-             data[rowIndex][7] = String.valueOf(rs.getInt("quantity"));
-             data[rowIndex][8] = String.valueOf(rs.getBigDecimal("total_price"));
-            rowIndex++;
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return data;
-}
     }
 
