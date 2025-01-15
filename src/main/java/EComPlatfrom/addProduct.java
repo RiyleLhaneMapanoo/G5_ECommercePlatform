@@ -14,7 +14,7 @@ public class addProduct extends JFrame implements ActionListener{
      private UserClass userClass;
    private int userId; 
    private JTextArea txaHistory;
-   private JLabel lblHistory, lblIcon, lblTitle, lblup, lblPname, lblPprice, lblPrating, lblPcategory, lblSA, bgLabel;
+   private JLabel lblHistory, lblTitle, lblup, lblPname, lblPprice, lblPrating, lblPcategory, lblSA, bgLabel;
    private JScrollPane spTable;
    private JTable ohtable;
    private JPanel plist;
