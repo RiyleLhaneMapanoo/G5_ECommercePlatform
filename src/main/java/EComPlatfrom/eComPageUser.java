@@ -285,7 +285,7 @@ public void loadTabs(int selectedIndex ){
     
     }else if(e.getSource()==jmenuOrderHistory){
     
-    OrderHistory page = new OrderHistory();
+    OrderHistory page = new OrderHistory(userClass);
     page.setVisible(true);
     page.setSize(1385,764);
     page.setLocationRelativeTo(null);

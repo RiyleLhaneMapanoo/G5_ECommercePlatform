@@ -21,10 +21,10 @@ public class cartPage  extends JFrame implements ActionListener{
          private JScrollPane scrollPane;
           String imageSource = "src\\main\\java\\Images\\";
 
-         OrderClass ord = new OrderClass();
+        
            private UserClass userClass;
         ProductClass pro = new ProductClass(userClass);
- 
+  OrderClass ord = new OrderClass(userClass);
          int userId ;
        public cartPage(UserClass userClass){
           
