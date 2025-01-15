@@ -42,7 +42,6 @@ CREATE TABLE `example_product` (
 
 LOCK TABLES `example_product` WRITE;
 /*!40000 ALTER TABLE `example_product` DISABLE KEYS */;
-INSERT INTO `example_product` VALUES (34,'Blush',100.00,'Makeup',3,NULL,1,99,100),(35,'Eyeshadow',100.00,'Makeup',1,NULL,1,19,20),(36,'Pants',50.00,'Clothes',2,NULL,NULL,NULL,300),(37,'Spatula',10.00,'Kitchen',3,NULL,2,0,2);
 /*!40000 ALTER TABLE `example_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-16  3:59:01
+-- Dump completed on 2025-01-16  4:12:20
