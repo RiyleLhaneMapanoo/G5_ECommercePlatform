@@ -29,7 +29,7 @@ public class addProduct extends JFrame implements ActionListener{
    String[] PR = {"1", "2", "3", "4", "5"};
  
    ProductClass pr = new ProductClass(userClass);
-   // UserClass userClass = new UserClass();
+ 
         
     addProduct(){
          
@@ -139,7 +139,7 @@ btnAddP.addActionListener(this);
         int prRating = Integer.parseInt((String) txfPrating.getSelectedItem()); 
         String prCategory = (String) txfPcategory.getSelectedItem(); 
          
-         //ctto stack overflow
+      
          
             
         pr.addProduct(btnAddP,productName,productPrice,stockAvail,prRating,prCategory,txfPname,txfPprice,txfSA,txfPrating, txfPcategory);

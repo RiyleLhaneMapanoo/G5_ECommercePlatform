@@ -21,7 +21,7 @@ public class OrderHistory extends JFrame implements ActionListener{
    private String[] ohtableColumn;
    private Object[][] ohtableData;
    private DefaultTableModel ohtableMod;
- //test commit
+ 
    private UserClass userClass;
    OrderClass ord;
         
@@ -51,18 +51,18 @@ public class OrderHistory extends JFrame implements ActionListener{
     
       
     
-    ohtableMod  = new DefaultTableModel(ohtableData,ohtableColumn); //the model where u arrange the column and row
+    ohtableMod  = new DefaultTableModel(ohtableData,ohtableColumn); 
   
     ohtable = new JTable(ohtableMod) {
      @Override
      public boolean isCellEditable(int row, int column) {
         return false; 
-    }//to make cells uneditable
+    }
     
-    };//the table itself
+    };
    
-    ohtable.getTableHeader().setReorderingAllowed(false);//so that table would not move
-    spTable = new JScrollPane(ohtable);//insert the table here to make it scroll-able
+    ohtable.getTableHeader().setReorderingAllowed(false);
+    spTable = new JScrollPane(ohtable);
     spTable.setBounds(350, 222, 825, 431);
     bgLabel.add(spTable);
         

@@ -15,15 +15,12 @@ import java.sql.*;
  * @author Bering
  */
 class BuyerSignupPage extends JFrame implements ActionListener{
-   //  Connection con = null;
-     //PreparedStatement state = null;
+
      JLabel titleLbl, welcomeLbl, signupLbl, fullNameLbl, emailLbl,addressLbl, contactLbl, passwordLbl, signInLbl;
      JTextField fullNameTxf, emailTxf,addressTxf, contactTxf, passwordTxf;
      JButton signUpBtn,signInBtn;   
      JPanel backgroundPl;
-     
-     //for user class:
-     //reister update
+    
      UserClass userClass = new UserClass();
     BuyerSignupPage(){
         

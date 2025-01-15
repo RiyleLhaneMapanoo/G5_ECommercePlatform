@@ -15,12 +15,10 @@ import javax.swing.border.BevelBorder;
  * @author Raylen
  */
 public class eComPageSeller extends JFrame implements ActionListener {
-//public class eco extends JFrame{
+
     private UserClass userClass;
    
    
-   //from products class
-   //from product class
      ProductClass productClass = new ProductClass(userClass);
      
     JButton productsButton, inventoryButton, salesButton, logoutButton;

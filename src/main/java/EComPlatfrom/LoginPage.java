@@ -25,8 +25,7 @@ public class LoginPage extends JFrame implements ActionListener {
     JPasswordField pfPassword;
     JButton btnSignin, btnSignup;
     JPanel plBackround;
-    
-    //for user class:
+  
     UserClass userClass = new UserClass();
     
     LoginPage(){

@@ -323,7 +323,7 @@ public JPanel itemsInCheckout(int orderId) {
             panel.setBackground(new Color(236, 239, 241)); 
             panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)); 
             panel.setLayout(null); 
-            panel.setBounds(80, 20, 950, 250);   // y-position will be adjusted in the calling code
+            panel.setBounds(80, 20, 950, 250);    
             
             JLabel proNameDisp = new JLabel("Product Name: "); 
             proNameDisp.setFont(new Font("Arial", Font.PLAIN, 25)); 
@@ -417,7 +417,7 @@ public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, 
         Connection conn = this.conn;
         conn.setAutoCommit(false);
         try {
-            // Get next order ID
+        
             String getMaxOrderId = "SELECT COALESCE(MAX(orderHistoryId) + 1, 1) FROM user_order_history WHERE usherId = ?";
             PreparedStatement maxOrderStmt = conn.prepareStatement(getMaxOrderId);
             maxOrderStmt.setInt(1, userId);
@@ -557,7 +557,7 @@ public String[][] fetchOrderDetails() {
         System.out.println("Executing query for user: " + userId);
         
         try (ResultSet rs = pst.executeQuery()) {
-            // Get row count
+         
             rs.last(); 
             int rowCount = rs.getRow();
             rs.beforeFirst();
@@ -580,7 +580,7 @@ public String[][] fetchOrderDetails() {
     } catch (SQLException e) {
         System.out.println("Error fetching order details: " + e.getMessage());
         e.printStackTrace();
-        return new String[0][6]; // Return empty array in case of error
+        return new String[0][6]; 
     }
     
     return data;

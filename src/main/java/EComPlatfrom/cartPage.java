@@ -90,19 +90,14 @@ if (cartPanel != null) {
  
     JOptionPane.showMessageDialog(this, "No items in the cart.");
 }
-
-
-       
-       // Panel for Back button, Subtotal and Checkout button
-        
+ 
           botPanel = new JPanel();
         botPanel.setBackground(Color.WHITE);
         botPanel.setLayout(null);
         botPanel.setBounds(0, 695, 1385, 30);
          botPanel.setOpaque(false);
         add(botPanel);
-        
-        // Back Button
+    
         
             ImageIcon icon = new ImageIcon(imageSource+"back.png");
             ImageIcon backIcon = new ImageIcon(icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
@@ -112,7 +107,7 @@ if (cartPanel != null) {
             botPanel.add(btnBack);
             btnBack.addActionListener(this);
             
-           // Subtotal
+      
           
             JLabel lblSubTotal = new JLabel("Subtotal: ");
             lblSubTotal.setFont(new Font(null,Font.BOLD, 25));
@@ -126,10 +121,7 @@ if (cartPanel != null) {
             subTotal.setBounds(710, 0, 150, 30);
             botPanel.add(subTotal);
             
-           
-            
-            
-        // Checkout 
+       
             ImageIcon coIcon = new ImageIcon(imageSource+"checkout-icon.png");
            ImageIcon coImage = new ImageIcon(coIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         
@@ -183,4 +175,4 @@ if (cartPanel != null) {
         }
     
     
-}}//
+}}
