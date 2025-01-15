@@ -19,21 +19,20 @@ public class checkoutPage extends JFrame implements ActionListener{
     
     private JLabel chckoutT,nameDisp,addDisp,emDisp,cpDisp,orderDisp;
     
-    //for display of values from mysql database:
+   
     private JLabel customerName,customerAdd,customerEm,customerCP,customerOrdID;
     private JPanel infoPan;
-    
-    //for product list panel panes
+   
     private JScrollPane productPane;
     private JPanel productPanePanel,productPanels, panel;
     
-    //jlabels inside productPanels
+    
     private JLabel proNameDisp,proPriceDisp,proQuanDisp,proPriceTotalDisp;
-    //jlabels for values of products
+   
     private JLabel proName,proPrice,proQuan,proPriceTotal;
     private JButton bckbtn,purchasebtn;
     private JScrollPane scrollPane;
-    //subtotal value
+ 
     private JLabel subTotalDisp,subTotal;
     int userId;
     int subT = 0;
@@ -51,9 +50,9 @@ public class checkoutPage extends JFrame implements ActionListener{
      private UserClass userClass;
       OrderClass ord = new OrderClass(userClass);
     int subtotal = 0;
-    //for product class
+  
     ProductClass pro = new ProductClass(userClass);
-    //new update test
+  
     checkoutPage(UserClass userClass, LinkedList<LinkedList<String>> order_details){
         
       this.userClass  = userClass;
@@ -72,12 +71,12 @@ public class checkoutPage extends JFrame implements ActionListener{
         userId = (int) userClass.getUserSession().get("userId");
     } else {
      
-        System.out.println("User session is null or does not contain 'userId'. Session: " + userClass.getUserSession()); //debugging purposes, dont remove just yet guys
+        System.out.println("User session is null or does not contain 'userId'. Session: " + userClass.getUserSession()); //debugging purposes
         JOptionPane.showMessageDialog(panel, "User session is not initialized. Please log in again.", "Error", JOptionPane.ERROR_MESSAGE);
         return;  
     }
     } else {
-    System.out.println("userClass is null! Check initialization.");//debugging purposes, dont remove just yet guys
+    System.out.println("userClass is null! Check initialization.");//debugging purposes
     JOptionPane.showMessageDialog(panel, "User class is not initialized. Please log in again.", "Error", JOptionPane.ERROR_MESSAGE);
     return;  
     }

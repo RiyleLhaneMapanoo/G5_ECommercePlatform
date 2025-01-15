@@ -43,7 +43,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     setResizable(false);
      setLocationRelativeTo(null);
 
-       //from product class
+   
      productClass = new ProductClass(userClass);
      
 
@@ -92,7 +92,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     add(btnSearch);
     
      initializePanelsAndTabPane();
- //create tabbed pane
+
     
     loadTabs(0);
     products.addChangeListener(new ChangeListener() {
@@ -179,7 +179,7 @@ btncart.addActionListener(this);
                supplies = new JPanel();
         supplies.setBackground(new Color(225, 190, 231));
       suppliesScrolpane = new JScrollPane();
-//        suppliesScrolpane = new JScrollPane();
+
        
 
         suppliespanel = new JPanel();
@@ -270,8 +270,7 @@ public void loadTabs(int selectedIndex ){
     cart.setSize(1385,764);
     cart.setLocationRelativeTo(null);
      dispose();
-    //cart.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    //dispose();
+   
     }else if(e.getSource()==jmenuLogout){
     
     LoginPage page = new LoginPage();

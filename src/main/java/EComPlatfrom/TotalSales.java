@@ -7,13 +7,8 @@ package EComPlatfrom;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.*;
+import java.util.logging.*;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
@@ -86,24 +81,17 @@ public class TotalSales extends JFrame implements ActionListener {
         lblProductSold.setBounds(50, 30, 500, 50);
         add(lblProductSold);
         
-       
-        
-//        btnNext = new JButton("VIew Inventory");
-//        btnNext.setBounds(1100, 630, 200, 50);
-//        lblBg.add(btnNext);
     
         btnBack = new JButton("Back");
         btnBack.setBounds(980, 630,100, 50);
       add(btnBack);
         
-       //ImageIcon refresh = new ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\SalesPage1\\src\\main\\java\\Image\\refresh.png");
-        
-        
+   
         btnShow = new JButton("Refresh");
         btnShow.setBounds(860, 630, 100, 50);
         lblBg.add(btnShow);
         
-       // btnNext.addActionListener(this);
+    
         btnBack.addActionListener(this);
         btnShow.addActionListener(this);
             

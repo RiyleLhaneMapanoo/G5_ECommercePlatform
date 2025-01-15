@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class inventoryPage extends JFrame implements ActionListener{
     
-     //table
+    
     private JScrollPane SPtable;
     private JTable inv;
     private String[] invColumn;

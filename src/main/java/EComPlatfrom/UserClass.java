@@ -16,15 +16,12 @@ import java.util.*;
  * @author Raylen
  */
 public class UserClass {
-    
-//    private JTextField subTxtEmail;
-//    private JPasswordField subTxtPass;
-
+ 
     HashMap<String,Object> userSession;
     Connection conn;
     
     public UserClass(){
-     //may add the connectTodatabase() method after debugging later on
+    
      connectToDatabase();
      userSession = new HashMap<>();
      
@@ -125,7 +122,7 @@ public HashMap<String, Object> getUserSession() {
                 if(resultSet.next()){
                 
                 String existingEmail = resultSet.getString("email");
-                //Nested if
+               
                 if(email.equals(existingEmail)){
                 
                  JOptionPane.showMessageDialog(null, "Email already used in an exisiting account", "Error", JOptionPane.ERROR_MESSAGE);
@@ -147,7 +144,7 @@ public HashMap<String, Object> getUserSession() {
                 txtPassword.setText("");
                 txtHouse.setText("");
                 txtContact.setText("");
-            //UPDATE: would pop if empty nlng sila
+          
             
                }else{
                         String query = "INSERT INTO `usertable`(`full_name`, `email`, `password`,`address`,`contactnum`) VALUES (?,?,?,?,?)";
@@ -171,7 +168,7 @@ public HashMap<String, Object> getUserSession() {
              }
              
              }catch(Exception ex){
-                    //    System.out.println(ex);   
+              
              JOptionPane.showMessageDialog(null,"An error has occured. ");
                  txtName.setText("");
                 txtEmail.setText("");
