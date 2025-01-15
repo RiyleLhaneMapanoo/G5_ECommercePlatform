@@ -21,8 +21,7 @@ public class OrderClass {
     
    
       private int panelCount = 0;  
-     private DefaultListModel<String> productListModel;  
-    private JList<String> productList;
+   
        
       LinkedList<String> pNames = new LinkedList<>();  
           LinkedList<String> orderIds = new LinkedList<>();       
@@ -33,9 +32,7 @@ public class OrderClass {
        private Connection conn; 
       public OrderClass(){
          
-            
-      productListModel = new DefaultListModel<>();
-        productList = new JList<>(productListModel);
+  
        
         
     }
@@ -53,13 +50,10 @@ public class OrderClass {
         }
     }
         
-       // Method to get the JList
-    public JList<String> getProductList() {
-        return productList;
-    }
+       
     
     
-    public void addToCart(int productId, int userId, int quantity) {
+    public void productListCart(int productId, int userId, int quantity) {
     try {
           connectToDatabase();
         Connection connection =  conn;
@@ -166,7 +160,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
 
             JButton removeButton = new JButton("Remove");
             removeButton.setBounds(20, 110, 100, 50);
-            // Add components to panel
+          
             panel.add(pName);
             panel.add(pPrice);
             panel.add(pQuantity);
@@ -417,9 +411,7 @@ public String[] getUserDetails(int userId){
 }
 
 
-public  void orderCheckOut(JFrame frame, int userId, 
-                                LinkedList<Integer> itemId, LinkedList<Integer> quan,
-                                LinkedList<Double> prodPrice, LinkedList<Double> priceTotal) {
+public  void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, LinkedList<Integer> quan,LinkedList<Double> prodPrice, LinkedList<Double> totalPrice) {
     try {
           connectToDatabase();
         Connection conn =  this.conn;
@@ -436,7 +428,7 @@ public  void orderCheckOut(JFrame frame, int userId,
                 nextOrderId = maxOrderRs.getInt(1);
             }
 
-            double totalAmount = priceTotal.stream().mapToDouble(Double::doubleValue).sum();
+            double totalAmount = totalPrice.stream().mapToDouble(Double::doubleValue).sum();
             
            
             String insertOrderHistory = "INSERT INTO user_order_history (orderHistoryId, usherId, totalAmount) VALUES (?, ?, ?)";
@@ -486,7 +478,7 @@ public  void orderCheckOut(JFrame frame, int userId,
 
 
 
-    // Method to fetch data from the database
+   
 
 public  String[][] fetchOrderDetails() {
       connectToDatabase();
@@ -507,7 +499,7 @@ public  String[][] fetchOrderDetails() {
 
         data = new String[rowCount][6];
 
-        // Populate the array with data from database
+       
         int rowIndex = 0;
         while (rs.next()) {
             data[rowIndex][0] = String.valueOf(rs.getInt("orderHistoryId"));
