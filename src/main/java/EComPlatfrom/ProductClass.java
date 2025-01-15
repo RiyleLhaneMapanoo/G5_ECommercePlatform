@@ -108,22 +108,29 @@ public void createProductPanelforBuyer(String category, JScrollPane scrollPane, 
         StringBuilder queryBuilder = new StringBuilder("SELECT productId, productName, price, ratings FROM example_product WHERE category = ?");
         
       
-        if (!searchName.trim().isEmpty()) {
-            String[] sortedNames = getSortedProductNames(category);
-            int searchIndex = Arrays.binarySearch(sortedNames, searchName);
-            
-         
-            if (searchIndex >= 0) {
-                queryBuilder.append(" AND productName = ?");
-            } else {
-             
-                catPanel.removeAll();
-                catPanel.revalidate();
-                catPanel.repaint();
-                scrollPane.setViewportView(catPanel);
-                return;
-            }
-        }
+       if (!searchName.trim().isEmpty()) {
+    String[] sortedNames = getSortedProductNames(category);
+    
+    String searchNameLower = searchName.toLowerCase();
+    
+   
+    String[] lowerSortedNames = Arrays.stream(sortedNames)
+                                     .map(String::toLowerCase)
+                                     .toArray(String[]::new);
+    
+    int searchIndex = Arrays.binarySearch(lowerSortedNames, searchNameLower);
+    
+    if (searchIndex >= 0) {
+        
+        queryBuilder.append(" AND LOWER(productName) = LOWER(?)");
+    } else {
+        catPanel.removeAll();
+        catPanel.revalidate();
+        catPanel.repaint();
+        scrollPane.setViewportView(catPanel);
+        return;
+    }
+}
         
         if (!selectedRating.equals("All")) {
             queryBuilder.append(" AND ratings = ?");
