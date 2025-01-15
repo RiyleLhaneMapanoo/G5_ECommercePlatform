@@ -93,10 +93,12 @@ public class eComPageUser extends JFrame implements ActionListener {
     btnSearch.setBounds(1115,83,75,40);
     add(btnSearch);
     
-     initializePanelsAndTabPane();
+     productClass.initializePanelsAndTabPane(this, products, makeups, clothes, kitchen, supplies, MakeUpjScrollPane, clothesScrolpane, kitchenScrolpane, suppliesScrolpane, makeupPanel, clothespanel,kitchenpanel, suppliespanel);
  //create tabbed pane
     
+        
     loadTabs(0);
+    
     products.addChangeListener(new ChangeListener() {
     @Override
     public void stateChanged(ChangeEvent e) {
@@ -143,65 +145,8 @@ btncart.addActionListener(this);
     jmenuOrderHistory.addActionListener(this);
     filterRatings.addActionListener(this);
     }
-    public void initializePanelsAndTabPane(){
-        
-         makeups = new JPanel();
-         makeups.setBackground(new Color(225, 190, 231));
-        MakeUpjScrollPane = new JScrollPane();
-                makeupPanel = new JPanel();
-                makeupPanel.setBackground(new Color(51, 0, 51));
-        makeupPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        makeupPanel.setLayout(null);
-        
-        
-
-        
-           clothes = new JPanel();
-        clothespanel = new JPanel();
-           clothes.setBackground(new Color(225, 190, 231));
-        clothesScrolpane = new JScrollPane();
-        
-               clothespanel.setBackground(new Color(51, 0, 51));
-        clothespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-       
-        
-          kitchen = new JPanel();
-        kitchenpanel = new JPanel();
-      
-        kitchen.setBackground(new Color(225, 190, 231));
-
-        kitchenScrolpane = new JScrollPane();
-        kitchenpanel.setBackground(new Color(51, 0, 51));
-        kitchenpanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        
-        
-  
-         
-           
-               supplies = new JPanel();
-        supplies.setBackground(new Color(225, 190, 231));
-      suppliesScrolpane = new JScrollPane();
-//        suppliesScrolpane = new JScrollPane();
-       
-
-        suppliespanel = new JPanel();
-        suppliespanel.setBackground(new Color(51, 0, 51));
-        suppliespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-       
-        products = new JTabbedPane();
-        products.setBackground(new Color(204, 204, 204));
-        products.setBounds(30, 160, 1300, 500);
-         
-          products.addTab("COSMETICS", makeups);
-    products.addTab("CLOTHES", clothes);
-    products.addTab("UTENSILS", kitchen);
-    products.addTab("SCHOOL SUPPLIES", supplies);
-    add(products);
    
-   
-    
-    }
-    
+    //method added here for more convinience
 public void loadTabs(int selectedIndex){
     
         String selectedRating = (String) filterRatings.getSelectedItem();
@@ -262,6 +207,8 @@ public void loadTabs(int selectedIndex){
     products.setVisible(true);
     
 }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
     
@@ -272,8 +219,7 @@ public void loadTabs(int selectedIndex){
     cart.setSize(1385,764);
     cart.setLocationRelativeTo(null);
      dispose();
-    //cart.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    //dispose();
+   
     }else if(e.getSource()==jmenuLogout){
     
     LoginPage page = new LoginPage();
