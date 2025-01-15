@@ -20,7 +20,7 @@ public class TotalSales extends JFrame implements ActionListener {
     private JLabel lblBg,lblTotalSales , lblProductSold;
     private JPanel pnlist;
     private JTextArea jtTotalPrice;
-    private JButton btnBack,btnShow;
+    private JButton btnBack;
     private JTable table;
        OrderClass ord;
        
@@ -87,31 +87,16 @@ public class TotalSales extends JFrame implements ActionListener {
       add(btnBack);
         
    
-        btnShow = new JButton("Refresh");
-        btnShow.setBounds(860, 630, 100, 50);
-        lblBg.add(btnShow);
-        
     
         btnBack.addActionListener(this);
-        btnShow.addActionListener(this);
-            
+      
     
     
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==btnShow){
-              
-              ImageIcon icon = new ImageIcon("src\\main\\java\\Images\\updated.png");
-              
-             
-          Image Img2 = icon.getImage();
-        Image newImg2 = Img2.getScaledInstance(50,50, Image.SCALE_SMOOTH);
-        ImageIcon image2 = new ImageIcon(newImg2);
-              
-              JOptionPane.showMessageDialog(null, "UPDATED", "UPDATE", JOptionPane.INFORMATION_MESSAGE, image2);
-        }else if(e.getSource()==btnBack){
+   if(e.getSource()==btnBack){
         
          eComPageSeller page = new eComPageSeller();
     page.setVisible(true);

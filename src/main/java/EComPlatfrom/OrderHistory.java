@@ -13,7 +13,7 @@ public class OrderHistory extends JFrame implements ActionListener{
   
    private int userId; 
    private JTextArea txaHistory;
-   private JLabel bgLabel, lblHistory, lblIcon;
+   private JLabel bgLabel, lblHistory;
    private JScrollPane spTable;
    private JTable ohtable;
    private JPanel plist;

@@ -1,6 +1,0 @@
-JTable
-https://www.youtube.com/watch?v=S6evF1T_lrU&ab_channel=AlleyB
-
-main(){
-
-} -- constructor
