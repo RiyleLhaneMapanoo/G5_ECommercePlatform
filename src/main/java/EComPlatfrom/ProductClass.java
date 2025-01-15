@@ -203,9 +203,6 @@ public class ProductClass  {
     }
 }
      
- 
-    
-  
     public void resetPanelCount() {
     panelCount = 0;
 }

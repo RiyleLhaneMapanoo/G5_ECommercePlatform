@@ -82,7 +82,7 @@ public class TotalSales extends JFrame implements ActionListener {
       lblProductSold.setForeground(Color.WHITE); 
         lblProductSold.setFont(new Font("Arial", Font.BOLD, 24));
         lblProductSold.setBounds(50, 30, 500, 50);
-        lblBg.add(lblProductSold);
+        add(lblProductSold);
         
        
         
@@ -92,7 +92,7 @@ public class TotalSales extends JFrame implements ActionListener {
     
         btnBack = new JButton("Back");
         btnBack.setBounds(980, 630,100, 50);
-        lblBg.add(btnBack);
+      add(btnBack);
         
        //ImageIcon refresh = new ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\SalesPage1\\src\\main\\java\\Image\\refresh.png");
         
