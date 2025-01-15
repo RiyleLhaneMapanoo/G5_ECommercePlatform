@@ -18,15 +18,15 @@ public class addProduct extends JFrame implements ActionListener{
    private JScrollPane spTable;
    private JTable ohtable;
    private JPanel plist;
-   private JButton btnBack, btnup, btnAddP;
+   private JButton btnBack, btnup, btnAddP,btnUp;
    private String[] ohtableColumn;
    private Object[][] ohtableData;
    private DefaultTableModel ohtableMod;
-   private JFileChooser fcupPht;
-   private JTextField txfPname, txfPprice, txfSA;
-   private JComboBox txfPcategory, txfPrating;
+   private JTextField txfPname, txfPprice, txfSA,addStock;
+   private JComboBox txfPcategory, txfPrating,productsUp;
    String[] Pcategory = {"Makeup", "Clothes", "Kitchen", "School Supplies"};
    String[] PR = {"1", "2", "3", "4", "5"};
+   String[] defaultV = {"Nothing Selected"};
  
    ProductClass pr = new ProductClass(userClass);
  
@@ -106,17 +106,22 @@ public class addProduct extends JFrame implements ActionListener{
         bgLabel.add(txfSA);
         
         btnBack =  new JButton("Back");
-        btnBack.setBounds(780, 150, 144, 55);
+        btnBack.setBounds(780, 150, 250, 55);
         btnBack.setFont(new Font("Arial",Font.BOLD,17));
         bgLabel.add(btnBack);                                    
         
         btnAddP =  new JButton("Add Product");
-        btnAddP.setBounds(780, 250, 155, 55);
+        btnAddP.setBounds(780, 250, 250, 55);
         btnAddP.setFont(new Font("Arial",Font.BOLD,17));
         bgLabel.add(btnAddP);
         
+     
+     
+        
+        
         btnBack.addActionListener(this);
 btnAddP.addActionListener(this);
+
     }
 
     @Override

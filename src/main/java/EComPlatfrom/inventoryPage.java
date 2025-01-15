@@ -62,8 +62,11 @@ public class inventoryPage extends JFrame implements ActionListener{
     backBut.setBounds(1150, 600, 100, 50);
     add(backBut);
     
+   
+    
+    
     backBut.addActionListener(this);
-        
+      
     }
 
     @Override
