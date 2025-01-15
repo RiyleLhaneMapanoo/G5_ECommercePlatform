@@ -411,13 +411,13 @@ public String[] getUserDetails(int userId){
 }
 
 
-public  void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, LinkedList<Integer> quan,LinkedList<Double> prodPrice, LinkedList<Double> totalPrice) {
+public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, LinkedList<Integer> quan, LinkedList<Double> prodPrice, LinkedList<Double> totalPrice) {
     try {
-          connectToDatabase();
-        Connection conn =  this.conn;
+        connectToDatabase();
+        Connection conn = this.conn;
         conn.setAutoCommit(false);
         try {
-           
+            // Get next order ID
             String getMaxOrderId = "SELECT COALESCE(MAX(orderHistoryId) + 1, 1) FROM user_order_history WHERE usherId = ?";
             PreparedStatement maxOrderStmt = conn.prepareStatement(getMaxOrderId);
             maxOrderStmt.setInt(1, userId);
@@ -430,7 +430,7 @@ public  void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId,
 
             double totalAmount = totalPrice.stream().mapToDouble(Double::doubleValue).sum();
             
-           
+         
             String insertOrderHistory = "INSERT INTO user_order_history (orderHistoryId, usherId, totalAmount) VALUES (?, ?, ?)";
             PreparedStatement orderHistoryStmt = conn.prepareStatement(insertOrderHistory);
             orderHistoryStmt.setInt(1, nextOrderId);
@@ -442,24 +442,67 @@ public  void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId,
             String insertOrderDetails = "INSERT INTO user_order_details (orderHistoryId, usherId, itemId, quantity, price) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement orderDetailsStmt = conn.prepareStatement(insertOrderDetails);
             
+        
+            String getProductQuantity = "SELECT productOriginalStock, COALESCE(productQuantityBought, 0) as productQuantityBought, productName FROM example_product WHERE productID = ? FOR UPDATE";
+            PreparedStatement getQuantityStmt = conn.prepareStatement(getProductQuantity);
+            
             for (int i = 0; i < itemId.size(); i++) {
+                int currentItemId = itemId.get(i);
+                int purchaseQuantity = quan.get(i);
+                
+              
+                getQuantityStmt.setInt(1, currentItemId);
+                ResultSet quantityRs = getQuantityStmt.executeQuery();
+                
+                if (quantityRs.next()) {
+                    int originalStock = quantityRs.getInt("productOriginalStock");
+                    int currentBought = quantityRs.getInt("productQuantityBought");
+                    String productName = quantityRs.getString("productName");
+                    
+                   
+                    if (originalStock - (currentBought + purchaseQuantity) < 0) {
+                        JOptionPane.showMessageDialog(frame, "Insufficient stock for a product: " + productName , "Out of Stock", JOptionPane.WARNING_MESSAGE);
+                        conn.rollback();
+                        return;
+                    }
+                    
+                    
+    String updateBoughtOnly = "UPDATE example_product " +"SET productQuantityBought = COALESCE(productQuantityBought, 0) + ? " +"WHERE productID = ?";
+     PreparedStatement updateBoughtStmt = conn.prepareStatement(updateBoughtOnly);
+     updateBoughtStmt.setInt(1, purchaseQuantity);
+                    updateBoughtStmt.setInt(2, currentItemId);
+                     updateBoughtStmt.executeUpdate();
+                    
+                   
+   String updateStockLeft = "UPDATE example_product " +"SET productStockQuantityLeft = productOriginalStock - productQuantityBought " +"WHERE productID = ?";
+    PreparedStatement updateStockStmt = conn.prepareStatement(updateStockLeft);
+    updateStockStmt.setInt(1, currentItemId);
+                    int updatedRows = updateStockStmt.executeUpdate();
+                    
+                    if (updatedRows == 0) {
+                        throw new SQLException("Failed to update quantity for product ID: " + currentItemId);
+                    }
+                } else {
+                    throw new SQLException("Product not found: " + currentItemId);
+                }
+                
+               
                 orderDetailsStmt.setInt(1, nextOrderId);
-                orderDetailsStmt.setInt(2, userId);
-                orderDetailsStmt.setInt(3, itemId.get(i));
-                orderDetailsStmt.setInt(4, quan.get(i));
+                 orderDetailsStmt.setInt(2, userId);
+                orderDetailsStmt.setInt(3, currentItemId);
+                 orderDetailsStmt.setInt(4, purchaseQuantity);
                 orderDetailsStmt.setDouble(5, prodPrice.get(i));
-                orderDetailsStmt.executeUpdate();
+                 orderDetailsStmt.executeUpdate();
                 
-                
-                removeFromCart(itemId.get(i),  userId);
+                removeFromCart(currentItemId, userId);
             }
 
             conn.commit();
-            JOptionPane.showMessageDialog(frame, "Order Purchased Successfully!!! ");
-           
+            JOptionPane.showMessageDialog(frame, "Order Purchased Successfully!");
             
         } catch (SQLException e) {
             conn.rollback();
+            JOptionPane.showMessageDialog(frame, "Error processing order: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error during order insertion: " + e.getMessage());
             e.printStackTrace();
         } finally {
@@ -469,22 +512,22 @@ public  void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId,
             }
         }
     } catch (SQLException e) {
+        JOptionPane.showMessageDialog(frame, "Database connection error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         System.err.println("Database connection error: " + e.getMessage());
         e.printStackTrace();
     }
-    
-    
 }
 
 
 
-   
+
 
 public String[][] fetchOrderDetails() {
    
     if (userClass.getUserSession() == null || !userClass.getUserSession().containsKey("userId")) {
         System.out.println("No user session found");
         return new String[0][6]; 
+
     }
 
     int userId = (int) userClass.getUserSession().get("userId");

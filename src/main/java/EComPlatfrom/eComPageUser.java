@@ -16,10 +16,7 @@ import javax.swing.event.ChangeListener;
  */
 public class eComPageUser extends JFrame implements ActionListener {
     private int userId;
-    private JPanel MainPanel,makeups,makeupPanel,clothes,clothespanel,
-                kitchen,kitchenpanel,supplies,suppliespanel;
-    
-
+    private JPanel MainPanel,makeups,makeupPanel,clothes,clothespanel,kitchen,kitchenpanel,supplies,suppliespanel;
     private  JLabel platformname;
     private  JTextField searchBar;
     private  JButton btnSearch, btncart;
