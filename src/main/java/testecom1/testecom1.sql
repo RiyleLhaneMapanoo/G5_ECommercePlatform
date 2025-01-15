@@ -33,7 +33,7 @@ CREATE TABLE `example_product` (
   `productStockQuantityLeft` int DEFAULT NULL,
   `productOriginalStock` int DEFAULT NULL,
   PRIMARY KEY (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `example_product` (
 
 LOCK TABLES `example_product` WRITE;
 /*!40000 ALTER TABLE `example_product` DISABLE KEYS */;
-INSERT INTO `example_product` VALUES (22,'Cologne',300.00,'Makeup',3,NULL,NULL,NULL,3),(23,'Blush',50.00,'Makeup',3,NULL,NULL,NULL,3),(24,'Peplum Top',400.00,'Clothes',4,NULL,NULL,NULL,4),(25,'Pants',200.00,'Clothes',1,NULL,NULL,NULL,1),(26,'Utensils',250.00,'Kitchen',3,NULL,NULL,NULL,3),(27,'Pencil',5.00,'Makeup',2,NULL,NULL,NULL,2),(28,'Notebook',15.00,'School Supplies',4,NULL,NULL,NULL,4),(29,'Contour',500.00,'Makeup',2,NULL,NULL,NULL,2),(30,'vsdfsdf',1.00,'Makeup',1,NULL,NULL,NULL,1),(31,'Hat',3.00,'Makeup',1,NULL,NULL,NULL,1),(32,'Eyeliner Brown',100.00,'Makeup',3,NULL,NULL,NULL,100),(33,'Ballpen',10.00,'School Supplies',4,NULL,NULL,NULL,900);
+INSERT INTO `example_product` VALUES (34,'Blush',100.00,'Makeup',3,NULL,1,99,100),(35,'Eyeshadow',100.00,'Makeup',1,NULL,1,19,20),(36,'Pants',50.00,'Clothes',2,NULL,NULL,NULL,300),(37,'Spatula',10.00,'Kitchen',3,NULL,2,0,2);
 /*!40000 ALTER TABLE `example_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `orders` (
   KEY `itemId` (`itemId`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`uzerId`) REFERENCES `usertable` (`id`),
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`itemId`) REFERENCES `example_product` (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,6 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (33,29,1,23,1),(34,29,2,27,1),(35,29,3,22,1),(39,28,1,22,1);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -121,7 +120,7 @@ CREATE TABLE `user_order_details` (
   KEY `user_order_details_ibfk_1` (`orderHistoryId`,`usherId`),
   CONSTRAINT `user_order_details_ibfk_1` FOREIGN KEY (`orderHistoryId`, `usherId`) REFERENCES `user_order_history` (`orderHistoryId`, `usherId`),
   CONSTRAINT `user_order_details_ibfk_2` FOREIGN KEY (`itemId`) REFERENCES `example_product` (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +129,6 @@ CREATE TABLE `user_order_details` (
 
 LOCK TABLES `user_order_details` WRITE;
 /*!40000 ALTER TABLE `user_order_details` DISABLE KEYS */;
-INSERT INTO `user_order_details` VALUES (1,1,28,23,1,50.00),(2,1,28,27,3,5.00),(3,1,29,23,1,50.00),(4,1,29,27,1,5.00),(5,2,28,27,3,5.00),(6,2,28,29,1,500.00);
 /*!40000 ALTER TABLE `user_order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +155,6 @@ CREATE TABLE `user_order_history` (
 
 LOCK TABLES `user_order_history` WRITE;
 /*!40000 ALTER TABLE `user_order_history` DISABLE KEYS */;
-INSERT INTO `user_order_history` VALUES (1,28,65.00),(1,29,55.00),(2,28,515.00);
 /*!40000 ALTER TABLE `user_order_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +173,7 @@ CREATE TABLE `usertable` (
   `address` varchar(200) DEFAULT NULL,
   `contactnum` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +182,7 @@ CREATE TABLE `usertable` (
 
 LOCK TABLES `usertable` WRITE;
 /*!40000 ALTER TABLE `usertable` DISABLE KEYS */;
-INSERT INTO `usertable` VALUES (1,'Seller','Seller','adminSeller',NULL,NULL),(24,'ed','dsf','sdf','sdf','df'),(25,'Riyle','riyle','riylePass','130','45455'),(26,'Riyle','123','123','123','123'),(27,'dfgdfg','gfdfg','dgdfg','dfgg','dfgdfg'),(28,'gdfgdfg','s','s','grgfg','sdfsf'),(29,'ian','ian1234','raven','adobong st','12345678');
+INSERT INTO `usertable` VALUES (1,'Seller','Seller','adminSeller',NULL,NULL);
 /*!40000 ALTER TABLE `usertable` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -198,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-16  0:26:58
+-- Dump completed on 2025-01-16  3:59:01
