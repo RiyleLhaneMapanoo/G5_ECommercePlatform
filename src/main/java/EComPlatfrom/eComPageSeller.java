@@ -25,7 +25,7 @@ public class eComPageSeller extends JFrame implements ActionListener {
     
     eComPageSeller(){
 
-     setTitle("Seller's Profile");
+     setTitle("ECP-Platform");
      setSize(1385,764);
      setLayout(null);
      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

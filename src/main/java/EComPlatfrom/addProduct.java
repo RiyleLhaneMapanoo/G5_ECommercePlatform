@@ -33,7 +33,7 @@ public class addProduct extends JFrame implements ActionListener{
         
     addProduct(){
          
-        setTitle("Add Product");
+        setTitle("ECP-Platform");
         setSize(1385, 764);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

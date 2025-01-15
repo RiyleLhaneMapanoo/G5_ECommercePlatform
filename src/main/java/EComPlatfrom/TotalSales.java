@@ -30,7 +30,7 @@ public class TotalSales extends JFrame implements ActionListener {
        ord = new OrderClass(userClass);
       
         
-        setTitle("Seller Sales Page");
+      setTitle("ECP-Platform");
          setSize(1385,764);
      setLayout(null);
      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -28,7 +28,7 @@ public class OrderHistory extends JFrame implements ActionListener{
     OrderHistory(UserClass userClass){
         this.userClass = userClass;
         ord = new OrderClass(userClass);
-        setTitle("Order History");
+        setTitle("ECP-Platform");
         setSize(1385, 764);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -32,7 +32,7 @@ public class LoginPage extends JFrame implements ActionListener {
         
       
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Welcome! Please Sign In");
+        setTitle("ECP-Platform");
         setContentPane(new JLabel(new ImageIcon("src\\main\\java\\Images\\background.png")));
         setLayout(null);
         setSize(1385,764);
