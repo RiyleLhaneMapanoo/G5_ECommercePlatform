@@ -36,7 +36,7 @@ public class ProductClass  {
    
     public ProductClass(UserClass userClass){
           this.userClass = userClass;
-       connectToDatabase();
+   
          
     }
     
@@ -50,7 +50,9 @@ public class ProductClass  {
             String password = "12345";
             conn = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
+            
             e.printStackTrace();
+            
         }
     }
   
@@ -72,16 +74,29 @@ public class ProductClass  {
    }
     
      
-    public void createProductPanelforBuyer(String category, JScrollPane scrollPane, JPanel catPanel) {
-    try {
-       
-        String query = "SELECT productId, productName, price, ratings FROM example_product WHERE category = ?";
+    public void createProductPanelforBuyer(String category, JScrollPane scrollPane, JPanel catPanel, String selectedRating) {
+    try {  connectToDatabase();
+          PreparedStatement pst= null;
+           ResultSet rs= null;
+          int panelCount = 0;
+           if(selectedRating.equals("All")){
+                  String query = "SELECT productId, productName, price, ratings FROM example_product WHERE category = ?";
 
-        PreparedStatement pst = conn.prepareStatement(query);
+         pst = conn.prepareStatement(query);
         pst.setString(1, category); 
-        ResultSet rs = pst.executeQuery();
+ 
+  
+           }else{
+        String query = "SELECT productId, productName, price, ratings FROM example_product WHERE category = ? and ratings = ?";
 
-        int panelCount = 0;
+       pst = conn.prepareStatement(query);
+        pst.setString(1, category); 
+        pst.setInt(2,Integer.valueOf(selectedRating));
+   
+    }
+               rs = pst.executeQuery();
+
+       
         catPanel.removeAll();  
 
         while (rs.next()) {
@@ -180,7 +195,7 @@ public class ProductClass  {
     
     public int getTotalProductCount(String category) {
     int totalCount = 0;
-    try {
+    try {    connectToDatabase();
         String query = "SELECT count(*) FROM example_product where category = ?"; 
         PreparedStatement pst = conn.prepareStatement(query);
         pst.setString(1, category);
@@ -197,7 +212,7 @@ public class ProductClass  {
     
    public void addProduct(JButton but,String prName, double prPrice, int origStock, int rating,String prCat,JTextField pName,JTextField pPrice,JTextField origAvail,JComboBox prRate, JComboBox pCat){
      try{
-        
+            connectToDatabase();
              String checkExisitingValueQuery = "SELECT * FROM example_product WHERE productName = ?";
 
  Connection checkExisitingValueCon = conn;
@@ -269,7 +284,7 @@ public class ProductClass  {
       fr.add(SPtable);
    
         String query = "SELECT productID, productName, price, category, productOriginalStock, productQuantityBought, productStockQuantityLeft FROM example_product";
-
+    connectToDatabase();
         try (
                
              PreparedStatement stmt = conn.prepareStatement(query);

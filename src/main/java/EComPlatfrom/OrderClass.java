@@ -36,7 +36,7 @@ public class OrderClass {
             
       productListModel = new DefaultListModel<>();
         productList = new JList<>(productListModel);
-         connectToDatabase();
+       
         
     }
       
@@ -61,6 +61,7 @@ public class OrderClass {
     
     public void addToCart(int productId, int userId, int quantity) {
     try {
+          connectToDatabase();
         Connection connection =  conn;
  
         String checkQuery = "SELECT quantity FROM orders WHERE uzerId = ? AND itemId = ?";
@@ -119,6 +120,7 @@ public class OrderClass {
     
 public JPanel itemsInCart(int userId, UserClass userclass) {
     try {
+        connectToDatabase();
         Connection conn =  this.conn;
         String query = "SELECT p.productId, p.productName, p.price, o.quantity ,o.orderID FROM orders o " +
                       "JOIN example_product p ON o.itemId = p.productId WHERE o.uzerId = ?";
@@ -173,10 +175,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
 
             mainPanel.add(panel);
             
-              
-            
-       
-            
+        
             
             addBox.addActionListener(e -> {
                 
@@ -207,16 +206,17 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
             removeButton.addActionListener(e -> {
                 try {
                     int k =  removeFromCart(productId, userId);
-                    if (k!=1) {
-                       JOptionPane.showMessageDialog(panel, "failed to remove product from cart!");
-             
-            } else {
-                         
-                    JOptionPane.showMessageDialog(panel, "Product removed from cart!");
+                    if (k==1) {
+                          JOptionPane.showMessageDialog(panel, "Product removed from cart!");
                     panel.setVisible(false);  
                     mainPanel.remove(panel);
                     mainPanel.revalidate();
                     mainPanel.repaint();  
+                   
+             
+            } else {
+                         
+                      JOptionPane.showMessageDialog(panel, "failed to remove product from cart!");
                  
             }
                  
@@ -246,7 +246,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
         int result = 0;
 
     try {
-       
+         connectToDatabase();
         Connection connection =  conn;
 
         String query = "DELETE FROM orders WHERE itemId = ? AND uzerId = ?";
@@ -274,7 +274,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
  public int getTotalItemsInCart(int userId) {
     int totalItems = 0;
     try {
-       
+         connectToDatabase();
         Connection connection = conn;
 
      
@@ -305,6 +305,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
 
 public JPanel itemsInCheckout(int orderId) {  
     try {   
+          connectToDatabase();
         JPanel checkOutPanel = new JPanel(); 
         Connection conn = this.conn;
         String query = "SELECT p.productId, p.productName, p.price, o.quantity ,o.orderID FROM orders o " + 
@@ -394,6 +395,7 @@ public JPanel itemsInCheckout(int orderId) {
 public String[] getUserDetails(int userId){
     String[] arr = new String[5];
           try {
+                connectToDatabase();
               Connection conn =  this.conn;
               PreparedStatement pst = conn.prepareStatement("SELECT  full_name, email, address, contactnum FROM  usertable  WHERE id = ? ");
               pst.setInt(1, userId);
@@ -419,6 +421,7 @@ public  void orderCheckOut(JFrame frame, int userId,
                                 LinkedList<Integer> itemId, LinkedList<Integer> quan,
                                 LinkedList<Double> prodPrice, LinkedList<Double> priceTotal) {
     try {
+          connectToDatabase();
         Connection conn =  this.conn;
         conn.setAutoCommit(false);
         try {
@@ -477,6 +480,8 @@ public  void orderCheckOut(JFrame frame, int userId,
         System.err.println("Database connection error: " + e.getMessage());
         e.printStackTrace();
     }
+    
+    
 }
 
 
@@ -486,6 +491,7 @@ public  void orderCheckOut(JFrame frame, int userId,
     // Method to fetch data from the database
 
 public  String[][] fetchOrderDetails() {
+      connectToDatabase();
     String query = """
             SELECT uod.orderHistoryId,  ep.productName,  uod.quantity,  ep.price,    ep.category, (uod.quantity * ep.price) AS totalPriceFROM 
             user_order_details uod JOIN example_product ep ON uod.itemId = ep.productID;
@@ -522,6 +528,60 @@ public  String[][] fetchOrderDetails() {
     return data;
 }
 
+
+public String[][] fetchUserOrders() {
+      connectToDatabase();
+    String query = """
+            SELECT 
+                 ep.productID,
+                ut.full_name,
+                 ut.address,
+                 ut.email,
+                ep.category,
+                 ep.productName,
+                ep.price AS unit_price,
+                 uod.quantity,
+                (uod.quantity * ep.price) AS total_price
+             FROM user_order_details uod
+            JOIN example_product ep ON uod.itemId = ep.productID
+             JOIN user_order_history uoh ON uod.orderHistoryId = uoh.orderHistoryId 
+                AND uod.usherId = uoh.usherId
+            JOIN usertable ut ON uoh.usherId = ut.id
+            """;
+            
+    String[][] data = null;
+    try (Connection conn = this.conn;
+         PreparedStatement pstmt = conn.prepareStatement(query,
+             ResultSet.TYPE_SCROLL_INSENSITIVE,
+             ResultSet.CONCUR_READ_ONLY);
+         ResultSet rs = pstmt.executeQuery()) {
+        
+     
+        rs.last();
+        int rowCount = rs.getRow();
+        rs.beforeFirst();
+        
+        
+        data = new String[rowCount][9];
+        
+        int rowIndex = 0;
+        while (rs.next()) {
+             data[rowIndex][0] = String.valueOf(rs.getInt("productID"));
+            data[rowIndex][1] = rs.getString("full_name");
+             data[rowIndex][2] = rs.getString("address");
+            data[rowIndex][3] = rs.getString("email");
+             data[rowIndex][4] = rs.getString("category");
+              data[rowIndex][5] = rs.getString("productName");
+            data[rowIndex][6] = String.valueOf(rs.getBigDecimal("unit_price"));
+             data[rowIndex][7] = String.valueOf(rs.getInt("quantity"));
+             data[rowIndex][8] = String.valueOf(rs.getBigDecimal("total_price"));
+            rowIndex++;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return data;
+}
 
  }        
          
