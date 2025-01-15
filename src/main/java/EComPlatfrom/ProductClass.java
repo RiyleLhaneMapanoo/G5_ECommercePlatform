@@ -36,7 +36,7 @@ public class ProductClass  {
    
     public ProductClass(UserClass userClass){
           this.userClass = userClass;
-   
+  
          
     }
     
@@ -72,21 +72,62 @@ public class ProductClass  {
      jBut.setIcon(new ImageIcon(scaledIcon));
 
    }
-    public void createProductPanelforBuyer(String category, JScrollPane scrollPane, JPanel catPanel, String selectedRating, String selectedPrice) {
+    
+    
+   private String[] getSortedProductNames(String category) {
+    ArrayList<String> productNames = new ArrayList<>();
+    try {
+        connectToDatabase();
+        String query = "SELECT productName FROM example_product WHERE category = ?";
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, category);
+        ResultSet rs = pst.executeQuery();
+        
+        while (rs.next()) {
+            productNames.add(rs.getString("productName"));
+        }
+        
+        String[] sortedNames = productNames.toArray(new String[0]);
+        Arrays.sort(sortedNames);
+        return sortedNames;
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return new String[0];
+    }
+}
+
+
+public void createProductPanelforBuyer(String category, JScrollPane scrollPane, JPanel catPanel,String selectedRating, String selectedPrice, String searchName) {
     try {
         connectToDatabase();
         PreparedStatement pst = null;
         ResultSet rs = null;
         int panelCount = 0;
         
-      
         StringBuilder queryBuilder = new StringBuilder("SELECT productId, productName, price, ratings FROM example_product WHERE category = ?");
         
+      
+        if (!searchName.trim().isEmpty()) {
+            String[] sortedNames = getSortedProductNames(category);
+            int searchIndex = Arrays.binarySearch(sortedNames, searchName);
+            
+         
+            if (searchIndex >= 0) {
+                queryBuilder.append(" AND productName = ?");
+            } else {
+             
+                catPanel.removeAll();
+                catPanel.revalidate();
+                catPanel.repaint();
+                scrollPane.setViewportView(catPanel);
+                return;
+            }
+        }
         
         if (!selectedRating.equals("All")) {
             queryBuilder.append(" AND ratings = ?");
         }
-        
         
         if (!selectedPrice.equals("All")) {
             switch (selectedPrice) {
@@ -113,9 +154,12 @@ public class ProductClass  {
         
         pst = conn.prepareStatement(queryBuilder.toString());
         
-      
         int paramIndex = 1;
         pst.setString(paramIndex++, category);
+        
+        if (!searchName.trim().isEmpty()) {
+            pst.setString(paramIndex++, searchName);
+        }
         
         if (!selectedRating.equals("All")) {
             pst.setInt(paramIndex, Integer.valueOf(selectedRating));
@@ -124,7 +168,6 @@ public class ProductClass  {
         rs = pst.executeQuery();
         
         catPanel.removeAll();
-        
         
         while (rs.next()) {
             int productId = rs.getInt("productId");
@@ -202,7 +245,9 @@ public class ProductClass  {
         e.printStackTrace();
     }
 }
-     
+ 
+    
+    
     public void resetPanelCount() {
     panelCount = 0;
 }
@@ -325,71 +370,8 @@ public class ProductClass  {
         return table;
     }
       
-    public void initializePanelsAndTabPane(JFrame frame,JTabbedPane pro,JPanel cat1,JPanel cat2,JPanel cat3,JPanel cat4,JScrollPane scrollCat1,JScrollPane scrollCat2,JScrollPane scrollCat3,JScrollPane scrollCat4,JPanel catPan1,JPanel catPan2,JPanel catPan3,JPanel catPan4){
-        
-         cat1 = new JPanel();
-         cat1.setBackground(new Color(225, 190, 231));
-        scrollCat1 = new JScrollPane();
-                catPan1 = new JPanel();
-                catPan1.setBackground(new Color(51, 0, 51));
-        catPan1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        catPan1.setLayout(null);
-        
-        
-
-        
-           cat2 = new JPanel();
-              cat2.setBackground(new Color(225, 190, 231));
-               scrollCat2 = new JScrollPane();
-        catPan2 = new JPanel();
-        
-       
-        
-               catPan2.setBackground(new Color(51, 0, 51));
-        catPan2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-       
-        
-          cat3 = new JPanel();
-             cat3.setBackground(new Color(225, 190, 231));
-              scrollCat3 = new JScrollPane();
-        catPan3 = new JPanel();
-      
-     
-
-       
-        catPan3.setBackground(new Color(51, 0, 51));
-        catPan3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        
-        
+ 
   
-         
-           
-               cat4 = new JPanel();
-        cat4.setBackground(new Color(225, 190, 231));
-      scrollCat4 = new JScrollPane();
-
-       
-
-        catPan4 = new JPanel();
-        catPan4.setBackground(new Color(51, 0, 51));
-        catPan4.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-       
-        pro = new JTabbedPane();
-        pro.setBackground(new Color(204, 204, 204));
-        pro.setBounds(30, 160, 1300, 500);
-         
-          pro.addTab("COSMETICS", cat1);
-    pro.addTab("CLOTHES", cat2);
-    pro.addTab("UTENSILS", cat3);
-    pro.addTab("SCHOOL SUPPLIES", cat4);
-    frame.add(pro);
-   
-   
-    
-    }
-
-    
-    
     
     
 }

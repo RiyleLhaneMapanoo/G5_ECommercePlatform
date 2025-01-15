@@ -65,7 +65,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     platformname.setPreferredSize(new Dimension(100, 25));
     add(platformname);
     
-    searchBar = new JTextField("Search");
+    searchBar = new JTextField();
     searchBar.setToolTipText("");
     searchBar.setBounds(200,83,900,40);
     add(searchBar);
@@ -83,7 +83,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     filterPrice.setBackground(new Color(89, 0, 54));
     filterPrice.setFont(new Font("Segoe UI Black", 0, 12)); 
     filterPrice.setForeground(new Color(236, 239, 241));
-    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"All","~50", "51-100","101-300","301-600","601-900","901~"}));
+    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"All","50", "51-100","101-300","301-600","601-900","901"}));
     filterPrice.addActionListener(this);
     add(filterPrice);
     
@@ -91,14 +91,13 @@ public class eComPageUser extends JFrame implements ActionListener {
     btnSearch.setBackground(new Color(204, 102, 255));
     btnSearch.setFont(new Font("Sitka Display", 1, 14));
     btnSearch.setBounds(1115,83,75,40);
+    btnSearch.addActionListener(this);
     add(btnSearch);
     
-     productClass.initializePanelsAndTabPane(this, products, makeups, clothes, kitchen, supplies, MakeUpjScrollPane, clothesScrolpane, kitchenScrolpane, suppliesScrolpane, makeupPanel, clothespanel,kitchenpanel, suppliespanel);
+     initializePanelsAndTabPane();
  //create tabbed pane
     
-        
     loadTabs(0);
-    
     products.addChangeListener(new ChangeListener() {
     @Override
     public void stateChanged(ChangeEvent e) {
@@ -145,17 +144,74 @@ btncart.addActionListener(this);
     jmenuOrderHistory.addActionListener(this);
     filterRatings.addActionListener(this);
     }
+    public void initializePanelsAndTabPane(){
+        
+         makeups = new JPanel();
+         makeups.setBackground(new Color(225, 190, 231));
+        MakeUpjScrollPane = new JScrollPane();
+                makeupPanel = new JPanel();
+                makeupPanel.setBackground(new Color(51, 0, 51));
+        makeupPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        makeupPanel.setLayout(null);
+        
+        
+
+        
+           clothes = new JPanel();
+        clothespanel = new JPanel();
+           clothes.setBackground(new Color(225, 190, 231));
+        clothesScrolpane = new JScrollPane();
+        
+               clothespanel.setBackground(new Color(51, 0, 51));
+        clothespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+       
+        
+          kitchen = new JPanel();
+        kitchenpanel = new JPanel();
+      
+        kitchen.setBackground(new Color(225, 190, 231));
+
+        kitchenScrolpane = new JScrollPane();
+        kitchenpanel.setBackground(new Color(51, 0, 51));
+        kitchenpanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        
+        
+  
+         
+           
+               supplies = new JPanel();
+        supplies.setBackground(new Color(225, 190, 231));
+      suppliesScrolpane = new JScrollPane();
+//        suppliesScrolpane = new JScrollPane();
+       
+
+        suppliespanel = new JPanel();
+        suppliespanel.setBackground(new Color(51, 0, 51));
+        suppliespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+       
+        products = new JTabbedPane();
+        products.setBackground(new Color(204, 204, 204));
+        products.setBounds(30, 160, 1300, 500);
+         
+          products.addTab("COSMETICS", makeups);
+    products.addTab("CLOTHES", clothes);
+    products.addTab("UTENSILS", kitchen);
+    products.addTab("SCHOOL SUPPLIES", supplies);
+    add(products);
    
-    //method added here for more convinience
-public void loadTabs(int selectedIndex){
+   
+    
+    }
+    
+public void loadTabs(int selectedIndex ){
     
         String selectedRating = (String) filterRatings.getSelectedItem();
               String selectedPRice = (String) filterPrice.getSelectedItem();
-      
+      String searchedItem = searchBar.getText();
   
      
       if(selectedIndex==0){
-              productClass.createProductPanelforBuyer("Makeup", MakeUpjScrollPane,makeupPanel,selectedRating,selectedPRice);
+              productClass.createProductPanelforBuyer("Makeup", MakeUpjScrollPane,makeupPanel,selectedRating,selectedPRice,searchedItem);
         makeuptab1Layout = new GroupLayout(makeups);
         makeups.setLayout(makeuptab1Layout);
 
@@ -167,7 +223,7 @@ public void loadTabs(int selectedIndex){
           
              clothespanel.setLayout(null);
 
-        productClass.createProductPanelforBuyer("Clothes", clothesScrolpane,clothespanel,selectedRating  ,selectedPRice);
+        productClass.createProductPanelforBuyer("Clothes", clothesScrolpane,clothespanel,selectedRating  ,selectedPRice,searchedItem);
 
         clothesTab2Layout = new GroupLayout(clothes);
         clothes.setLayout(clothesTab2Layout);
@@ -179,7 +235,7 @@ public void loadTabs(int selectedIndex){
       } else if(selectedIndex==2){
           
             kitchenpanel.setLayout(null);
-  productClass.createProductPanelforBuyer("Kitchen", kitchenScrolpane,kitchenpanel,selectedRating  ,selectedPRice);
+  productClass.createProductPanelforBuyer("Kitchen", kitchenScrolpane,kitchenpanel,selectedRating  ,selectedPRice,searchedItem);
  
         kitchenLayout1 = new GroupLayout(kitchen);
         kitchen.setLayout(kitchenLayout1);
@@ -190,7 +246,7 @@ public void loadTabs(int selectedIndex){
       } else if(selectedIndex==3){
           
         suppliespanel.setLayout(null);
-        productClass.createProductPanelforBuyer("School Supplies", suppliesScrolpane,suppliespanel,selectedRating  ,selectedPRice);
+        productClass.createProductPanelforBuyer("School Supplies", suppliesScrolpane,suppliespanel,selectedRating  ,selectedPRice,searchedItem);
 
         suppliesLayout1 = new GroupLayout(supplies);
         supplies.setLayout(suppliesLayout1);
@@ -207,8 +263,6 @@ public void loadTabs(int selectedIndex){
     products.setVisible(true);
     
 }
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
     
@@ -219,7 +273,8 @@ public void loadTabs(int selectedIndex){
     cart.setSize(1385,764);
     cart.setLocationRelativeTo(null);
      dispose();
-   
+    //cart.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    //dispose();
     }else if(e.getSource()==jmenuLogout){
     
     LoginPage page = new LoginPage();
@@ -255,7 +310,17 @@ public void loadTabs(int selectedIndex){
      loadTabs(selectedIndex);
      revalidate();
      repaint();
-    } 
+    } else if(e.getSource()==btnSearch){
+        
+        int selectedIndex = products.getSelectedIndex();
+      String searchedItem = searchBar.getText();
+        System.out.println(searchedItem);
+
+     products.setVisible(false);
+     loadTabs(selectedIndex);
+     revalidate();
+     repaint();
+    }
         
         
     }
