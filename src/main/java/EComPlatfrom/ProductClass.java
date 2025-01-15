@@ -178,7 +178,7 @@ public class ProductClass  {
                     int userId = (int) userClass.getUserSession().get("userId");
                     int quantity = 1;
 
-                    orderClass.addToCart(productId, userId, quantity);
+                    orderClass.productListCart(productId, userId, quantity);
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
