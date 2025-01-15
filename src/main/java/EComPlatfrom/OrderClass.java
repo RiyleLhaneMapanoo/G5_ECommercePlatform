@@ -436,7 +436,7 @@ public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, 
 
             double totalAmount = priceTotal.stream().mapToDouble(Double::doubleValue).sum();
             
-            // Insert order history
+         
             String insertOrderHistory = "INSERT INTO user_order_history (orderHistoryId, usherId, totalAmount) VALUES (?, ?, ?)";
             PreparedStatement orderHistoryStmt = conn.prepareStatement(insertOrderHistory);
             orderHistoryStmt.setInt(1, nextOrderId);
@@ -444,54 +444,45 @@ public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, 
             orderHistoryStmt.setDouble(3, totalAmount);
             orderHistoryStmt.executeUpdate();
 
-            // Prepare statements
+           
             String insertOrderDetails = "INSERT INTO user_order_details (orderHistoryId, usherId, itemId, quantity, price) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement orderDetailsStmt = conn.prepareStatement(insertOrderDetails);
             
-            // Modified query to handle null productQuantityBought
-            String getProductQuantity = "SELECT productOriginalStock, COALESCE(productQuantityBought, 0) as productQuantityBought FROM example_product WHERE productID = ? FOR UPDATE";
+        
+            String getProductQuantity = "SELECT productOriginalStock, COALESCE(productQuantityBought, 0) as productQuantityBought, productName FROM example_product WHERE productID = ? FOR UPDATE";
             PreparedStatement getQuantityStmt = conn.prepareStatement(getProductQuantity);
-            
-            // Modified update query to avoid double counting
-            String updateProductQuantity = "UPDATE example_product " +
-                "SET productQuantityBought = COALESCE(productQuantityBought, 0) + ?, " +
-                "productStockQuantityLeft = productOriginalStock - (COALESCE(productQuantityBought, 0) + ?) " +
-                "WHERE productID = ? " +
-                "AND (productOriginalStock - (COALESCE(productQuantityBought, 0) + ?)) >= 0";
-            PreparedStatement updateQuantityStmt = conn.prepareStatement(updateProductQuantity);
             
             for (int i = 0; i < itemId.size(); i++) {
                 int currentItemId = itemId.get(i);
                 int purchaseQuantity = quan.get(i);
                 
-                // Get current product quantities with row lock
+              
                 getQuantityStmt.setInt(1, currentItemId);
                 ResultSet quantityRs = getQuantityStmt.executeQuery();
                 
                 if (quantityRs.next()) {
                     int originalStock = quantityRs.getInt("productOriginalStock");
                     int currentBought = quantityRs.getInt("productQuantityBought");
+                    String productName = quantityRs.getString("productName");
                     
-                    // Check if there's enough stock
+                   
                     if (originalStock - (currentBought + purchaseQuantity) < 0) {
-                        throw new SQLException("Insufficient stock for product ID: " + currentItemId);
+                        JOptionPane.showMessageDialog(frame, "Insufficient stock for a product: " + productName , "Out of Stock", JOptionPane.WARNING_MESSAGE);
+                        conn.rollback();
+                        return;
                     }
                     
-                    // First update just the bought quantity
-                    String updateBoughtOnly = "UPDATE example_product " +
-                        "SET productQuantityBought = COALESCE(productQuantityBought, 0) + ? " +
-                        "WHERE productID = ?";
-                    PreparedStatement updateBoughtStmt = conn.prepareStatement(updateBoughtOnly);
-                    updateBoughtStmt.setInt(1, purchaseQuantity);
-                    updateBoughtStmt.setInt(2, currentItemId);
-                    updateBoughtStmt.executeUpdate();
                     
-                    // Then update the stock quantity left using the new productQuantityBought
-                    String updateStockLeft = "UPDATE example_product " +
-                        "SET productStockQuantityLeft = productOriginalStock - productQuantityBought " +
-                        "WHERE productID = ?";
-                    PreparedStatement updateStockStmt = conn.prepareStatement(updateStockLeft);
-                    updateStockStmt.setInt(1, currentItemId);
+    String updateBoughtOnly = "UPDATE example_product " +"SET productQuantityBought = COALESCE(productQuantityBought, 0) + ? " +"WHERE productID = ?";
+     PreparedStatement updateBoughtStmt = conn.prepareStatement(updateBoughtOnly);
+     updateBoughtStmt.setInt(1, purchaseQuantity);
+                    updateBoughtStmt.setInt(2, currentItemId);
+                     updateBoughtStmt.executeUpdate();
+                    
+                   
+   String updateStockLeft = "UPDATE example_product " +"SET productStockQuantityLeft = productOriginalStock - productQuantityBought " +"WHERE productID = ?";
+    PreparedStatement updateStockStmt = conn.prepareStatement(updateStockLeft);
+    updateStockStmt.setInt(1, currentItemId);
                     int updatedRows = updateStockStmt.executeUpdate();
                     
                     if (updatedRows == 0) {
@@ -501,13 +492,13 @@ public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, 
                     throw new SQLException("Product not found: " + currentItemId);
                 }
                 
-                // Insert order details
+               
                 orderDetailsStmt.setInt(1, nextOrderId);
-                orderDetailsStmt.setInt(2, userId);
+                 orderDetailsStmt.setInt(2, userId);
                 orderDetailsStmt.setInt(3, currentItemId);
-                orderDetailsStmt.setInt(4, purchaseQuantity);
+                 orderDetailsStmt.setInt(4, purchaseQuantity);
                 orderDetailsStmt.setDouble(5, prodPrice.get(i));
-                orderDetailsStmt.executeUpdate();
+                 orderDetailsStmt.executeUpdate();
                 
                 removeFromCart(currentItemId, userId);
             }
@@ -546,7 +537,7 @@ public  String[][] fetchOrderDetails() {
     String[][] data = null;
 
     try (Connection conn = this.conn;
-         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+  Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
          ResultSet rs = stmt.executeQuery(query)) {
 
           rs.last(); 
@@ -555,15 +546,15 @@ public  String[][] fetchOrderDetails() {
 
         data = new String[rowCount][6];
 
-        // Populate the array with data from database
+      
         int rowIndex = 0;
         while (rs.next()) {
             data[rowIndex][0] = String.valueOf(rs.getInt("orderHistoryId"));
-            data[rowIndex][1] = rs.getString("productName");
+              data[rowIndex][1] = rs.getString("productName");
             data[rowIndex][2] = String.valueOf(rs.getInt("quantity"));
-            data[rowIndex][3] = String.valueOf(rs.getBigDecimal("price"));
+             data[rowIndex][3] = String.valueOf(rs.getBigDecimal("price"));
             data[rowIndex][4] = rs.getString("category");
-            data[rowIndex][5] = String.valueOf(rs.getBigDecimal("totalPrice"));
+             data[rowIndex][5] = String.valueOf(rs.getBigDecimal("totalPrice"));
             rowIndex++;
         }
 
