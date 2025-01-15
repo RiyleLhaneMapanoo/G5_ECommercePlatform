@@ -483,7 +483,7 @@ public  void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId,
 public  String[][] fetchOrderDetails() {
       connectToDatabase();
     String query = """
-            SELECT uod.orderHistoryId,  ep.productName,  uod.quantity,  ep.price,    ep.category, (uod.quantity * ep.price) AS totalPriceFROM 
+            SELECT uod.orderHistoryId,  ep.productName,  uod.quantity,  ep.price,    ep.category, (uod.quantity * ep.price) AS totalPrice FROM 
             user_order_details uod JOIN example_product ep ON uod.itemId = ep.productID;
             """;
 

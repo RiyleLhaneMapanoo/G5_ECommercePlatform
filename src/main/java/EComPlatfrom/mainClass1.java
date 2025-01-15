@@ -15,8 +15,8 @@ public class mainClass1 {
     
  LoginPage login = new LoginPage();
     login.setVisible(true);
-    login.setResizable(false);
-   
+    
+    
     
     }
 }
