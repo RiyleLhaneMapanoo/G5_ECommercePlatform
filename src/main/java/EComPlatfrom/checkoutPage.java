@@ -119,13 +119,7 @@ public class checkoutPage extends JFrame implements ActionListener{
         cpDisp.setBounds(600,20,150,25);
          infoPan.add(cpDisp);
          
-//           orderDisp = new JLabel("Order ID: ");
-//         orderDisp.setFont(new Font("Arial",Font.PLAIN,25));
-//        orderDisp.setForeground(Color.BLACK);
-//        orderDisp.setBounds(600,50,150,25);
-//         infoPan.add(orderDisp);
-         
-         //for value jlabelsss
+
             String[] userDetails =  ord.getUserDetails(userId);
      
          customerName = new JLabel(userDetails[0]);
@@ -155,11 +149,7 @@ public class checkoutPage extends JFrame implements ActionListener{
         customerCP.setBounds(660,20,300,25);
          infoPan.add(customerCP);
          
-//         customerOrdID = new JLabel("*customer cp here*");
-//         customerOrdID.setFont(new Font("Arial",Font.PLAIN,25));
-//        customerOrdID.setForeground(Color.BLACK);
-//        customerOrdID.setBounds(700,50,300,25);
-//         infoPan.add(customerOrdID);
+
         
          
          productPane = new JScrollPane();
@@ -179,7 +169,7 @@ productPanels.setBackground(new Color(51, 0, 51));
 
 
 
-//get product details from 2d linkedlistt
+
 
 
     orderDetails = order_details;
@@ -189,9 +179,9 @@ productPanels.setBackground(new Color(51, 0, 51));
         prodPrice.clear();
         itemId.clear();
 
-        // Check if OrderDetail has the expected structure
+       
         if (orderDetails.size() >= 5) {
-            // Get each list from OrderDetail
+           
             LinkedList<String> names = orderDetails.get(0);
             
             LinkedList<String> orders_ID =    orderDetails.get(1);
@@ -221,15 +211,7 @@ productPanels.setBackground(new Color(51, 0, 51));
         }
         
         
-        
-    //            for (int i = 0; i < pNames.size(); i++) {
-//            System.out.println("\nItem " + (i + 1) + ":");
-    //            System.out.println("Product Name: " + pNames.get(i));
-//           System.out.println("Order ID: " + orderIds.get(i));
-//            System.out.println("Quantity: " + quan.get(i));
-//            System.out.println("Price: " + prodPrice.get(i));
-//            System.out.println("Product ID: " + itemId.get(i));
-//        }
+  
             
             
             
@@ -246,22 +228,22 @@ int yOffset = 30;
 for(int i = 0; i < orderIds.size(); i++) {
     
     Double total = prodPrice.get(i) *quan.get(i);
-    //put indibidual item in panel
+   
     priceTotal.add(total);
     
-    ///calculate subtotal
+  
    
     subtotal +=total;
     
     
     JPanel orderPanel = ord.itemsInCheckout(Integer.valueOf(orderIds.get(i)));
     if(orderPanel != null) {
-        // Get the components from orderPanel and add them to mainPanel
+       
         Component[] components = orderPanel.getComponents();
         for(Component comp : components) {
             if(comp instanceof JPanel) {
                 JPanel productPanel = (JPanel)comp;
-                // Adjust the y-position based on current offset
+             
                 productPanel.setLocation(productPanel.getX(), yOffset);
                 productPanels.add(productPanel);
                 yOffset +=305; 

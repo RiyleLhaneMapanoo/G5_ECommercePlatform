@@ -417,15 +417,13 @@ public String[] getUserDetails(int userId){
 }
 
 
-public  void orderCheckOut(JFrame frame, int userId, 
-                                LinkedList<Integer> itemId, LinkedList<Integer> quan,
-                                LinkedList<Double> prodPrice, LinkedList<Double> priceTotal) {
+public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, LinkedList<Integer> quan, LinkedList<Double> prodPrice, LinkedList<Double> priceTotal) {
     try {
-          connectToDatabase();
-        Connection conn =  this.conn;
+        connectToDatabase();
+        Connection conn = this.conn;
         conn.setAutoCommit(false);
         try {
-           
+            // Get next order ID
             String getMaxOrderId = "SELECT COALESCE(MAX(orderHistoryId) + 1, 1) FROM user_order_history WHERE usherId = ?";
             PreparedStatement maxOrderStmt = conn.prepareStatement(getMaxOrderId);
             maxOrderStmt.setInt(1, userId);
@@ -438,7 +436,7 @@ public  void orderCheckOut(JFrame frame, int userId,
 
             double totalAmount = priceTotal.stream().mapToDouble(Double::doubleValue).sum();
             
-           
+            // Insert order history
             String insertOrderHistory = "INSERT INTO user_order_history (orderHistoryId, usherId, totalAmount) VALUES (?, ?, ?)";
             PreparedStatement orderHistoryStmt = conn.prepareStatement(insertOrderHistory);
             orderHistoryStmt.setInt(1, nextOrderId);
@@ -446,28 +444,80 @@ public  void orderCheckOut(JFrame frame, int userId,
             orderHistoryStmt.setDouble(3, totalAmount);
             orderHistoryStmt.executeUpdate();
 
-           
+            // Prepare statements
             String insertOrderDetails = "INSERT INTO user_order_details (orderHistoryId, usherId, itemId, quantity, price) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement orderDetailsStmt = conn.prepareStatement(insertOrderDetails);
             
+            // Modified query to handle null productQuantityBought
+            String getProductQuantity = "SELECT productOriginalStock, COALESCE(productQuantityBought, 0) as productQuantityBought FROM example_product WHERE productID = ? FOR UPDATE";
+            PreparedStatement getQuantityStmt = conn.prepareStatement(getProductQuantity);
+            
+            // Modified update query to avoid double counting
+            String updateProductQuantity = "UPDATE example_product " +
+                "SET productQuantityBought = COALESCE(productQuantityBought, 0) + ?, " +
+                "productStockQuantityLeft = productOriginalStock - (COALESCE(productQuantityBought, 0) + ?) " +
+                "WHERE productID = ? " +
+                "AND (productOriginalStock - (COALESCE(productQuantityBought, 0) + ?)) >= 0";
+            PreparedStatement updateQuantityStmt = conn.prepareStatement(updateProductQuantity);
+            
             for (int i = 0; i < itemId.size(); i++) {
+                int currentItemId = itemId.get(i);
+                int purchaseQuantity = quan.get(i);
+                
+                // Get current product quantities with row lock
+                getQuantityStmt.setInt(1, currentItemId);
+                ResultSet quantityRs = getQuantityStmt.executeQuery();
+                
+                if (quantityRs.next()) {
+                    int originalStock = quantityRs.getInt("productOriginalStock");
+                    int currentBought = quantityRs.getInt("productQuantityBought");
+                    
+                    // Check if there's enough stock
+                    if (originalStock - (currentBought + purchaseQuantity) < 0) {
+                        throw new SQLException("Insufficient stock for product ID: " + currentItemId);
+                    }
+                    
+                    // First update just the bought quantity
+                    String updateBoughtOnly = "UPDATE example_product " +
+                        "SET productQuantityBought = COALESCE(productQuantityBought, 0) + ? " +
+                        "WHERE productID = ?";
+                    PreparedStatement updateBoughtStmt = conn.prepareStatement(updateBoughtOnly);
+                    updateBoughtStmt.setInt(1, purchaseQuantity);
+                    updateBoughtStmt.setInt(2, currentItemId);
+                    updateBoughtStmt.executeUpdate();
+                    
+                    // Then update the stock quantity left using the new productQuantityBought
+                    String updateStockLeft = "UPDATE example_product " +
+                        "SET productStockQuantityLeft = productOriginalStock - productQuantityBought " +
+                        "WHERE productID = ?";
+                    PreparedStatement updateStockStmt = conn.prepareStatement(updateStockLeft);
+                    updateStockStmt.setInt(1, currentItemId);
+                    int updatedRows = updateStockStmt.executeUpdate();
+                    
+                    if (updatedRows == 0) {
+                        throw new SQLException("Failed to update quantity for product ID: " + currentItemId);
+                    }
+                } else {
+                    throw new SQLException("Product not found: " + currentItemId);
+                }
+                
+                // Insert order details
                 orderDetailsStmt.setInt(1, nextOrderId);
                 orderDetailsStmt.setInt(2, userId);
-                orderDetailsStmt.setInt(3, itemId.get(i));
-                orderDetailsStmt.setInt(4, quan.get(i));
+                orderDetailsStmt.setInt(3, currentItemId);
+                orderDetailsStmt.setInt(4, purchaseQuantity);
                 orderDetailsStmt.setDouble(5, prodPrice.get(i));
                 orderDetailsStmt.executeUpdate();
                 
-                
-                removeFromCart(itemId.get(i),  userId);
+                removeFromCart(currentItemId, userId);
             }
 
             conn.commit();
-            JOptionPane.showMessageDialog(frame, "Order Purchased Successfully!!! ");
-           
+            JOptionPane.showMessageDialog(frame, "Order Purchased Successfully!");
             
         } catch (SQLException e) {
             conn.rollback();
+            JOptionPane.showMessageDialog(frame, "Error processing order: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error during order insertion: " + e.getMessage());
             e.printStackTrace();
         } finally {
@@ -477,16 +527,14 @@ public  void orderCheckOut(JFrame frame, int userId,
             }
         }
     } catch (SQLException e) {
+        JOptionPane.showMessageDialog(frame, "Database connection error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         System.err.println("Database connection error: " + e.getMessage());
         e.printStackTrace();
     }
-    
-    
 }
 
 
-
-    // Method to fetch data from the database
+   
 
 public  String[][] fetchOrderDetails() {
       connectToDatabase();
