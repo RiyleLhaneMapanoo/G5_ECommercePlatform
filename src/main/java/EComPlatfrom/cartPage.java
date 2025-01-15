@@ -153,18 +153,7 @@ if (cartPanel != null) {
         
        }
        
-      
-
- 
-  
-       public static void main(String[]args){
-           UserClass us = new UserClass();
-           
-                cartPage p  = new cartPage(us);
-                JTextField t = new JTextField();
-                   JPasswordField a = new JPasswordField();
-               us.loginMethod(p,"s", "s", t, a);
-       }
+     
        
 
     @Override
