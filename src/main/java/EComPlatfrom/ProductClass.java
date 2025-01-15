@@ -72,110 +72,106 @@ public class ProductClass  {
    }
     
      
-    public JPanel createProductPanelforBuyer(String category) {
-        try {
-             
-            String query = "Select productId,productName,price,ratings from example_product WHERE category = ? limit 1 offset "+panelCount;
-            
-            PreparedStatement pst = conn.prepareStatement(query);
-             pst.setString(1, category); 
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                int productIdenti = rs.getInt("productid");
-                String productTag = rs.getString("productName");
-                double price = rs.getDouble("price");
-                int rates = rs.getInt("ratings");
-                
-            
-                JPanel panel = new JPanel();
-                panel.setBackground(new Color(236, 239, 241));
-                panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-                panel.setLayout(null);
-                
-              
-              
-                int xPosition = 90 + (panelCount % 3) * 430; 
-                int yPosition = 20 + (panelCount / 3) * 350; 
-                panel.setBounds(xPosition, yPosition, 230, 300);  
-                 
-          
-             
-                JLabel pImage = new JLabel();
-                ImageSetupJLabel("swr.png",pImage,150,150);
-                pImage.setBounds(40, 10, 150, 150);
-                pImage.setBorder(BorderFactory.createLineBorder(Color.darkGray));   
-                
-                
-                panel.add(pImage);
-
-                JLabel pName = new JLabel (productTag);
-                pName.setBounds(20,170,80,20);
-                pName.setFont(new Font("Arial", Font.BOLD,12));
-               
-                
-                JLabel pPrice = new JLabel (String.valueOf(price));
-                pPrice.setBounds(20, 200, 80, 20);
-               pPrice.setFont(new Font("Arial", Font.PLAIN, 12));
-               pPrice.setForeground(Color.red);
-              
-
-                JLabel pRating= new JLabel(String.valueOf(rates));
-                pRating.setBounds(20, 230, 90, 20);
-                pRating.setFont(new Font ("Arial", Font.PLAIN, 12));
-                pRating.setForeground(Color.GRAY);
-              
-
-               JButton addB = new JButton ("Add to Cart");
-               addB.setBounds(100, 255, 100, 30);
-                
-          
-            addB.addActionListener(e -> {
+    public void createProductPanelforBuyer(String category, JScrollPane scrollPane, JPanel catPanel) {
     try {
-     
-        if (userClass.getUserSession() == null || !userClass.getUserSession().containsKey("userId")) {
-            JOptionPane.showMessageDialog(panel, "User session is not initialized. Please log in again.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+       
+        String query = "SELECT productId, productName, price, ratings FROM example_product WHERE category = ?";
+
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, category); 
+        ResultSet rs = pst.executeQuery();
+
+        int panelCount = 0;
+        catPanel.removeAll();  
+
+        while (rs.next()) {
+            int productId = rs.getInt("productId");
+            String productName = rs.getString("productName");
+            double price = rs.getDouble("price");
+            int ratings = rs.getInt("ratings");
+
+          
+            JPanel panel = new JPanel();
+            panel.setBackground(new Color(236, 239, 241));
+            panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+            panel.setLayout(null);
+
+          
+            int xPosition = 90 + (panelCount % 3) * 430;
+            int yPosition = 20 + (panelCount / 3) * 350;
+            panel.setBounds(xPosition, yPosition, 230, 300);
+
+           
+            JLabel pImage = new JLabel();
+            ImageSetupJLabel("swr.png", pImage, 150, 150);
+            pImage.setBounds(40, 10, 150, 150);
+            pImage.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+            panel.add(pImage);
+
+           
+            JLabel pName = new JLabel(productName);
+            pName.setBounds(20, 170, 80, 20);
+            pName.setFont(new Font("Arial", Font.BOLD, 12));
+            panel.add(pName);
+
+           
+            JLabel pPrice = new JLabel(String.valueOf(price));
+            pPrice.setBounds(20, 200, 80, 20);
+            pPrice.setFont(new Font("Arial", Font.PLAIN, 12));
+            pPrice.setForeground(Color.red);
+            panel.add(pPrice);
+
+           
+            JLabel pRating = new JLabel("Rating: " + ratings);
+            pRating.setBounds(20, 230, 90, 20);
+            pRating.setFont(new Font("Arial", Font.PLAIN, 12));
+            pRating.setForeground(Color.GRAY);
+            panel.add(pRating);
+
+          
+            JButton addB = new JButton("Add to Cart");
+            addB.setBounds(100, 255, 100, 30);
+            panel.add(addB);
+
+            addB.addActionListener(e -> {
+                try {
+                    if (userClass.getUserSession() == null || !userClass.getUserSession().containsKey("userId")) {
+                        JOptionPane.showMessageDialog(panel, "User session is not initialized. Please log in again.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    int userId = (int) userClass.getUserSession().get("userId");
+                    int quantity = 1; 
+
+                    orderClass.addToCart(productId, userId, quantity);
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(panel, "An error occurred while adding the product to the cart.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            });
+
+        
+            catPanel.add(panel);
+            panelCount++;
         }
 
-      int userId = (int) userClass.getUserSession().get("userId");
-        int quantity = 1; 
+       
+        int totalProductCount = getTotalProductCount(category); 
+        catPanel.setPreferredSize(new Dimension(1200, 350 * (int) Math.ceil((double) totalProductCount / 3))); 
 
        
-        System.out.println("Adding product to cart for userId: " + userId);
+        catPanel.revalidate();
+        catPanel.repaint();
 
-     
-      
-        orderClass.addToCart(productIdenti, userId, quantity);
+        // Set the viewport to the updated category panel
+        scrollPane.setViewportView(catPanel);
 
-       
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(panel, "Invalid userId format.", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(panel, "An error occurred while adding the product to the cart.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
-});
+}
 
-
-                panel.add(addB);
-                 panel.add(pName);
-                panel.add(pPrice);
-               panel.add(pRating);
-                panel.add(addB);
-                
-               
-            
-                panelCount++;
-
-                  
-                return panel;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-      return null;
-    }
     
   
     public void resetPanelCount() {
@@ -300,6 +296,9 @@ public class ProductClass  {
         return table;
     }
       
+   
+
+    
     
     
     
