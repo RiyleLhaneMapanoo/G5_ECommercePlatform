@@ -46,9 +46,10 @@ public class checkoutPage extends JFrame implements ActionListener{
                     LinkedList<Double> priceTotal = new LinkedList<>();  
            LinkedList<LinkedList<String>> orderDetails = new LinkedList();
     
-         OrderClass ord = new OrderClass();
+        
     
      private UserClass userClass;
+      OrderClass ord = new OrderClass(userClass);
     int subtotal = 0;
     //for product class
     ProductClass pro = new ProductClass(userClass);

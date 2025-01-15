@@ -32,11 +32,11 @@ public class ProductClass  {
   
   
  
-  OrderClass orderClass = new OrderClass();
+  OrderClass orderClass = new OrderClass(userClass);
    
     public ProductClass(UserClass userClass){
           this.userClass = userClass;
-   
+  
          
     }
     
@@ -72,21 +72,69 @@ public class ProductClass  {
      jBut.setIcon(new ImageIcon(scaledIcon));
 
    }
-    public void createProductPanelforBuyer(String category, JScrollPane scrollPane, JPanel catPanel, String selectedRating, String selectedPrice) {
+    
+    
+   private String[] getSortedProductNames(String category) {
+    ArrayList<String> productNames = new ArrayList<>();
+    try {
+        connectToDatabase();
+        String query = "SELECT productName FROM example_product WHERE category = ?";
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, category);
+        ResultSet rs = pst.executeQuery();
+        
+        while (rs.next()) {
+            productNames.add(rs.getString("productName"));
+        }
+        
+        String[] sortedNames = productNames.toArray(new String[0]);
+        Arrays.sort(sortedNames);
+        return sortedNames;
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return new String[0];
+    }
+}
+
+
+public void createProductPanelforBuyer(String category, JScrollPane scrollPane, JPanel catPanel,String selectedRating, String selectedPrice, String searchName) {
     try {
         connectToDatabase();
         PreparedStatement pst = null;
         ResultSet rs = null;
         int panelCount = 0;
         
-      
         StringBuilder queryBuilder = new StringBuilder("SELECT productId, productName, price, ratings FROM example_product WHERE category = ?");
         
+      
+       if (!searchName.trim().isEmpty()) {
+    String[] sortedNames = getSortedProductNames(category);
+    
+    String searchNameLower = searchName.toLowerCase();
+    
+   
+    String[] lowerSortedNames = Arrays.stream(sortedNames)
+                                     .map(String::toLowerCase)
+                                     .toArray(String[]::new);
+    
+    int searchIndex = Arrays.binarySearch(lowerSortedNames, searchNameLower);
+    
+    if (searchIndex >= 0) {
+        
+        queryBuilder.append(" AND LOWER(productName) = LOWER(?)");
+    } else {
+        catPanel.removeAll();
+        catPanel.revalidate();
+        catPanel.repaint();
+        scrollPane.setViewportView(catPanel);
+        return;
+    }
+}
         
         if (!selectedRating.equals("All")) {
             queryBuilder.append(" AND ratings = ?");
         }
-        
         
         if (!selectedPrice.equals("All")) {
             switch (selectedPrice) {
@@ -113,9 +161,12 @@ public class ProductClass  {
         
         pst = conn.prepareStatement(queryBuilder.toString());
         
-      
         int paramIndex = 1;
         pst.setString(paramIndex++, category);
+        
+        if (!searchName.trim().isEmpty()) {
+            pst.setString(paramIndex++, searchName);
+        }
         
         if (!selectedRating.equals("All")) {
             pst.setInt(paramIndex, Integer.valueOf(selectedRating));
@@ -124,7 +175,6 @@ public class ProductClass  {
         rs = pst.executeQuery();
         
         catPanel.removeAll();
-        
         
         while (rs.next()) {
             int productId = rs.getInt("productId");
@@ -178,7 +228,7 @@ public class ProductClass  {
                     int userId = (int) userClass.getUserSession().get("userId");
                     int quantity = 1;
 
-                    orderClass.addToCart(productId, userId, quantity);
+                    orderClass.productListCart(productId, userId, quantity);
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -202,7 +252,9 @@ public class ProductClass  {
         e.printStackTrace();
     }
 }
-     
+ 
+    
+    
     public void resetPanelCount() {
     panelCount = 0;
 }
@@ -293,8 +345,12 @@ public class ProductClass  {
         model = new DefaultTableModel(invColumn, 0);
       table = new JTable(model);
       table.getTableHeader().setReorderingAllowed(false);
+      table.setDefaultEditor(Object.class, null);
       SPtable = new JScrollPane(table);
+      
+      
     SPtable.setBounds(150, 100, 1100, 500);
+    
       fr.add(SPtable);
    
         String query = "SELECT productID, productName, price, category, productOriginalStock, productQuantityBought, productStockQuantityLeft FROM example_product";
@@ -325,10 +381,8 @@ public class ProductClass  {
         return table;
     }
       
-   
-
-    
-    
+ 
+  
     
     
 }

@@ -33,7 +33,7 @@ CREATE TABLE `example_product` (
   `productStockQuantityLeft` int DEFAULT NULL,
   `productOriginalStock` int DEFAULT NULL,
   PRIMARY KEY (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `example_product` (
 
 LOCK TABLES `example_product` WRITE;
 /*!40000 ALTER TABLE `example_product` DISABLE KEYS */;
-INSERT INTO `example_product` VALUES (22,'Cologne',300.00,'Makeup',3,NULL,NULL,NULL,3),(23,'Blush',50.00,'Makeup',3,NULL,NULL,NULL,3),(24,'Peplum Top',400.00,'Clothes',4,NULL,NULL,NULL,4),(25,'Pants',200.00,'Clothes',1,NULL,NULL,NULL,1),(26,'Utensils',250.00,'Kitchen',3,NULL,NULL,NULL,3),(27,'Pencil',5.00,'Makeup',2,NULL,NULL,NULL,2),(28,'Notebook',15.00,'School Supplies',4,NULL,NULL,NULL,4),(29,'Contour',500.00,'Makeup',2,NULL,NULL,NULL,2),(30,'vsdfsdf',1.00,'Makeup',1,NULL,NULL,NULL,1),(31,'Hat',3.00,'Makeup',1,NULL,NULL,NULL,1);
+INSERT INTO `example_product` VALUES (22,'Cologne',300.00,'Makeup',3,NULL,NULL,NULL,3),(23,'Blush',50.00,'Makeup',3,NULL,NULL,NULL,3),(24,'Peplum Top',400.00,'Clothes',4,NULL,NULL,NULL,4),(25,'Pants',200.00,'Clothes',1,NULL,NULL,NULL,1),(26,'Utensils',250.00,'Kitchen',3,NULL,NULL,NULL,3),(27,'Pencil',5.00,'Makeup',2,NULL,NULL,NULL,2),(28,'Notebook',15.00,'School Supplies',4,NULL,NULL,NULL,4),(29,'Contour',500.00,'Makeup',2,NULL,NULL,NULL,2),(30,'vsdfsdf',1.00,'Makeup',1,NULL,NULL,NULL,1),(31,'Hat',3.00,'Makeup',1,NULL,NULL,NULL,1),(32,'Eyeliner Brown',100.00,'Makeup',3,NULL,NULL,NULL,100),(33,'Ballpen',10.00,'School Supplies',4,NULL,NULL,NULL,900);
 /*!40000 ALTER TABLE `example_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `orders` (
   KEY `itemId` (`itemId`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`uzerId`) REFERENCES `usertable` (`id`),
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`itemId`) REFERENCES `example_product` (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,9 +73,34 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (33,29,1,23,1),(34,29,2,27,1),(35,29,3,22,1),(36,28,18,30,1),(37,28,19,22,2);
+INSERT INTO `orders` VALUES (33,29,1,23,1),(34,29,2,27,1),(35,29,3,22,1),(39,28,1,22,1);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `before_insert_order` BEFORE INSERT ON `orders` FOR EACH ROW BEGIN
+    DECLARE maxOrderNumber INT;
+
+   
+    SELECT COALESCE(MAX(orderNumber), 0) INTO maxOrderNumber
+    FROM orders
+    WHERE uzerId = NEW.uzerId;
+
+    
+    SET NEW.orderNumber = maxOrderNumber + 1;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `user_order_details`
@@ -173,4 +198,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-15  0:10:11
+-- Dump completed on 2025-01-16  0:26:58

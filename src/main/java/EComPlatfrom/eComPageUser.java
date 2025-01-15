@@ -62,7 +62,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     platformname.setPreferredSize(new Dimension(100, 25));
     add(platformname);
     
-    searchBar = new JTextField("Search");
+    searchBar = new JTextField();
     searchBar.setToolTipText("");
     searchBar.setBounds(200,83,900,40);
     add(searchBar);
@@ -80,7 +80,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     filterPrice.setBackground(new Color(89, 0, 54));
     filterPrice.setFont(new Font("Segoe UI Black", 0, 12)); 
     filterPrice.setForeground(new Color(236, 239, 241));
-    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"All","~50", "51-100","101-300","301-600","601-900","901~"}));
+    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"All","50", "51-100","101-300","301-600","601-900","901"}));
     filterPrice.addActionListener(this);
     add(filterPrice);
     
@@ -88,6 +88,7 @@ public class eComPageUser extends JFrame implements ActionListener {
     btnSearch.setBackground(new Color(204, 102, 255));
     btnSearch.setFont(new Font("Sitka Display", 1, 14));
     btnSearch.setBounds(1115,83,75,40);
+    btnSearch.addActionListener(this);
     add(btnSearch);
     
      initializePanelsAndTabPane();
@@ -199,15 +200,15 @@ btncart.addActionListener(this);
     
     }
     
-public void loadTabs(int selectedIndex){
+public void loadTabs(int selectedIndex ){
     
         String selectedRating = (String) filterRatings.getSelectedItem();
               String selectedPRice = (String) filterPrice.getSelectedItem();
-      
+      String searchedItem = searchBar.getText();
   
      
       if(selectedIndex==0){
-              productClass.createProductPanelforBuyer("Makeup", MakeUpjScrollPane,makeupPanel,selectedRating,selectedPRice);
+              productClass.createProductPanelforBuyer("Makeup", MakeUpjScrollPane,makeupPanel,selectedRating,selectedPRice,searchedItem);
         makeuptab1Layout = new GroupLayout(makeups);
         makeups.setLayout(makeuptab1Layout);
 
@@ -219,7 +220,7 @@ public void loadTabs(int selectedIndex){
           
              clothespanel.setLayout(null);
 
-        productClass.createProductPanelforBuyer("Clothes", clothesScrolpane,clothespanel,selectedRating  ,selectedPRice);
+        productClass.createProductPanelforBuyer("Clothes", clothesScrolpane,clothespanel,selectedRating  ,selectedPRice,searchedItem);
 
         clothesTab2Layout = new GroupLayout(clothes);
         clothes.setLayout(clothesTab2Layout);
@@ -231,7 +232,7 @@ public void loadTabs(int selectedIndex){
       } else if(selectedIndex==2){
           
             kitchenpanel.setLayout(null);
-  productClass.createProductPanelforBuyer("Kitchen", kitchenScrolpane,kitchenpanel,selectedRating  ,selectedPRice);
+  productClass.createProductPanelforBuyer("Kitchen", kitchenScrolpane,kitchenpanel,selectedRating  ,selectedPRice,searchedItem);
  
         kitchenLayout1 = new GroupLayout(kitchen);
         kitchen.setLayout(kitchenLayout1);
@@ -242,7 +243,7 @@ public void loadTabs(int selectedIndex){
       } else if(selectedIndex==3){
           
         suppliespanel.setLayout(null);
-        productClass.createProductPanelforBuyer("School Supplies", suppliesScrolpane,suppliespanel,selectedRating  ,selectedPRice);
+        productClass.createProductPanelforBuyer("School Supplies", suppliesScrolpane,suppliespanel,selectedRating  ,selectedPRice,searchedItem);
 
         suppliesLayout1 = new GroupLayout(supplies);
         supplies.setLayout(suppliesLayout1);
@@ -281,7 +282,7 @@ public void loadTabs(int selectedIndex){
     
     }else if(e.getSource()==jmenuOrderHistory){
     
-    OrderHistory page = new OrderHistory();
+    OrderHistory page = new OrderHistory(userClass);
     page.setVisible(true);
     page.setSize(1385,764);
     page.setLocationRelativeTo(null);
@@ -306,7 +307,17 @@ public void loadTabs(int selectedIndex){
      loadTabs(selectedIndex);
      revalidate();
      repaint();
-    } 
+    } else if(e.getSource()==btnSearch){
+        
+        int selectedIndex = products.getSelectedIndex();
+      String searchedItem = searchBar.getText();
+        System.out.println(searchedItem);
+
+     products.setVisible(false);
+     loadTabs(selectedIndex);
+     revalidate();
+     repaint();
+    }
         
         
     }

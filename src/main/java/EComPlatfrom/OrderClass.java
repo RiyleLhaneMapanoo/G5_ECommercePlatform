@@ -19,10 +19,9 @@ import javax.swing.border.BevelBorder;
  */
 public class OrderClass {
     
-   
+    private UserClass userClass;
       private int panelCount = 0;  
-     private DefaultListModel<String> productListModel;  
-    private JList<String> productList;
+   
        
       LinkedList<String> pNames = new LinkedList<>();  
           LinkedList<String> orderIds = new LinkedList<>();       
@@ -31,11 +30,9 @@ public class OrderClass {
            LinkedList<String> itemId = new LinkedList<>();
            
        private Connection conn; 
-      public OrderClass(){
+      public OrderClass(UserClass userClass){
          
-            
-      productListModel = new DefaultListModel<>();
-        productList = new JList<>(productListModel);
+  this.userClass = userClass;
        
         
     }
@@ -53,13 +50,10 @@ public class OrderClass {
         }
     }
         
-       // Method to get the JList
-    public JList<String> getProductList() {
-        return productList;
-    }
+       
     
     
-    public void addToCart(int productId, int userId, int quantity) {
+    public void productListCart(int productId, int userId, int quantity) {
     try {
           connectToDatabase();
         Connection connection =  conn;
@@ -166,7 +160,7 @@ public JPanel itemsInCart(int userId, UserClass userclass) {
 
             JButton removeButton = new JButton("Remove");
             removeButton.setBounds(20, 110, 100, 50);
-            // Add components to panel
+          
             panel.add(pName);
             panel.add(pPrice);
             panel.add(pQuantity);
@@ -417,7 +411,7 @@ public String[] getUserDetails(int userId){
 }
 
 
-public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, LinkedList<Integer> quan, LinkedList<Double> prodPrice, LinkedList<Double> priceTotal) {
+public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, LinkedList<Integer> quan, LinkedList<Double> prodPrice, LinkedList<Double> totalPrice) {
     try {
         connectToDatabase();
         Connection conn = this.conn;
@@ -434,7 +428,7 @@ public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, 
                 nextOrderId = maxOrderRs.getInt(1);
             }
 
-            double totalAmount = priceTotal.stream().mapToDouble(Double::doubleValue).sum();
+            double totalAmount = totalPrice.stream().mapToDouble(Double::doubleValue).sum();
             
          
             String insertOrderHistory = "INSERT INTO user_order_history (orderHistoryId, usherId, totalAmount) VALUES (?, ?, ?)";
@@ -525,43 +519,70 @@ public void orderCheckOut(JFrame frame, int userId, LinkedList<Integer> itemId, 
 }
 
 
+
+
+
+public String[][] fetchOrderDetails() {
    
+    if (userClass.getUserSession() == null || !userClass.getUserSession().containsKey("userId")) {
+        System.out.println("No user session found");
+        return new String[0][6]; 
 
-public  String[][] fetchOrderDetails() {
-      connectToDatabase();
-    String query = """
-            SELECT uod.orderHistoryId,  ep.productName,  uod.quantity,  ep.price,    ep.category, (uod.quantity * ep.price) AS totalPriceFROM 
-            user_order_details uod JOIN example_product ep ON uod.itemId = ep.productID;
-            """;
-
-    String[][] data = null;
-
-    try (Connection conn = this.conn;
-  Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-         ResultSet rs = stmt.executeQuery(query)) {
-
-          rs.last(); 
-        int rowCount = rs.getRow();
-        rs.beforeFirst();
-
-        data = new String[rowCount][6];
-
-      
-        int rowIndex = 0;
-        while (rs.next()) {
-            data[rowIndex][0] = String.valueOf(rs.getInt("orderHistoryId"));
-              data[rowIndex][1] = rs.getString("productName");
-            data[rowIndex][2] = String.valueOf(rs.getInt("quantity"));
-             data[rowIndex][3] = String.valueOf(rs.getBigDecimal("price"));
-            data[rowIndex][4] = rs.getString("category");
-             data[rowIndex][5] = String.valueOf(rs.getBigDecimal("totalPrice"));
-            rowIndex++;
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
     }
 
+    int userId = (int) userClass.getUserSession().get("userId");
+    System.out.println("Fetching orders for user ID: " + userId);
+
+    connectToDatabase();
+   String query = """
+        SELECT uod.orderHistoryId, 
+               ep.productName, 
+               uod.quantity, 
+               ep.price, 
+               ep.category, 
+               (uod.quantity * ep.price) AS totalPrice 
+        FROM user_order_details uod 
+        JOIN example_product ep ON uod.itemId = ep.productID
+        WHERE uod.usherId = ?  
+        ORDER BY uod.orderHistoryId DESC
+        """;
+            
+    String[][] data = null;
+    
+    try (PreparedStatement pst = conn.prepareStatement(query, 
+            ResultSet.TYPE_SCROLL_INSENSITIVE, 
+            ResultSet.CONCUR_READ_ONLY)) {
+            
+        pst.setInt(1, userId);
+        System.out.println("Executing query for user: " + userId);
+        
+        try (ResultSet rs = pst.executeQuery()) {
+            // Get row count
+            rs.last(); 
+            int rowCount = rs.getRow();
+            rs.beforeFirst();
+            
+            System.out.println("Found " + rowCount + " orders for user");
+            
+            data = new String[rowCount][6];
+           
+            int rowIndex = 0;
+            while (rs.next()) {
+                data[rowIndex][0] = String.valueOf(rs.getInt("orderHistoryId"));
+                data[rowIndex][1] = rs.getString("productName");
+                data[rowIndex][2] = String.valueOf(rs.getInt("quantity"));
+                data[rowIndex][3] = String.valueOf(rs.getBigDecimal("price"));
+                data[rowIndex][4] = rs.getString("category");
+                data[rowIndex][5] = String.valueOf(rs.getBigDecimal("totalPrice"));
+                rowIndex++;
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error fetching order details: " + e.getMessage());
+        e.printStackTrace();
+        return new String[0][6]; // Return empty array in case of error
+    }
+    
     return data;
 }
 

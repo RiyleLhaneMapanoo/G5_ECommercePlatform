@@ -21,10 +21,10 @@ public class cartPage  extends JFrame implements ActionListener{
          private JScrollPane scrollPane;
           String imageSource = "src\\main\\java\\Images\\";
 
-         OrderClass ord = new OrderClass();
+        
            private UserClass userClass;
         ProductClass pro = new ProductClass(userClass);
- 
+  OrderClass ord = new OrderClass(userClass);
          int userId ;
        public cartPage(UserClass userClass){
           
@@ -153,18 +153,7 @@ if (cartPanel != null) {
         
        }
        
-      
-
- 
-  
-       public static void main(String[]args){
-           UserClass us = new UserClass();
-           
-                cartPage p  = new cartPage(us);
-                JTextField t = new JTextField();
-                   JPasswordField a = new JPasswordField();
-               us.loginMethod(p,"s", "s", t, a);
-       }
+     
        
 
     @Override
