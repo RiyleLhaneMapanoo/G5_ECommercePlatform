@@ -39,7 +39,7 @@ public HashMap<String, Object> getUserSession() {
         try {
 
             String url = "jdbc:mysql://localhost:3306/testecom1";
-            String user = "root2";
+            String user = "root";
             String password = "12345";
             conn = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {

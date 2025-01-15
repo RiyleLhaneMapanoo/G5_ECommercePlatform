@@ -83,7 +83,8 @@ public class eComPageUser extends JFrame implements ActionListener {
     filterPrice.setBackground(new Color(89, 0, 54));
     filterPrice.setFont(new Font("Segoe UI Black", 0, 12)); 
     filterPrice.setForeground(new Color(236, 239, 241));
-    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"All","~50", "51-100","101-300","301-600","601-900","901-1000~"}));
+    filterPrice.setModel(new DefaultComboBoxModel<>(new String[] {"All","~50", "51-100","101-300","301-600","601-900","901~"}));
+    filterPrice.addActionListener(this);
     add(filterPrice);
     
     btnSearch=new JButton("Search");
@@ -204,11 +205,12 @@ btncart.addActionListener(this);
 public void loadTabs(int selectedIndex){
     
         String selectedRating = (String) filterRatings.getSelectedItem();
-        System.out.println("selected rating is " + selectedRating);
-    
+              String selectedPRice = (String) filterPrice.getSelectedItem();
+      
+  
      
       if(selectedIndex==0){
-              productClass.createProductPanelforBuyer("Makeup", MakeUpjScrollPane,makeupPanel,selectedRating);
+              productClass.createProductPanelforBuyer("Makeup", MakeUpjScrollPane,makeupPanel,selectedRating,selectedPRice);
         makeuptab1Layout = new GroupLayout(makeups);
         makeups.setLayout(makeuptab1Layout);
 
@@ -220,7 +222,7 @@ public void loadTabs(int selectedIndex){
           
              clothespanel.setLayout(null);
 
-        productClass.createProductPanelforBuyer("Clothes", clothesScrolpane,clothespanel,selectedRating);
+        productClass.createProductPanelforBuyer("Clothes", clothesScrolpane,clothespanel,selectedRating  ,selectedPRice);
 
         clothesTab2Layout = new GroupLayout(clothes);
         clothes.setLayout(clothesTab2Layout);
@@ -232,7 +234,7 @@ public void loadTabs(int selectedIndex){
       } else if(selectedIndex==2){
           
             kitchenpanel.setLayout(null);
-  productClass.createProductPanelforBuyer("Kitchen", kitchenScrolpane,kitchenpanel,selectedRating);
+  productClass.createProductPanelforBuyer("Kitchen", kitchenScrolpane,kitchenpanel,selectedRating  ,selectedPRice);
  
         kitchenLayout1 = new GroupLayout(kitchen);
         kitchen.setLayout(kitchenLayout1);
@@ -243,7 +245,7 @@ public void loadTabs(int selectedIndex){
       } else if(selectedIndex==3){
           
         suppliespanel.setLayout(null);
-        productClass.createProductPanelforBuyer("School Supplies", suppliesScrolpane,suppliespanel,selectedRating);
+        productClass.createProductPanelforBuyer("School Supplies", suppliesScrolpane,suppliespanel,selectedRating  ,selectedPRice);
 
         suppliesLayout1 = new GroupLayout(supplies);
         supplies.setLayout(suppliesLayout1);
@@ -299,15 +301,15 @@ public void loadTabs(int selectedIndex){
      
      
     
-    }else if(e.getSource()==products){
+    }else if(e.getSource()==filterPrice){
             int selectedIndex = products.getSelectedIndex();
-     String selectedRating = (String) filterRatings.getSelectedItem();
+     String selectedPrice = (String) filterPrice.getSelectedItem();
 
      products.setVisible(false);
      loadTabs(selectedIndex);
      revalidate();
      repaint();
-    }
+    } 
         
         
     }

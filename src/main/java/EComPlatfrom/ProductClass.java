@@ -46,7 +46,7 @@ public class ProductClass  {
         try {
             
             String url = "jdbc:mysql://localhost:3306/testecom1";
-            String user = "root2";
+            String user = "root";
             String password = "12345";
             conn = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
@@ -72,78 +72,98 @@ public class ProductClass  {
      jBut.setIcon(new ImageIcon(scaledIcon));
 
    }
-    
-     
-    public void createProductPanelforBuyer(String category, JScrollPane scrollPane, JPanel catPanel, String selectedRating) {
-    try {  connectToDatabase();
-          PreparedStatement pst= null;
-           ResultSet rs= null;
-          int panelCount = 0;
-           if(selectedRating.equals("All")){
-                  String query = "SELECT productId, productName, price, ratings FROM example_product WHERE category = ?";
-
-         pst = conn.prepareStatement(query);
-        pst.setString(1, category); 
- 
-  
-           }else{
-        String query = "SELECT productId, productName, price, ratings FROM example_product WHERE category = ? and ratings = ?";
-
-       pst = conn.prepareStatement(query);
-        pst.setString(1, category); 
-        pst.setInt(2,Integer.valueOf(selectedRating));
-   
-    }
-               rs = pst.executeQuery();
-
-       
-        catPanel.removeAll();  
-
+    public void createProductPanelforBuyer(String category, JScrollPane scrollPane, JPanel catPanel, String selectedRating, String selectedPrice) {
+    try {
+        connectToDatabase();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        int panelCount = 0;
+        
+      
+        StringBuilder queryBuilder = new StringBuilder("SELECT productId, productName, price, ratings FROM example_product WHERE category = ?");
+        
+        
+        if (!selectedRating.equals("All")) {
+            queryBuilder.append(" AND ratings = ?");
+        }
+        
+        
+        if (!selectedPrice.equals("All")) {
+            switch (selectedPrice) {
+                case "~50":
+                    queryBuilder.append(" AND price <= 50");
+                    break;
+                case "51-100":
+                    queryBuilder.append(" AND price BETWEEN 51 AND 100");
+                    break;
+                case "101-300":
+                    queryBuilder.append(" AND price BETWEEN 101 AND 300");
+                    break;
+                case "301-600":
+                    queryBuilder.append(" AND price BETWEEN 301 AND 600");
+                    break;
+                case "601-900":
+                    queryBuilder.append(" AND price BETWEEN 601 AND 900");
+                    break;
+                case "901~":
+                    queryBuilder.append(" AND price >= 901");
+                    break;
+            }
+        }
+        
+        pst = conn.prepareStatement(queryBuilder.toString());
+        
+      
+        int paramIndex = 1;
+        pst.setString(paramIndex++, category);
+        
+        if (!selectedRating.equals("All")) {
+            pst.setInt(paramIndex, Integer.valueOf(selectedRating));
+        }
+        
+        rs = pst.executeQuery();
+        
+        catPanel.removeAll();
+        
+        
         while (rs.next()) {
             int productId = rs.getInt("productId");
             String productName = rs.getString("productName");
             double price = rs.getDouble("price");
             int ratings = rs.getInt("ratings");
 
-          
             JPanel panel = new JPanel();
             panel.setBackground(new Color(236, 239, 241));
             panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
             panel.setLayout(null);
 
-          
             int xPosition = 90 + (panelCount % 3) * 430;
             int yPosition = 20 + (panelCount / 3) * 350;
             panel.setBounds(xPosition, yPosition, 230, 300);
 
-           
             JLabel pImage = new JLabel();
             ImageSetupJLabel("swr.png", pImage, 150, 150);
             pImage.setBounds(40, 10, 150, 150);
             pImage.setBorder(BorderFactory.createLineBorder(Color.darkGray));
             panel.add(pImage);
 
-           
             JLabel pName = new JLabel(productName);
             pName.setBounds(20, 170, 80, 20);
             pName.setFont(new Font("Arial", Font.BOLD, 12));
             panel.add(pName);
 
-           
             JLabel pPrice = new JLabel(String.valueOf(price));
             pPrice.setBounds(20, 200, 80, 20);
             pPrice.setFont(new Font("Arial", Font.PLAIN, 12));
             pPrice.setForeground(Color.red);
             panel.add(pPrice);
 
-           
             JLabel pRating = new JLabel("Rating: " + ratings);
             pRating.setBounds(20, 230, 90, 20);
             pRating.setFont(new Font("Arial", Font.PLAIN, 12));
             pRating.setForeground(Color.GRAY);
             panel.add(pRating);
 
-          
             JButton addB = new JButton("Add to Cart");
             addB.setBounds(100, 255, 100, 30);
             panel.add(addB);
@@ -156,7 +176,7 @@ public class ProductClass  {
                     }
 
                     int userId = (int) userClass.getUserSession().get("userId");
-                    int quantity = 1; 
+                    int quantity = 1;
 
                     orderClass.addToCart(productId, userId, quantity);
 
@@ -166,27 +186,24 @@ public class ProductClass  {
                 }
             });
 
-        
             catPanel.add(panel);
             panelCount++;
         }
 
-       
-        int totalProductCount = getTotalProductCount(category); 
-        catPanel.setPreferredSize(new Dimension(1200, 350 * (int) Math.ceil((double) totalProductCount / 3))); 
+        int totalProductCount = getTotalProductCount(category);
+        catPanel.setPreferredSize(new Dimension(1200, 350 * (int) Math.ceil((double) totalProductCount / 3)));
 
-       
         catPanel.revalidate();
         catPanel.repaint();
 
-        // Set the viewport to the updated category panel
         scrollPane.setViewportView(catPanel);
 
     } catch (SQLException e) {
         e.printStackTrace();
     }
 }
-
+     
+ 
     
   
     public void resetPanelCount() {
