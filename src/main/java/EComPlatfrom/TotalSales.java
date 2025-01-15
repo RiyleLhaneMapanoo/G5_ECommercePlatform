@@ -28,9 +28,11 @@ public class TotalSales extends JFrame implements ActionListener {
     private JButton btnBack,btnShow;
     private JTable table;
        OrderClass ord;
+       
+        private UserClass userClass;
     TotalSales() {
-        
-       ord = new OrderClass();
+        this.userClass = userClass;
+       ord = new OrderClass(userClass);
       
         
         setTitle("Seller Sales Page");

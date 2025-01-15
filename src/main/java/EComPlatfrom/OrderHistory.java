@@ -25,9 +25,9 @@ public class OrderHistory extends JFrame implements ActionListener{
    private UserClass userClass;
    OrderClass ord;
         
-    OrderHistory(){
+    OrderHistory(UserClass userClass){
         this.userClass = userClass;
-        ord = new OrderClass();
+        ord = new OrderClass(userClass);
         setTitle("Order History");
         setSize(1385, 764);
         setLayout(null);

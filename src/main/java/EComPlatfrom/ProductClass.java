@@ -32,7 +32,7 @@ public class ProductClass  {
   
   
  
-  OrderClass orderClass = new OrderClass();
+  OrderClass orderClass = new OrderClass(userClass);
    
     public ProductClass(UserClass userClass){
           this.userClass = userClass;
