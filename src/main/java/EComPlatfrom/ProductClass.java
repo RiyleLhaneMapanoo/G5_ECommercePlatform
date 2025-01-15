@@ -338,8 +338,12 @@ public void createProductPanelforBuyer(String category, JScrollPane scrollPane, 
         model = new DefaultTableModel(invColumn, 0);
       table = new JTable(model);
       table.getTableHeader().setReorderingAllowed(false);
+      table.setDefaultEditor(Object.class, null);
       SPtable = new JScrollPane(table);
+      
+      
     SPtable.setBounds(150, 100, 1100, 500);
+    
       fr.add(SPtable);
    
         String query = "SELECT productID, productName, price, category, productOriginalStock, productQuantityBought, productStockQuantityLeft FROM example_product";
