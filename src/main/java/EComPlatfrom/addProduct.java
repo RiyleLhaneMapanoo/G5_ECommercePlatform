@@ -131,7 +131,7 @@ btnAddP.addActionListener(this);
    
         
        }else if(e.getSource()==btnAddP){
-           
+           try{
            
         String productName = txfPname.getText();
         double productPrice = Double.parseDouble(txfPprice.getText()); 
@@ -143,7 +143,15 @@ btnAddP.addActionListener(this);
          
             
         pr.addProduct(btnAddP,productName,productPrice,stockAvail,prRating,prCategory,txfPname,txfPprice,txfSA,txfPrating, txfPcategory);
-            
+           }catch(NumberFormatException ex){
+           
+           JOptionPane.showMessageDialog(this, "You have entered wrong values in the wrong text fields.");
+             txfPname.setText("");
+                txfPprice.setText("");
+                txfSA.setText("");
+                txfPrating.setSelectedIndex(0);
+               txfPcategory.setSelectedIndex(0);
+           }
     
        
        }
