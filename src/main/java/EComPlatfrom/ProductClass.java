@@ -267,7 +267,7 @@ public class ProductClass  {
              state.setString(2, pPrice.getText());
             state.setString(3, (String) pCat.getSelectedItem());
              state.setString(4, (String) prRate.getSelectedItem());
-            state.setString(5, (String) prRate.getSelectedItem());
+            state.setString(5,origAvail.getText());
                  
                  JOptionPane.showMessageDialog(null, "Added Successfully");
                 pName.setText("");
@@ -280,7 +280,7 @@ public class ProductClass  {
                }
              
              
-             }catch(Exception ex){
+             }catch(Exception ex){  
                        System.out.println(ex);   
 
              }
