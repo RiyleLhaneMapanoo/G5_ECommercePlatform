@@ -30,7 +30,7 @@ public class cartPage  extends JFrame implements ActionListener{
           
            this.userClass = userClass;
            
-       setTitle("Cart Page");
+       setTitle("ECP-Platform");
          setSize(1200, 600);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

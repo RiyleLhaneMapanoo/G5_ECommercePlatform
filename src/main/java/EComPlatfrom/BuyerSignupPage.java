@@ -26,7 +26,7 @@ class BuyerSignupPage extends JFrame implements ActionListener{
         
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Welcome! Please Sign up");
+        setTitle("ECP-Platform");
         setContentPane(new JLabel(new ImageIcon("src\\main\\java\\Images\\background.png")));
         setLayout(null);
         setSize(1385,764);
