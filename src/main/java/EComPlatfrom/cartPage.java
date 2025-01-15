@@ -192,7 +192,6 @@ if (cartPanel != null) {
          
                }
         }
-    }
     
     
-}
+}}
