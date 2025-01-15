@@ -65,13 +65,12 @@ public class eComPageUser extends JFrame implements ActionListener {
     searchBar.setBounds(200,83,900,40);
     add(searchBar);
     
-   filterRatings= new JComboBox<>();
+    filterRatings= new JComboBox<>();
     filterRatings.setBounds(1200, 83, 70, 40);
     filterRatings.setBackground(new Color(89, 0, 54));
     filterRatings.setFont(new Font("Segoe UI Black", 0, 12)); 
     filterRatings.setForeground(new Color(236, 239, 241));
-    filterRatings.setModel(new DefaultComboBoxModel<>(new String[] {"All","1", "2","3","4","5"}));
-    filterRatings.setToolTipText("");
+    filterRatings.setModel(new DefaultComboBoxModel<>(new String [] {"All","1", "2","3","4","5"}));
     add(filterRatings);
     
      filterPrice= new JComboBox<>();
@@ -132,27 +131,8 @@ public class eComPageUser extends JFrame implements ActionListener {
         makeupPanel = new JPanel();
         makeupPanel.setBackground(new Color(51, 0, 51));
         makeupPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        makeupPanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("Makeup") / 3))); 
         makeupPanel.setLayout(null);
-        
-       
-   
-        int totalProductCountMakeup = productClass.getTotalProductCount("Makeup");
-        productClass.resetPanelCount(); 
-        for (int i = 0; i < totalProductCountMakeup; i++) {  
-            JPanel newPanel = productClass.createProductPanelforBuyer("Makeup");
-           
-            if (newPanel != null) {
-                makeupPanel.add(newPanel);  
-                makeupPanel.revalidate();
-                makeupPanel.repaint();
-                
-            }
-        }
-      
-        
-        MakeUpjScrollPane.setViewportView(makeupPanel);
-
+        productClass.createProductPanelforBuyer("Makeup", MakeUpjScrollPane,makeupPanel);
         makeuptab1Layout = new GroupLayout(makeups);
         makeups.setLayout(makeuptab1Layout);
 
@@ -174,24 +154,10 @@ public class eComPageUser extends JFrame implements ActionListener {
         clothespanel = new JPanel();
         clothespanel.setBackground(new Color(51, 0, 51));
         clothespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        clothespanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("Clothes") / 3))); 
+       
         clothespanel.setLayout(null);
 
-        
-        //product panel for clothes
-        int totalProductCountClothes = productClass.getTotalProductCount("Clothes");
-        productClass.resetPanelCount(); 
-        for (int i = 0; i < totalProductCountClothes; i++) {  
-            JPanel newPanel = productClass.createProductPanelforBuyer("Clothes");
-            if (newPanel != null) {
-                clothespanel.add(newPanel);  
-                clothespanel.revalidate();
-                clothespanel.repaint();
-                
-            }
-        }
-        
-        clothesScrolpane.setViewportView(clothespanel);
+        productClass.createProductPanelforBuyer("Clothes", clothesScrolpane,clothespanel);
 
         clothesTab2Layout = new GroupLayout(clothes);
         clothes.setLayout(clothesTab2Layout);
@@ -215,24 +181,10 @@ public class eComPageUser extends JFrame implements ActionListener {
         kitchenpanel = new JPanel();
         kitchenpanel.setBackground(new Color(51, 0, 51));
         kitchenpanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        kitchenpanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("Kitchen") / 3)));  
+      
         kitchenpanel.setLayout(null);
-
+  productClass.createProductPanelforBuyer("Kitchen", kitchenScrolpane,kitchenpanel);
  
-         int totalProductCountKitchen = productClass.getTotalProductCount("Kitchen");
-          productClass.resetPanelCount(); 
-        for (int i = 0; i < totalProductCountKitchen; i++) {  
-            JPanel newPanel = productClass.createProductPanelforBuyer("Kitchen");
-            if (newPanel != null) {
-                kitchenpanel.add(newPanel);  
-                kitchenpanel.revalidate();
-                kitchenpanel.repaint();
-                
-            }
-        }
-        
-        kitchenScrolpane.setViewportView(kitchenpanel);
-
         kitchenLayout1 = new GroupLayout(kitchen);
         kitchen.setLayout(kitchenLayout1);
 
@@ -254,24 +206,9 @@ public class eComPageUser extends JFrame implements ActionListener {
         suppliespanel = new JPanel();
         suppliespanel.setBackground(new Color(51, 0, 51));
         suppliespanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        suppliespanel.setPreferredSize(new Dimension(1200,350 * (int) Math.ceil((double) productClass.getTotalProductCount("School Supplies") / 3))); 
-        suppliespanel.setLayout(null);
-
-       //product panel for school supplies
-       
-         int totalProductCountSS = productClass.getTotalProductCount("School Supplies");
-          productClass.resetPanelCount(); 
-        for (int i = 0; i < totalProductCountSS; i++) {  
-            JPanel newPanel = productClass.createProductPanelforBuyer("School Supplies");
-            if (newPanel != null) {
-                suppliespanel.add(newPanel);  
-                suppliespanel.revalidate();
-                suppliespanel.repaint();
-                
-            }
-        }
         
-        suppliesScrolpane.setViewportView(suppliespanel);
+        suppliespanel.setLayout(null);
+        productClass.createProductPanelforBuyer("School Supplies", suppliesScrolpane,suppliespanel);
 
         suppliesLayout1 = new GroupLayout(supplies);
         supplies.setLayout(suppliesLayout1);
@@ -291,6 +228,7 @@ public class eComPageUser extends JFrame implements ActionListener {
 btncart.addActionListener(this);
     jmenuLogout.addActionListener(this);
     jmenuOrderHistory.addActionListener(this);
+    filterRatings.addActionListener(this);
     }
     
 
@@ -321,6 +259,11 @@ btncart.addActionListener(this);
     page.setSize(1385,764);
     page.setLocationRelativeTo(null);
      dispose();
+    
+    }else if(e.getSource()== filterRatings){
+      ProductClass productClass = new ProductClass(userClass);
+     String selectedRating = (String) filterRatings.getSelectedItem();
+     
     
     }
         

@@ -33,10 +33,12 @@ public class TotalSales extends JFrame implements ActionListener {
       
         
         setTitle("Seller Sales Page");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //setBackground(Color.green);
-        setSize(1385,764);
-        
+         setSize(1385,764);
+     setLayout(null);
+     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     setContentPane(new JLabel(new ImageIcon("src\\main\\java\\Images\\sellerBackground.png")));
+     setResizable(false);
+     setLocationRelativeTo(null);
          
      
          ImageIcon path = new ImageIcon("src\\main\\java\\Images\\sellerBackground.png");

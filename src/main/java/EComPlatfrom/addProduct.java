@@ -116,7 +116,7 @@ public class addProduct extends JFrame implements ActionListener{
         bgLabel.add(btnAddP);
         
         btnBack.addActionListener(this);
-
+btnAddP.addActionListener(this);
     }
 
     @Override
